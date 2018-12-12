@@ -42,13 +42,26 @@ export class AdminComponent implements OnInit {
       () => this.isLoading = false
     );
   }
-
   deleteUser(user: User) {
     if (window.confirm('Are you sure you want to delete ' + user.username + '?')) {
       this.userService.deleteUser(user).subscribe(
         data => this.toast.open('user deleted successfully.', 'success'),
         error => console.log(error),
         () => this.getUsers()
+      );
+    }
+  }
+  toggleAdmin(user: User) {
+    if (user.role=="user") {
+      user.role = "admin"
+    } else {
+      user.role = "user"
+    }
+    
+    if (window.confirm('Are you sure you want to add admin role to ' + user.username + '?')) {
+      this.userService.editUser(user).subscribe(
+        res => this.toast.open('account settings saved!', 'success'),
+        error => this.toast.open('email already exists', 'danger')
       );
     }
   }
