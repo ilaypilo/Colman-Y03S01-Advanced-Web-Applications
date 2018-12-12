@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -7,6 +7,8 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../shared/models/user.model';
+import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-admin',
@@ -21,11 +23,12 @@ export class AdminComponent implements OnInit {
   isLoading = true;
   displayedColumns = ['username', 'email', 'role', 'action'];
   dataSource: any;
-
+  
   constructor(
     public auth: AuthService,
     public toast: ToastComponent,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -52,20 +55,25 @@ export class AdminComponent implements OnInit {
     }
   }
   toggleAdmin(user: User) {
+    let newRole = ""
     if (user.role=="user") {
-      user.role = "admin"
+      newRole = "admin"
     } else {
-      user.role = "user"
+      newRole = "user"
     }
-    
-    if (window.confirm('Are you sure you want to add admin role to ' + user.username + '?')) {
-      this.userService.editUser(user).subscribe(
-        res => this.toast.open('account settings saved!', 'success'),
-        error => this.toast.open('email already exists', 'danger')
-      );
-    }
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
+    dialogRef.componentInstance.title = "Change role"
+    dialogRef.componentInstance.message = 'Change ' + user.username + ' role from "' + user.role + '" to "'+ newRole +'" ?'
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        user.role = newRole
+        this.userService.editUser(user).subscribe(
+          res => this.toast.open('Role changed saved!', 'success'),
+          error => this.toast.open('Error changing role', 'danger')
+        );
+      }
+    });
   }
-
 }
 
 /**

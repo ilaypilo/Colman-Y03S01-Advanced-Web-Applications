@@ -1,9 +1,9 @@
 {
-  "name": "MEAN-stack-authentication",
+  "name": "GaG",
   "version": "1.0.0",
-  "license": "MIT",
-  "author": "Leonardo Maglio  @leota",
-  "description": "MEAN stack authentication boilerplate with Angular 5 and Angular Material.",
+  "license": "",
+  "author": "",
+  "description": "",
   "angular-cli": {},
   "engines": {
     "node": "6.11.4",
