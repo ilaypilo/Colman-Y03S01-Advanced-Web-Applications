@@ -9,3 +9,8 @@
 "npm run dev": execute MongoDB, Angular build, TypeScript compiler and Express server.
 ### Production mode
 "npm run prod": run the project with a production bundle and AOT compilation listening at [localhost:3000](http://localhost:3000) 
+
+## roles
+mongo db name: mean
+change user to admin 
+db.users.update({username:"admin"}, {$set: {role : "admin"}})
