@@ -7,7 +7,7 @@ import { MaterialModule } from '../material/material.module';
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
-import { ConfirmationDialog } from './confirm/confirmation-dialog';
+import { ConfirmationDialogComponent } from './confirm/confirmation-dialog';
 
 @NgModule({
   imports: [
@@ -32,11 +32,13 @@ import { ConfirmationDialog } from './confirm/confirmation-dialog';
     ToastComponent,
     LoadingComponent,
     PageHeaderComponent,
-    ConfirmationDialog
+    ConfirmationDialogComponent
   ],
   providers: [
     ToastComponent
   ],
-  entryComponents: [ConfirmationDialog]
+  entryComponents: [
+    ConfirmationDialogComponent
+  ]
 })
 export class SharedModule { }
