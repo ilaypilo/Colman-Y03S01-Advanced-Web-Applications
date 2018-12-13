@@ -37,6 +37,8 @@ import { ConfirmationDialogComponent } from './confirm/confirmation-dialog';
   providers: [
     ToastComponent
   ],
-  entryComponents: [ConfirmationDialogComponent]
+  entryComponents: [
+    ConfirmationDialogComponent
+  ]
 })
 export class SharedModule { }
