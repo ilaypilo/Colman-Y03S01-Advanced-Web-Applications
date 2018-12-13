@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material';
 
 export class AdminComponent implements OnInit {
 
-  title = 'Rgistered Users';
+  title = 'Registered Users';
   users: User[] = [];
   isLoading = true;
   displayedColumns = ['username', 'email', 'role', 'action'];
@@ -45,15 +45,22 @@ export class AdminComponent implements OnInit {
       () => this.isLoading = false
     );
   }
+
   deleteUser(user: User) {
-    if (window.confirm('Are you sure you want to delete ' + user.username + '?')) {
-      this.userService.deleteUser(user).subscribe(
-        data => this.toast.open('user deleted successfully.', 'success'),
-        error => console.log(error),
-        () => this.getUsers()
-      );
-    }
+    var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
+    dialogRef.componentInstance.title = "Change role"
+    dialogRef.componentInstance.message = 'Are you sure you want to delete ' + user.username + '?'
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(user).subscribe(
+          data => this.toast.open('user deleted successfully.', 'success'),
+          error => console.log(error),
+          () => this.getUsers()
+        );
+      }
+    });
   }
+
   toggleAdmin(user: User) {
     let newRole = ""
     if (user.role=="user") {
@@ -61,7 +68,7 @@ export class AdminComponent implements OnInit {
     } else {
       newRole = "user"
     }
-    let dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
+    var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
     dialogRef.componentInstance.title = "Change role"
     dialogRef.componentInstance.message = 'Change ' + user.username + ' role from "' + user.role + '" to "'+ newRole +'" ?'
     dialogRef.afterClosed().subscribe(result => {
