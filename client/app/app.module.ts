@@ -13,13 +13,15 @@ import {
   LogoutComponent,
   AccountComponent,
   AdminComponent,
-  NotFoundComponent
+  NotFoundComponent,
+  AssetComponent
 } from './pages';
 /** Services */
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
+import { AssetService } from './services/asset.service';
 
 const PAGES = [
   HomeComponent,
@@ -28,7 +30,8 @@ const PAGES = [
   LogoutComponent,
   AccountComponent,
   AdminComponent,
-  NotFoundComponent
+  NotFoundComponent,
+  AssetComponent
 ];
 
 @NgModule({
@@ -46,7 +49,8 @@ const PAGES = [
     AuthService,
     AuthGuardLogin,
     AuthGuardAdmin,
-    UserService
+    UserService,
+    AssetService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
