@@ -2,12 +2,12 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div *ngIf="!isLoading" class="container">
+<div [hidden]="isLoading" class="container">
   <app-page-header [title]="title"></app-page-header>
   <div class="row">
     <div class="col-md-12 col-centered">
       <div class="mat-elevation-z4">
-        <mat-table #table [dataSource]="dataSource">
+        <mat-card>
 
           <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -65,7 +65,7 @@
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+        </mat-card>
       </div>
     </div>
   </div>

@@ -23,6 +23,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AssetService } from './services/asset.service';
+import { MatSortModule } from '@angular/material';
 
 const PAGES = [
   HomeComponent,
@@ -45,7 +46,8 @@ const PAGES = [
     RoutingModule,
     SharedModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    MatSortModule
   ],
   providers: [
     AuthService,

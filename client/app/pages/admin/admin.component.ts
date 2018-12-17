@@ -1,14 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../shared/models/user.model';
 import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-admin',
@@ -23,6 +19,8 @@ export class AdminComponent implements OnInit {
   isLoading = true;
   displayedColumns = ['username', 'email', 'role', 'action'];
   dataSource: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   
   constructor(
     public auth: AuthService,
@@ -39,7 +37,9 @@ export class AdminComponent implements OnInit {
     this.userService.getUsers().subscribe(
       data => {
         this.users = data;
-        this.dataSource = new TableDataSource(this.users);
+        this.dataSource = new MatTableDataSource<User>(this.users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error => console.log(error),
       () => this.isLoading = false
@@ -83,20 +83,3 @@ export class AdminComponent implements OnInit {
   }
 }
 
-/**
- * Data source to provide what data should be rendered in the table. The observable provided
- * in connect should emit exactly the data that should be rendered by the table. If the data is
- * altered, the observable should emit that new set of data on the stream. In our case here,
- * we return a stream that contains only one set of data that doesn't change.
- */
-export class TableDataSource extends DataSource<any> {
-  constructor(private data: any) {
-    super();
-  }
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<User[]> {
-    return Observable.of(this.data);
-  }
-
-  disconnect() { }
-}
