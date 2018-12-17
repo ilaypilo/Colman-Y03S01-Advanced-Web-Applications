@@ -14,7 +14,8 @@ import {
   AccountComponent,
   AdminComponent,
   NotFoundComponent,
-  AssetComponent
+  AssetComponent,
+  AssetsComponent
 } from './pages';
 /** Services */
 import { UserService } from './services/user.service';
@@ -31,7 +32,8 @@ const PAGES = [
   AccountComponent,
   AdminComponent,
   NotFoundComponent,
-  AssetComponent
+  AssetComponent,
+  AssetsComponent
 ];
 
 @NgModule({

@@ -6,3 +6,4 @@ export { AccountComponent } from './account/account.component';
 export { AdminComponent } from './admin/admin.component';
 export { NotFoundComponent } from './not-found/not-found.component';
 export { AssetComponent } from './asset/asset.component';
+export { AssetsComponent } from './assets/assets.component';

@@ -58,7 +58,7 @@
           <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef> מידע </mat-header-cell>
             <mat-cell *matCellDef="let asset">
-              <button mat-icon-button color="primary" class="btn btn-sm btn-info" >
+              <button mat-icon-button color="primary" class="btn btn-sm btn-info" [routerLink]="['/asset', asset._id]" >
                 <i class="fa fa-info"></i>
               </button>
             </mat-cell>

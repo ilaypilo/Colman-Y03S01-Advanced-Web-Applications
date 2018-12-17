@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 const assetSchema = new mongoose.Schema({
     coordinates: {
         latitude: String,
-        longitude: String,
+        longitude: String
     },
     price: String,
     currency: String,

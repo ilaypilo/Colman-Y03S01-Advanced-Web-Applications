@@ -1,7 +1,6 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 
 import { ToastComponent } from '../../shared/toast/toast.component';
@@ -10,49 +9,37 @@ import { AssetService } from '../../services/asset.service';
 import { Asset } from '../../shared/models/asset.model';
 import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
 import { MatDialog } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-asset',
-  templateUrl: './asset.component.html',
-  styleUrls: ['./asset.component.scss']
+  selector: 'app-assets',
+  templateUrl: './assets.component.html',
+  styleUrls: ['./assets.component.scss']
 })
 
-export class AssetComponent implements OnInit {
+export class AssetsComponent implements OnInit {
 
-  title = 'Registered Asset';
-  asset: Asset;
+  title = 'Registered Assets';
+  assets: Asset[] = [];
   isLoading = true;
   displayedColumns = ['city', 'neighborhood', 'street', 'price', 'rooms', 'floor', 'home_type' , 'action'];
   dataSource: any;
-  id: string;
-  private sub: any;
-
+  
   constructor(
     public auth: AuthService,
     public toast: ToastComponent,
     private assetService: AssetService,
-    public dialog: MatDialog,
-    private route: ActivatedRoute
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-        this.id = params['id']; // (+) converts string 'id' to a number
-        this.getAsset(this.id);
-       // In a real app: dispatch action to load the details here.
-    });
+    this.getAssets();
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  getAsset(id) {
-    this.assetService.getAsset(id).subscribe(
+  getAssets() {
+    this.assetService.getAssets().subscribe(
       data => {
-        this.asset = data;
-        this.dataSource = new TableDataSource(this.asset);
+        this.assets = data;
+        this.dataSource = new TableDataSource(this.assets);
       },
       error => console.log(error),
       () => this.isLoading = false
