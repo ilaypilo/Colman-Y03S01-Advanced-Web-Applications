@@ -10,15 +10,15 @@ export class AssetService {
   constructor(private http: HttpClient) { }
 
   getAssets(): Observable<Asset[]> {
-    return this.http.get<Asset[]>('/api/Assets');
+    return this.http.get<Asset[]>('/api/assets');
   }
 
   countAssets(): Observable<number> {
-    return this.http.get<number>('/api/Assets/count');
+    return this.http.get<number>('/api/assets/count');
   }
 
-  getAsset(Asset: Asset): Observable<Asset> {
-    return this.http.get<Asset>(`/api/Asset/${Asset._id}`);
+  getAsset(id: String): Observable<Asset> {
+    return this.http.get<Asset>(`/api/asset/${id}`);
   }
 
 }

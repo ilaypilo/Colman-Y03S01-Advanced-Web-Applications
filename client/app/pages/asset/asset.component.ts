@@ -10,7 +10,7 @@ import { AssetService } from '../../services/asset.service';
 import { Asset } from '../../shared/models/asset.model';
 import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
 import { MatDialog } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-asset',
@@ -23,8 +23,6 @@ export class AssetComponent implements OnInit {
   title = 'Registered Asset';
   asset: Asset;
   isLoading = true;
-  displayedColumns = ['city', 'neighborhood', 'street', 'price', 'rooms', 'floor', 'home_type' , 'action'];
-  dataSource: any;
   id: string;
   private sub: any;
 
@@ -33,14 +31,14 @@ export class AssetComponent implements OnInit {
     public toast: ToastComponent,
     private assetService: AssetService,
     public dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public router: Router
   ) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-        this.id = params['id']; // (+) converts string 'id' to a number
+        this.id = params['id'];
         this.getAsset(this.id);
-       // In a real app: dispatch action to load the details here.
     });
   }
 
@@ -52,28 +50,12 @@ export class AssetComponent implements OnInit {
     this.assetService.getAsset(id).subscribe(
       data => {
         this.asset = data;
-        this.dataSource = new TableDataSource(this.asset);
       },
-      error => console.log(error),
-      () => this.isLoading = false
+      error => {
+        console.log(error)
+        this.router.navigate(['/notfound'])
+      },
+      () => this.isLoading = false,
     );
   }
-}
-
-/**
- * Data source to provide what data should be rendered in the table. The observable provided
- * in connect should emit exactly the data that should be rendered by the table. If the data is
- * altered, the observable should emit that new set of data on the stream. In our case here,
- * we return a stream that contains only one set of data that doesn't change.
- */
-export class TableDataSource extends DataSource<any> {
-  constructor(private data: any) {
-    super();
-  }
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Asset[]> {
-    return Observable.of(this.data);
-  }
-
-  disconnect() { }
 }
