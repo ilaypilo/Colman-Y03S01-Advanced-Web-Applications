@@ -7,65 +7,15 @@
   <div class="row">
     <div class="col-md-12 col-centered">
       <div class="mat-elevation-z4">
-        <mat-card>
-
-          <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-          <!-- City Column -->
-          <ng-container matColumnDef="city">
-            <mat-header-cell *matHeaderCellDef> עיר </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.city}} </mat-cell>
-          </ng-container>
-
-          <!-- Neighborhood Column -->
-          <ng-container matColumnDef="neighborhood">
-            <mat-header-cell *matHeaderCellDef> שכונה </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.neighborhood}} </mat-cell>
-          </ng-container>
-
-          <!-- Street Column -->
-          <ng-container matColumnDef="street">
-            <mat-header-cell *matHeaderCellDef> רחוב </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.street}} </mat-cell>
-          </ng-container>
-
-          <!-- Rooms Column -->
-          <ng-container matColumnDef="rooms">
-            <mat-header-cell *matHeaderCellDef> חדרים </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.Rooms_text}} </mat-cell>
-          </ng-container>
-
-          <!-- Floor Column -->
-          <ng-container matColumnDef="floor">
-            <mat-header-cell *matHeaderCellDef> קומה </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.Floor_text}} </mat-cell>
-          </ng-container>
-
-          <!-- Home Type Column -->
-          <ng-container matColumnDef="home_type">
-            <mat-header-cell *matHeaderCellDef> סוג </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.HomeTypeID_text}} </mat-cell>
-          </ng-container>
-
-          <!-- Price Column -->
-          <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef> מחיר </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.price}} </mat-cell>
-          </ng-container>
-
-          <!-- Action Column -->
-          <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef> מידע </mat-header-cell>
-            <mat-cell *matCellDef="let asset">
-              <button mat-icon-button color="primary" class="btn btn-sm btn-info" >
-                <i class="fa fa-info"></i>
-              </button>
-            </mat-cell>
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-card>
+        <mat-list *ngIf="asset" dir="rtl">
+            <mat-list-item>{{asset.price}}</mat-list-item>
+            <mat-list-item>{{asset.city}}</mat-list-item>
+            <mat-list-item>{{asset.neighborhood}}</mat-list-item>
+            <mat-list-item>{{asset.street}} {{asset.address_home_number}}</mat-list-item>
+            <mat-list-item>{{asset.Rooms_text}} חדרים</mat-list-item>
+            <mat-list-item>קומה {{asset.Floor_text}}</mat-list-item>
+            <mat-list-item>{{asset.HomeTypeID_text}}</mat-list-item>
+        </mat-list>
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-md-12 col-centered">
       <div class="mat-elevation-z4">
-        <mat-table #table [dataSource]="dataSource" matSort>
+        <mat-table dir="rtl" #table [dataSource]="dataSource" matSort>
 
           <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -27,7 +27,7 @@
           <!-- Street Column -->
           <ng-container matColumnDef="street">
             <mat-header-cell *matHeaderCellDef mat-sort-header> רחוב </mat-header-cell>
-            <mat-cell *matCellDef="let asset"> {{asset.street}} </mat-cell>
+            <mat-cell *matCellDef="let asset"> {{asset.street}} {{asset.address_home_number}} </mat-cell>
           </ng-container>
 
           <!-- Rooms Column -->
