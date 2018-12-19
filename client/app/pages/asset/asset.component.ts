@@ -8,7 +8,7 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { AssetService } from '../../services/asset.service';
 import { Asset } from '../../shared/models/asset.model';
-import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
+import { MatIconModule } from '../../shared/confirm/confirmation-dialog';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
