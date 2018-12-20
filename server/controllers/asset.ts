@@ -8,7 +8,6 @@ export default class AssetCtrl extends BaseCtrl {
   model = asset;
 
 
-
   // login = (req, res) => {
   //   this.model.findOne({ email: req.body.email }, (err, user) => {
   //     if (!user) { return res.sendStatus(403); }

@@ -10,7 +10,16 @@
 ### Production mode
 "npm run prod": run the project with a production bundle and AOT compilation listening at [localhost:3000](http://localhost:3000) 
 
-## roles
-mongo db name: mean
-change user to admin 
+## Mongo
+db name: mean
+change user to admin:
+```
 db.users.update({username:"admin"}, {$set: {role : "admin"}})
+```
+
+create assets collection:
+```
+db.createCollection("assets")
+db.assets.insert({})
+```
+
