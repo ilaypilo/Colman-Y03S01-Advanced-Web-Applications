@@ -16,10 +16,9 @@ change user to admin:
 ```
 db.users.update({username:"admin"}, {$set: {role : "admin"}})
 ```
-
+z
 create assets collection:
 ```
 db.createCollection("assets")
 db.assets.insert({})
 ```
-

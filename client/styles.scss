@@ -7,7 +7,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 body {
     font-family: 'Roboto', sans-serif;
-    overflow: hidden;
     margin: 0;
 }
 
@@ -46,3 +45,8 @@ body {
 .mat-simple-snackbar-action {
     color: $whiteCol;
 }
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
