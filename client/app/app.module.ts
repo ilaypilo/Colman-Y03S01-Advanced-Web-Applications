@@ -20,10 +20,13 @@ import {
 /** Services */
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { TokenInterceptor } from './services/token.interceptor';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AssetService } from './services/asset.service';
 import { MatSortModule } from '@angular/material';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 const PAGES = [
   HomeComponent,
@@ -50,6 +53,11 @@ const PAGES = [
     MatSortModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     AuthService,
     AuthGuardLogin,
     AuthGuardAdmin,

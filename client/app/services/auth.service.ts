@@ -24,6 +24,10 @@ export class AuthService {
       this.setCurrentUser(decodedUser);
     }
   }
+  
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
 
   login(emailAndPassword) {
     return this.userService.login(emailAndPassword).map(
