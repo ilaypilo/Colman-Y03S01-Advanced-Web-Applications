@@ -1,10 +1,10 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" dir="rtl">
   <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
     <i class="fa fa-home"></i>
   </a>
   <div class="links-group">
     <a routerLink="/admin" class="link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-      Admin Panel
+      ניהול
     </a>
     <a routerLink="/assets" class="link" routerLinkActive="active" *ngIf="auth.loggedIn">
       דירות
