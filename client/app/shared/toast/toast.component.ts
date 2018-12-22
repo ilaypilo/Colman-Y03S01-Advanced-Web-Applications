@@ -13,7 +13,7 @@ export class ToastComponent {
   open(message: string, cssClass: string) {
     const config = new MatSnackBarConfig();
     config.duration = 2000;
-    config.extraClasses = [cssClass];
+    config.panelClass = [cssClass];
     this.snackBar.open(message, 'X', config);
   }
 }
