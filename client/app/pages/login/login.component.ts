@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { AuthService } from '../../services/auth.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { ChatService } from '../../services/chat.service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -32,8 +33,10 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    public toast: ToastComponent
-  ) { }
+    public toast: ToastComponent,
+    private chatService: ChatService
+  ) {
+   }
 
   ngOnInit() {
     if (this.auth.loggedIn) {
@@ -47,9 +50,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.auth.login(this.loginForm.value).subscribe(
-      res => this.router.navigate(['/']),
+      res => {
+        this.router.navigate(['/'])
+        let message = {
+          type: 'login',
+          message: this.auth.getToken()
+        }
+        this.chatService.messages.next(message);
+      },
       error => this.toast.open('invalid email or password!', 'danger')
     );
   }
-
 }

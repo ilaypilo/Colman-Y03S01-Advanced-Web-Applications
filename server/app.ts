@@ -6,8 +6,11 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 
 import setRoutes from './routes';
+import setWebSocket from './websocket';
 
-const app = express();
+var expressWs = require('express-ws')(express());
+var app = expressWs.app;
+
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
 
@@ -31,11 +34,8 @@ mongodb
     console.log('Connected to MongoDB on', db.host + ':' + db.port);
 
     setRoutes(app);
-
-    app.get('/*', function(req, res) {
-      res.sendFile(path.join(__dirname, '../public/index.html'));
-    });
-
+    setWebSocket(app);
+    
     if (!module.parent) {
       app.listen(app.get('port'), () => {
         console.log('Server listening on port ' + app.get('port'));

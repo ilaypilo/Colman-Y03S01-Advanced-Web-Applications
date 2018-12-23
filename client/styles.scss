@@ -42,6 +42,11 @@ body {
     color: $whiteCol;
 }
 
+.mat-snack-bar-container.primary {
+    background-color: $primaryCol;
+    color: $whiteCol;
+}
+
 .mat-simple-snackbar-action {
     color: $whiteCol;
 }

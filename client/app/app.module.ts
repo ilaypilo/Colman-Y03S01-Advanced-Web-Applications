@@ -26,6 +26,8 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AssetService } from './services/asset.service';
 import { MatSortModule } from '@angular/material';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { WebsocketService } from './services/websocket.service';
+import { ChatService } from './services/chat.service';
 
 
 const PAGES = [
@@ -62,7 +64,9 @@ const PAGES = [
     AuthGuardLogin,
     AuthGuardAdmin,
     UserService,
-    AssetService
+    AssetService, 
+    WebsocketService, 
+    ChatService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

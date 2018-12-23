@@ -3,10 +3,10 @@
     <i class="fa fa-home"></i>
   </a>
   <div class="links-group">
-    <a routerLink="/admin" class="link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+    <a routerLink="/admin" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
       ניהול
     </a>
-    <a routerLink="/assets" class="link" routerLinkActive="active" *ngIf="auth.loggedIn">
+    <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
       דירות
     </a>
   </div>
