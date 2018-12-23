@@ -5,15 +5,19 @@ import UserCtrl from './controllers/user';
 import AssetCtrl from './controllers/asset';
 
 let checkToken = (req, res, next) => {
+  
   let token = req.headers.authorization;
+  
   if (!token) {
     res.send(401);
     return;
   }
+  
   if (token.startsWith('Bearer ')) {
     // Remove Bearer from string
     token = token.slice(7, token.length);
   }
+  
   jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
     if (err) {
       res.send(401);
