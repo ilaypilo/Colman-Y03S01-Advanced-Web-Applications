@@ -3,14 +3,14 @@
     <i class="fa fa-home"></i>
   </a>
   <div class="links-group">
-    <a routerLink="/admin" class="link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+    <a routerLink="/admin" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
       ניהול
     </a>
-    <a routerLink="/assets" class="link" routerLinkActive="active" *ngIf="auth.loggedIn">
+    <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
       דירות
     </a>
   </div>
-  <div *ngIf="auth.loggedIn" class="user-menu">
+  <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-icon-button [matMenuTriggerFor]="userMenu" class="link">
       <i class="fa fa-user"></i>
     </button>
