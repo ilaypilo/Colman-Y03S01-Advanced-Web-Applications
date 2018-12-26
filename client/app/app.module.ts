@@ -12,7 +12,8 @@ import {
   LoginComponent,
   LogoutComponent,
   AccountComponent,
-  AdminComponent,
+  UsersComponent,
+  ConnectedComponent,
   NotFoundComponent,
   AssetComponent,
   AssetsComponent
@@ -36,7 +37,8 @@ const PAGES = [
   LoginComponent,
   LogoutComponent,
   AccountComponent,
-  AdminComponent,
+  UsersComponent,
+  ConnectedComponent,
   NotFoundComponent,
   AssetComponent,
   AssetsComponent

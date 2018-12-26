@@ -7,12 +7,12 @@ import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-d
 import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
 
-export class AdminComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   title = 'Registered Users';
   users: User[] = [];
