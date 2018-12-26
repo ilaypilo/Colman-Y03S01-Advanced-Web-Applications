@@ -2,14 +2,25 @@
   <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
     <i class="fa fa-home"></i>
   </a>
-  <div class="links-group">
-    <a routerLink="/admin" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
-      ניהול
+  <a [hidden]="!(auth.loggedIn && auth.isAdmin)" [matMenuTriggerFor]="adminMenu" class="link">
+    <span>|</span>
+    <i class="fa fa-wrench"></i>
+  </a>
+  <mat-menu #adminMenu="matMenu">
+    <a mat-menu-item routerLink="/users">
+      <i class="fa fa-user"></i>
+      <span> משתמשים</span>
     </a>
-    <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
-      דירות
+    <a mat-menu-item routerLink="/connected">
+      <i class="fa fa-plug"></i>
+      <span> מחוברים</span>
     </a>
-  </div>
+  </mat-menu>
+  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
+    <span>|</span>
+    <i class="fa fa-hotel"></i>
+  </a>
+
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-icon-button [matMenuTriggerFor]="userMenu" class="link">
       <i class="fa fa-user"></i>
@@ -17,11 +28,11 @@
     <mat-menu #userMenu="matMenu">
       <a mat-menu-item routerLink="/account">
         <i class="fa fa-cog"></i>
-        <span>Settings</span>
+        <span> Settings</span>
       </a>
       <a mat-menu-item routerLink="/logout">
         <i class="fa fa-sign-out"></i>
-        <span>Logout</span>
+        <span> Logout</span>
       </a>
     </mat-menu>
   </div>

@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.loggedIn) {
+      this.sendLoginMessage();
       this.router.navigate(['/']);
     }
     this.loginForm = this.formBuilder.group({
@@ -48,15 +49,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  sendLoginMessage() {
+    this.chatService.messages.next({
+      type: 'login',
+      message: this.auth.getToken()
+    });
+  }
+
   login() {
     this.auth.login(this.loginForm.value).subscribe(
       res => {
+        this.sendLoginMessage();
         this.router.navigate(['/'])
-        let message = {
-          type: 'login',
-          message: this.auth.getToken()
-        }
-        this.chatService.messages.next(message);
       },
       error => this.toast.open('invalid email or password!', 'danger')
     );

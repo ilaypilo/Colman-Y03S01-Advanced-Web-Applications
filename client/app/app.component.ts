@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
+import { ToastComponent } from './shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,12 @@ import { ChatService } from './services/chat.service';
 })
 export class AppComponent {
 
-  constructor(public auth: AuthService, private chatService: ChatService) {
-    chatService.messages.subscribe(msg => {			
-      console.log("Response from websocket: " + msg);
+  constructor(
+    public auth: AuthService,
+    private chatService: ChatService
+    ) {
+    chatService.messages.subscribe(data => {
+      
     });
   }
 }
