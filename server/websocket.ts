@@ -111,7 +111,6 @@ export default function setWebSocket(app) {
                 case "ping": { 
                     wsUsers.forEach(function(client) {
                         if (client.email === msg.message) {
-                            console.log(client.email);
                             ping(client.ws);
                         }
                     });
