@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 
 import UserCtrl from './controllers/user';
 import AssetCtrl from './controllers/asset';
+import CommentCtrl from './controllers/comment';
 
 let checkToken = (req, res, next) => {
   
@@ -44,6 +45,7 @@ let loginGuard = (req, res, next) => {
 }
 
 let selfGuard = (req, res, next) => {
+  //TODO: fix comment undeleted bug
   if (req.path.split('/').pop() === req.decoded.user._id || req.decoded.user.role === "admin") {
     return next();
   }
@@ -56,6 +58,7 @@ export default function setRoutes(app) {
 
   const userCtrl = new UserCtrl();
   const assetCtrl = new AssetCtrl();
+  const commentCtrl = new CommentCtrl();
 
   // Users
   router.route('/login').post(userCtrl.login);
@@ -68,6 +71,12 @@ export default function setRoutes(app) {
   // Assets
   router.route('/assets').all(checkToken).all(loginGuard).get(assetCtrl.getAll);
   router.route('/asset/:id').all(checkToken).all(loginGuard).get(assetCtrl.get);
+
+  // Comment
+  router.route('/comment').post(commentCtrl.insert);
+  router.route('/comment/:id').all(checkToken).all(selfGuard).put(commentCtrl.update);
+  router.route('/comment/:id').all(checkToken).all(selfGuard).delete(commentCtrl.delete);
+
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

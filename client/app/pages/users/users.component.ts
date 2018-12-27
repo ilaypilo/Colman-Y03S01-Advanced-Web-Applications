@@ -37,6 +37,7 @@ export class UsersComponent implements OnInit {
     this.userService.getUsers().subscribe(
       data => {
         this.users = data;
+        console.log(this.users);
         this.dataSource = new MatTableDataSource<User>(this.users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -48,7 +49,7 @@ export class UsersComponent implements OnInit {
 
   deleteUser(user: User) {
     var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
-    dialogRef.componentInstance.title = "Change role"
+    dialogRef.componentInstance.title = "Delete User"
     dialogRef.componentInstance.message = 'Are you sure you want to delete ' + user.username + '?'
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
