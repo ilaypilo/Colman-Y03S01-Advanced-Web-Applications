@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import UserCtrl from './controllers/user';
 import AssetCtrl from './controllers/asset';
 import CommentCtrl from './controllers/comment';
+import Comment from './models/comment';
 
 let checkToken = (req, res, next) => {
   
@@ -44,12 +45,24 @@ let loginGuard = (req, res, next) => {
   res.send(401);
 }
 
-let selfGuard = (req, res, next) => {
-  //TODO: fix comment undeleted bug
-  if (req.path.split('/').pop() === req.decoded.user._id || req.decoded.user.role === "admin") {
+let selfUser = (req, res, next) => {
+  console.log("self:", req.params.id)
+  if (req.params.id === req.decoded.user._id || req.decoded.user.role === "admin") {
     return next();
   }
   res.send(401);
+}
+
+let selfComment = (req, res, next) => {
+  Comment.findOne({ _id: req.params.id }, (err, comment) => {
+    if (err || comment == null) { 
+      return res.send(401);
+    }
+    if (comment.user == req.decoded.user._id || req.decoded.user.role === "admin") {
+      return next();
+    }
+    return res.send(401);
+  });
 }
 
 export default function setRoutes(app) {
@@ -64,8 +77,8 @@ export default function setRoutes(app) {
   router.route('/login').post(userCtrl.login);
   router.route('/user').post(userCtrl.insert);
   router.route('/users').all(checkToken).all(adminGuard).get(userCtrl.getAll);
-  router.route('/user/:id').all(checkToken).all(selfGuard).get(userCtrl.get);
-  router.route('/user/:id').all(checkToken).all(selfGuard).put(userCtrl.update);
+  router.route('/user/:id').all(checkToken).all(selfUser).get(userCtrl.get);
+  router.route('/user/:id').all(checkToken).all(selfUser).put(userCtrl.update);
   router.route('/user/:id').all(checkToken).all(adminGuard).delete(userCtrl.delete);
 
   // Assets
@@ -73,9 +86,9 @@ export default function setRoutes(app) {
   router.route('/asset/:id').all(checkToken).all(loginGuard).get(assetCtrl.get);
 
   // Comment
-  router.route('/comment').post(commentCtrl.insert);
-  router.route('/comment/:id').all(checkToken).all(selfGuard).put(commentCtrl.update);
-  router.route('/comment/:id').all(checkToken).all(selfGuard).delete(commentCtrl.delete);
+  router.route('/comment').all(checkToken).all(loginGuard).post(commentCtrl.insert);
+  router.route('/comment/:id').all(checkToken).all(selfComment).put(commentCtrl.update);
+  router.route('/comment/:id').all(checkToken).all(selfComment).delete(commentCtrl.delete);
 
 
   // Apply the routes to our application with the prefix /api
