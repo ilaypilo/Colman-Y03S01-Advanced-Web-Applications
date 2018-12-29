@@ -39,8 +39,8 @@ export class AssetComponent implements OnInit {
   ]);
   commentRate = new FormControl('', [
     Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(100),
+    //Validators.minLength(3),
+    //Validators.maxLength(100),
   ]);
 
   constructor(

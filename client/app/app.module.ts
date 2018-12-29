@@ -30,7 +30,7 @@ import { MatSortModule } from '@angular/material';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';
-
+import { BarRatingModule } from "ngx-bar-rating";
 
 const PAGES = [
   HomeComponent,
@@ -55,7 +55,8 @@ const PAGES = [
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatSortModule
+    MatSortModule,
+    BarRatingModule
   ],
   providers: [
     {
