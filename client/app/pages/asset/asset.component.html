@@ -21,21 +21,37 @@
         <!-- comments -->
         <mat-accordion dir="rtl">
           <div *ngIf="asset">
-            <mat-expansion-panel *ngFor="let comment of asset.comments; let i = index">
+            <mat-expansion-panel *ngFor="let comment of asset.comments; let i = index; trackBy: trackItem" [attr.edit]="false" [disabled]="comment.edit">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{comment.title}}
+                  <div [hidden]="comment.edit">{{comment.title}}</div>
+                  <div [hidden]="!comment.edit">
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="comment.title" placeholder=" כותרת">
+                    </mat-form-field>
+                  </div>
                 </mat-panel-title>
                 <mat-panel-description>
-                  <bar-rating [(rate)]="comment.rate" [max]="5" theme="fontawesome" [readOnly]="true"></bar-rating>
+                  <bar-rating [(rate)]="comment.rate" [max]="5" theme="fontawesome" [readOnly]="!comment.edit"></bar-rating>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <p>{{comment.message}}</p> 
+              <div [hidden]="comment.edit">{{comment.message}}</div>
+              <div [hidden]="!comment.edit">
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="comment.message" placeholder=" תוכן">
+                </mat-form-field>
+              </div>
               <br><br>
               {{comment.user.username}} 
               <br>
               {{comment.date | date:'medium'}}
               <mat-action-row>
+                  <button mat-icon-button color="primary" class="btn btn-sm btn-danger" (click)="comment.edit=!comment.edit" [disabled]="!auth.isAdmin && auth.currentUser._id != comment.user._id">
+                      <i class="fa" [ngClass]="{ 'fa-pencil': !comment.edit, 'fa-remove': comment.edit }"></i>
+                  </button>
+                  <button mat-icon-button color="primary" class="btn btn-sm btn-danger" (click)="editComment(comment)" [disabled]="!comment.edit || !auth.isAdmin && auth.currentUser._id != comment.user._id">
+                      <i class="fa fa-save"></i>
+                  </button>
                 <button mat-icon-button color="warn" class="btn btn-sm btn-danger" (click)="deleteComment(comment)" [disabled]="!auth.isAdmin && auth.currentUser._id != comment.user._id">
                     <i class="fa fa-trash"></i>
                 </button>

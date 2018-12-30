@@ -95,7 +95,21 @@ export class AssetComponent implements OnInit {
       () => this.getAsset(this.id)
     );
   }
-
+  editComment(comment: Comment) {
+    var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
+    dialogRef.componentInstance.title = "Edit Comment"
+    dialogRef.componentInstance.message = 'Are you sure you want to edit this comment?'
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        comment.date = new Date();
+        this.commentService.editComment(comment).subscribe(
+          data => this.toast.open('comment edited successfully.', 'success'),
+          error => console.log(error),
+          () => this.getAsset(this.id)
+        );
+      }
+    });
+  }
   
   deleteComment(comment: Comment) {
     var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });

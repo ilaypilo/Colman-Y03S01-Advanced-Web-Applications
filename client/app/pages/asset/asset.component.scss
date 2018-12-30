@@ -10,6 +10,11 @@
     color: $grayCol;
     margin: 0 5px;
 }
+.mat-expansion-panel {
+    .mat-form-field {
+        width: 90%;
+    }
+}
 
 .form-wrap {
     .mat-form-field {
