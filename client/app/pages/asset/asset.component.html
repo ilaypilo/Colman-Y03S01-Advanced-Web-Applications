@@ -27,18 +27,21 @@
                   {{comment.title}}
                 </mat-panel-title>
                 <mat-panel-description>
-                  {{comment.user.username}}
+                  <bar-rating [(rate)]="comment.rate" [max]="5" theme="fontawesome" [readOnly]="true"></bar-rating>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <p>{{comment.message}}</p>
-              <bar-rating [(rate)]="comment.rate" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+              <p>{{comment.message}}</p> 
+              <br><br>
+              {{comment.user.username}} 
+              <br>
               {{comment.date | date:'medium'}}
-              <button mat-icon-button color="warn" class="btn btn-sm btn-danger" (click)="deleteComment(comment)" [disabled]="!auth.isAdmin && auth.currentUser._id != comment.user._id">
-                  <i class="fa fa-trash"></i>
-              </button>
+              <mat-action-row>
+                <button mat-icon-button color="warn" class="btn btn-sm btn-danger" (click)="deleteComment(comment)" [disabled]="!auth.isAdmin && auth.currentUser._id != comment.user._id">
+                    <i class="fa fa-trash"></i>
+                </button>
+              </mat-action-row>
             </mat-expansion-panel>
           </div>
-            <mat-divider></mat-divider>
             <!-- new comment panel -->
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -51,7 +54,7 @@
                     <div class="input-wrap">
                       <mat-form-field>
                         <span matPrefix>
-                          <i class="prefix fa fa-user"></i>
+                          <i class="prefix fa fa-comment"></i>
                         </span>
                         <input matInput #inputTitle type="text" minlength="2" maxlength="30" name="commentTitle" [formControl]="commentTitle" placeholder=" כותרת">
                         <mat-hint align="end">{{inputTitle.value?.length || 0}}/30</mat-hint>
@@ -66,7 +69,7 @@
                     <div class="input-wrap">
                       <mat-form-field>
                         <span matPrefix>
-                          <i class="prefix fa fa-envelope"></i>
+                          <i class="prefix fa fa-envelope-open"></i>
                         </span>
                         <input matInput #inputMessage type="text" minlength="5" maxlength="100" name="commentMessage" [formControl]="commentMessage" placeholder=" תוכן">
                         <mat-hint align="end">{{inputMessage.value?.length || 0}}/100</mat-hint>
@@ -81,18 +84,17 @@
                     <div class="input-wrap">
                       <mat-form-field>
                         <span matPrefix>
-                          <i class="prefix fa fa-key"></i>
+                          <i class="prefix fa fa-thumbs-up"></i>
                         </span>
-                        <bar-rating (rateChange)="commentRate.setValue($event)" [max]="5" theme="fontawesome-o"></bar-rating>
+                        <bar-rating (rateChange)="commentRate.setValue($event)" [max]="5" theme="fontawesome"></bar-rating>
                         <input matInput name="commentRate" [formControl]="commentRate" placeholder=" דירוג" hidden>
-                        <!-- <mat-error *ngIf="commentRate.hasError('required')">
-                          <strong>שדה חובה</strong>
-                        </mat-error> -->
                       </mat-form-field>
                     </div>
-                    <button mat-raised-button type="submit" [disabled]="!commentForm.valid" color="primary">
-                      <i class="fa fa-plus"></i>
-                    </button>
+                    <mat-action-row>
+                      <button mat-raised-button type="submit" [disabled]="!commentForm.valid" color="primary">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                  </mat-action-row>
                   </form>
                 </div>
               </mat-expansion-panel>
