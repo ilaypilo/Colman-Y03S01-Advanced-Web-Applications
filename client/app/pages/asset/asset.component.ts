@@ -25,7 +25,7 @@ export class AssetComponent implements OnInit {
   isLoading = true;
   id: string;
   private sub: any;
-
+  test: string = "aaa";
   commentForm: FormGroup;
   commentTitle = new FormControl('', [
     Validators.required,
@@ -85,11 +85,11 @@ export class AssetComponent implements OnInit {
     );
   }
 
-  post() {
+  addComment() {
     this.commentForm.value.date = new Date();
     this.commentForm.value.user = this.auth.currentUser._id;
     this.commentForm.value.asset = this.id;
-    this.commentService.post(this.commentForm.value).subscribe(
+    this.commentService.addComment(this.commentForm.value).subscribe(
       res => this.toast.open('you successfully post a comment!', 'success'),
       error => this.toast.open('error posting a comment', 'danger'),
       () => this.getAsset(this.id)

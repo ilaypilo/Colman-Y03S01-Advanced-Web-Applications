@@ -9,8 +9,12 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  post(comment: Comment): Observable<Comment> {
+  addComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>('/api/comment', comment);
+  }
+
+  getComment(id: String): Observable<Comment> {
+    return this.http.get<Comment>(`/api/comment/${id}`);
   }
 
   editComment(comment: Comment): Observable<string> {

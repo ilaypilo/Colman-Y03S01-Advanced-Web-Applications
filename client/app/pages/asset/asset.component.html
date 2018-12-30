@@ -50,7 +50,7 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="form-wrap">
-                  <form [formGroup]="commentForm" (ngSubmit)="post()" dir="rtl">
+                  <form [formGroup]="commentForm" (ngSubmit)="addComment()" dir="rtl">
                     <div class="input-wrap">
                       <mat-form-field>
                         <span matPrefix>
@@ -91,7 +91,7 @@
                       </mat-form-field>
                     </div>
                     <mat-action-row>
-                      <button mat-raised-button type="submit" [disabled]="!commentForm.valid" color="primary">
+                      <button mat-icon-button type="submit" [disabled]="!commentForm.valid" color="primary">
                         <i class="fa fa-plus"></i>
                       </button>
                   </mat-action-row>
@@ -103,5 +103,3 @@
     </div>
   </div>
 </div>
-
-<bar-rating [rate]="3.14" [max]="10"></bar-rating>

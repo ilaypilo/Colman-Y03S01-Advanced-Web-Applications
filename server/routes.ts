@@ -87,6 +87,7 @@ export default function setRoutes(app) {
 
   // Comment
   router.route('/comment').all(checkToken).all(loginGuard).post(commentCtrl.insert);
+  router.route('/comment/:id').all(checkToken).all(selfComment).get(commentCtrl.get);
   router.route('/comment/:id').all(checkToken).all(selfComment).put(commentCtrl.update);
   router.route('/comment/:id').all(checkToken).all(selfComment).delete(commentCtrl.delete);
 
