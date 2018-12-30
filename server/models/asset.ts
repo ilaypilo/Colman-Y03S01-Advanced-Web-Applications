@@ -23,7 +23,8 @@ const assetSchema = new mongoose.Schema({
     Floor_text: Number,
     contact_name: String,
     AssetClassificationID_text: String,
-    square_meters: Number
+    square_meters: Number,
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
 // {
@@ -52,6 +53,11 @@ const assetSchema = new mongoose.Schema({
 //     "square_meters": 70
 //   }
 
+// Auto populate comments
+assetSchema.pre('findOne', function(next) {
+    this.populate('comments');
+    next();
+});
 const Asset = mongoose.model('Asset', assetSchema);
 
 export default Asset;

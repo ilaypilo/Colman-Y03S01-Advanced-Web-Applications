@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
 
   deleteUser(user: User) {
     var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
-    dialogRef.componentInstance.title = "Change role"
+    dialogRef.componentInstance.title = "Delete User"
     dialogRef.componentInstance.message = 'Are you sure you want to delete ' + user.username + '?'
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
   username: String,
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
-  role: String
+  role: String,
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 // Before saving the user, hash the password
@@ -36,6 +37,12 @@ userSchema.set('toJSON', {
     delete ret.password;
     return ret;
   }
+});
+
+// Auto populate comments
+userSchema.pre('findOne', function(next) {
+  this.populate('comments');
+  next();
 });
 
 const User = mongoose.model('User', userSchema);

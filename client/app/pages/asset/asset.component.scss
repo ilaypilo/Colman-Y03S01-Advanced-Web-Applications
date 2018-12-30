@@ -6,3 +6,18 @@
     font-weight: bold;
     color: $accentCol;
 }
+.prefix {
+    color: $grayCol;
+    margin: 0 5px;
+}
+
+.form-wrap {
+    text-align: center;
+    .input-wrap {
+        margin: 20px 0;
+    }
+    .mat-form-field {
+        width: 90%;
+        margin: 0px 20px;
+    }
+}
