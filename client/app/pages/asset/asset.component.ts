@@ -25,7 +25,7 @@ export class AssetComponent implements OnInit {
   isLoading = true;
   id: string;
   private sub: any;
-
+  test: string = "aaa";
   commentForm: FormGroup;
   commentTitle = new FormControl('', [
     Validators.required,
@@ -39,8 +39,8 @@ export class AssetComponent implements OnInit {
   ]);
   commentRate = new FormControl('', [
     Validators.required,
-    Validators.minLength(3),
-    Validators.maxLength(100),
+    //Validators.minLength(3),
+    //Validators.maxLength(100),
   ]);
 
   constructor(
@@ -85,17 +85,31 @@ export class AssetComponent implements OnInit {
     );
   }
 
-  post() {
+  addComment() {
     this.commentForm.value.date = new Date();
     this.commentForm.value.user = this.auth.currentUser._id;
     this.commentForm.value.asset = this.id;
-    this.commentService.post(this.commentForm.value).subscribe(
+    this.commentService.addComment(this.commentForm.value).subscribe(
       res => this.toast.open('you successfully post a comment!', 'success'),
       error => this.toast.open('error posting a comment', 'danger'),
       () => this.getAsset(this.id)
     );
   }
-
+  editComment(comment: Comment) {
+    var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
+    dialogRef.componentInstance.title = "Edit Comment"
+    dialogRef.componentInstance.message = 'Are you sure you want to edit this comment?'
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        comment.date = new Date();
+        this.commentService.editComment(comment).subscribe(
+          data => this.toast.open('comment edited successfully.', 'success'),
+          error => console.log(error),
+          () => this.getAsset(this.id)
+        );
+      }
+    });
+  }
   
   deleteComment(comment: Comment) {
     var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });

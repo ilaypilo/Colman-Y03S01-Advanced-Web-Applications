@@ -4,6 +4,7 @@
 @import 'variables';
 @import '../node_modules/font-awesome/scss/font-awesome';
 @import 'theme';
+@import '~ngx-bar-rating/themes/br-fontawesome-theme.css';
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 body {
     font-family: 'Roboto', sans-serif;
