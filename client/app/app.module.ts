@@ -31,6 +31,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';
 import { BarRatingModule } from "ngx-bar-rating";
+import { AgmCoreModule } from '@agm/core';
 
 const PAGES = [
   HomeComponent,
@@ -56,7 +57,10 @@ const PAGES = [
     BrowserAnimationsModule,
     MaterialModule,
     MatSortModule,
-    BarRatingModule
+    BarRatingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC9goo8rnqXdFBZ0wKt6cpPO3U-sJGOdZ0'
+    })
   ],
   providers: [
     {

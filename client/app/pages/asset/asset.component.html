@@ -8,15 +8,28 @@
     <div class="col-md-12 col-centered">
       <div class="mat-elevation-z4">
         <!-- asset -->
-        <mat-list *ngIf="asset" dir="rtl">
-          <mat-list-item>{{asset.price}}</mat-list-item>
-          <mat-list-item>{{asset.city}}</mat-list-item>
-          <mat-list-item>{{asset.neighborhood}}</mat-list-item>
-          <mat-list-item>{{asset.street}} {{asset.address_home_number}}</mat-list-item>
-          <mat-list-item>{{asset.Rooms_text}} חדרים</mat-list-item>
-          <mat-list-item>קומה {{asset.Floor_text}}</mat-list-item>
-          <mat-list-item>{{asset.HomeTypeID_text}}</mat-list-item>
-        </mat-list>
+        <mat-grid-list *ngIf="asset" cols="2"  dir="rtl">
+            <mat-grid-tile>
+                  {{asset.price}}
+                  <br>
+                  {{asset.city}}
+                  <br>
+                  {{asset.neighborhood}}
+                  <br>
+                  {{asset.street}} {{asset.address_home_number}}
+                  <br>
+                  {{asset.Rooms_text}} חדרים
+                  <br>
+                  קומה {{asset.Floor_text}}
+                  <br>
+                  {{asset.HomeTypeID_text}}
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <agm-map [zoom]="17" [latitude]="+asset.coordinates.latitude" [longitude]="+asset.coordinates.longitude">
+                <agm-marker [hidden]="false" [latitude]="+asset.coordinates.latitude" [longitude]="+asset.coordinates.longitude"></agm-marker>
+              </agm-map>
+            </mat-grid-tile>
+          </mat-grid-list>
         <mat-divider></mat-divider>
         <!-- comments -->
         <mat-accordion dir="rtl">
