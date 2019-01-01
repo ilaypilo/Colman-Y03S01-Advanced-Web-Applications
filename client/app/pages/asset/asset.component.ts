@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/observable/of';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
 import { Comment } from '../../shared/models/comment.model';
+import { AgmMap } from '@agm/core';
 
 @Component({
   selector: 'app-asset',
@@ -24,8 +25,8 @@ export class AssetComponent implements OnInit {
   asset: Asset;
   isLoading = true;
   id: string;
-  private sub: any;
-  test: string = "aaa";
+  sub: any;
+
   commentForm: FormGroup;
   commentTitle = new FormControl('', [
     Validators.required,
@@ -75,7 +76,6 @@ export class AssetComponent implements OnInit {
     this.assetService.getAsset(id).subscribe(
       data => {
         this.asset = data;
-        console.log(this.asset);
       },
       error => {
         console.log(error);

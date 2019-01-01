@@ -1,8 +1,8 @@
 export class Asset {
   _id?: String;
   coordinates: {
-    latitude: String;
-    longitude: String;
+    latitude: Number;
+    longitude: Number;
   };
   price?: String;
   currency?: String;
