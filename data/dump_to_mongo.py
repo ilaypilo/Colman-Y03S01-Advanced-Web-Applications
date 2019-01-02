@@ -21,7 +21,7 @@ if __name__ == '__main__':
     num_of_files = 2
 
     docs = [
-        "feeds_{}.json".format(i) for i in range(1, num_of_files)
+        "data/feeds_{}.json".format(i) for i in range(1, num_of_files)
     ]
 
     for doc in docs:
