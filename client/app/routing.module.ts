@@ -14,6 +14,7 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AssetComponent } from './pages/asset/asset.component';
 import { AssetsComponent } from './pages/assets/assets.component';
+import { DealsComponent } from './pages/deals/deals.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'connected', component: ConnectedComponent, canActivate: [AuthGuardAdmin] },
   { path: 'asset/:id', component: AssetComponent, canActivate: [AuthGuardLogin] },
   { path: 'assets', component: AssetsComponent, canActivate: [AuthGuardLogin] },
+  { path: 'deals', component: DealsComponent, canActivate: [AuthGuardLogin] },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: '/notfound' },
 ];

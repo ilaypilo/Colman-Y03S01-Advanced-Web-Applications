@@ -5,7 +5,7 @@ from bson.code import Code
 import requests
 import lxml
 import lxml.html
-
+from datetime import datetime
 
 
 #URL = "http://homeprices.yad2.co.il/street/%D7%9B%D7%A4%D7%A8-%D7%A1%D7%91%D7%90/%D7%A8%D7%95%D7%98%D7%A9%D7%99%D7%9C%D7%93"
@@ -56,7 +56,9 @@ if __name__ == '__main__':
                 # filter relative part from results
                 if not td[7].strip():
                     url_res.append({
-                        "sale_date" : td[0].strip(),
+                        "sale_date" : datetime.strptime(td[0].strip(), '%d-%m-%Y').strftime('%Y-%m-%dT%H:%M:%S.000Z'),
+                        "city" : q['city'],
+                        "street" : q['street'],
                         "address" : td[1].strip(),
                         "asset_type" : td[2].strip(),
                         "rooms" : td[3].strip(),
