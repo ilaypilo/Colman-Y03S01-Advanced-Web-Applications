@@ -1,0 +1,91 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div [hidden]="isLoading" class="container">
+  <app-page-header [title]="title"></app-page-header>
+  <div class="row">
+    <div class="col-md-12 col-centered">
+      <div class="mat-elevation-z4">
+        <mat-table dir="rtl" #table [dataSource]="dataSource" matSort>
+
+          <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Sale_Date Column -->
+          <ng-container matColumnDef="sale_date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> תאריך </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.sale_date | date:'MM/dd/yyyy' }} </mat-cell>
+          </ng-container>
+
+          <!-- City Column -->
+          <ng-container matColumnDef="city">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> עיר </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.city}} </mat-cell>
+          </ng-container>
+
+          <!-- Street Column -->
+          <ng-container matColumnDef="street">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> רחוב </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.street}} </mat-cell>
+          </ng-container>
+
+          <!-- Address Column -->
+          <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> כתובת </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.address}} </mat-cell>
+          </ng-container>
+
+          <!-- Street Column -->
+          <ng-container matColumnDef="asset_type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> סוג הנכס </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.asset_type}} </mat-cell>
+          </ng-container>
+
+          <!-- Rooms Column -->
+          <ng-container matColumnDef="rooms">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> חדרים </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.rooms}} </mat-cell>
+          </ng-container>
+
+          <!-- Floor Column -->
+          <ng-container matColumnDef="floor">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> קומה </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.floor}} </mat-cell>
+          </ng-container>
+
+          <!-- Home Type Column -->
+          <ng-container matColumnDef="year">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> שנת בנייה </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.year}} </mat-cell>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="square_meters">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> מ"ר </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.square_meters}} </mat-cell>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> מחיר </mat-header-cell>
+            <mat-cell *matCellDef="let deal"> {{deal.price}} </mat-cell>
+          </ng-container>
+
+          <!-- Action Column -->
+          <!-- <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> מידע </mat-header-cell>
+            <mat-cell *matCellDef="let deal">
+              <button mat-icon-button color="primary" class="btn btn-sm btn-info" [routerLink]="['/deal', deal._id]" >
+                <i class="fa fa-info"></i>
+              </button>
+            </mat-cell>
+          </ng-container> -->
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

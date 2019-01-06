@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import UserCtrl from './controllers/user';
 import AssetCtrl from './controllers/asset';
 import CommentCtrl from './controllers/comment';
+import DealCtrl from './controllers/deal';
 import Comment from './models/comment';
 
 let checkToken = (req, res, next) => {
@@ -72,6 +73,7 @@ export default function setRoutes(app) {
   const userCtrl = new UserCtrl();
   const assetCtrl = new AssetCtrl();
   const commentCtrl = new CommentCtrl();
+  const dealCtrl = new DealCtrl();
 
   // Users
   router.route('/login').post(userCtrl.login);
@@ -90,6 +92,10 @@ export default function setRoutes(app) {
   router.route('/comment/:id').all(checkToken).all(selfComment).get(commentCtrl.get);
   router.route('/comment/:id').all(checkToken).all(selfComment).put(commentCtrl.update);
   router.route('/comment/:id').all(checkToken).all(selfComment).delete(commentCtrl.delete);
+
+  // Deals
+  router.route('/deals').all(checkToken).all(loginGuard).get(dealCtrl.getAll);
+  router.route('/deal/:id').all(checkToken).all(loginGuard).get(dealCtrl.get);
 
 
   // Apply the routes to our application with the prefix /api
