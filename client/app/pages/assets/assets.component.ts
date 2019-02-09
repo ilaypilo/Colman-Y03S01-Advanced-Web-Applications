@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { AssetService } from '../../services/asset.service';
@@ -26,6 +27,7 @@ export class AssetsComponent implements OnInit {
     public auth: AuthService,
     public toast: ToastComponent,
     private assetService: AssetService,
+    private router: Router,
     public dialog: MatDialog
   ) { }
 
@@ -44,5 +46,10 @@ export class AssetsComponent implements OnInit {
       error => console.log(error),
       () => this.isLoading = false
     );
+  }
+
+  showAsset(assetId: String){
+    console.log('showing asset with id: ' + assetId);
+    this.router.navigate(['/asset', assetId]);
   }
 }
