@@ -14,49 +14,91 @@
 
           <!-- City Column -->
           <ng-container matColumnDef="city">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> עיר </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>עיר</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>חיפוש</mat-label>
+                <input matInput [formControl]="cityFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.city}} </mat-cell>
           </ng-container>
 
           <!-- Neighborhood Column -->
           <ng-container matColumnDef="neighborhood">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> שכונה </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>שכונה</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>חיפוש</mat-label>
+                <input matInput [formControl]="neighborhoodFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.neighborhood}} </mat-cell>
           </ng-container>
 
           <!-- Street Column -->
           <ng-container matColumnDef="street">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> רחוב </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+                <span mat-sort-header>רחוב</span>
+                <mat-form-field floatLabel="never">
+                  <mat-label>חיפוש</mat-label>
+                  <input matInput [formControl]="streetFilter">
+                </mat-form-field>
+              </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.street}} {{asset.address_home_number}} </mat-cell>
           </ng-container>
 
           <!-- Rooms Column -->
-          <ng-container matColumnDef="rooms">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> חדרים </mat-header-cell>
+          <ng-container matColumnDef="Rooms_text">
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>חדרים</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>חיפוש</mat-label>
+                <input matInput [formControl]="roomsFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.Rooms_text}} </mat-cell>
           </ng-container>
 
           <!-- Floor Column -->
-          <ng-container matColumnDef="floor">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> קומה </mat-header-cell>
+          <ng-container matColumnDef="Floor_text">
+            <mat-header-cell *matHeaderCellDef> 
+                <span mat-sort-header>קומה</span>
+                <mat-form-field floatLabel="never">
+                  <mat-label>חיפוש</mat-label>
+                  <input matInput [formControl]="floorFilter">
+                </mat-form-field>
+              </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.Floor_text}} </mat-cell>
           </ng-container>
 
           <!-- Home Type Column -->
-          <ng-container matColumnDef="home_type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> סוג </mat-header-cell>
+          <ng-container matColumnDef="HomeTypeID_text">
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>סוג</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>חיפוש</mat-label>
+                <input matInput [formControl]="homeTypeFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.HomeTypeID_text}} </mat-cell>
           </ng-container>
 
           <!-- Price Column -->
           <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> מחיר </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>מחיר</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>חיפוש</mat-label>
+                <input matInput [formControl]="priceFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let asset"> {{asset.price}} </mat-cell>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> מידע </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> מידע </mat-header-cell>
             <mat-cell *matCellDef="let asset">
               <button mat-icon-button color="primary" class="btn btn-sm btn-info" (click)="showAsset(asset._id)">
                 <i class="fa fa-info"></i>
