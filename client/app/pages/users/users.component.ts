@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit {
   displayedColumns = ['username', 'email', 'role', 'action'];
   dataSource: any;
   hllCounter: number = 0;
+  rolesCount: string = "";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -33,6 +34,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.getRolesCount();
   }
 
   getUsers() {
@@ -94,6 +96,16 @@ export class UsersComponent implements OnInit {
         );
       }
     });
+  }
+
+  getRolesCount(){
+    console.log('getting roles count');
+    this.userService.getRolesCount().subscribe(
+      data => {
+        this.rolesCount = data;
+      },
+      error => console.log(error)
+    )
   }
 }
 

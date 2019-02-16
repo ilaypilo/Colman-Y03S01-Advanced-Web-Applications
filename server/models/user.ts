@@ -45,6 +45,21 @@ userSchema.pre('findOne', function(next) {
   next();
 });
 
+userSchema.statics.getRolesCount = function (callback) {
+  return new Promise((resolve, reject) => {
+    this.aggregate({"$group" : {
+      _id : '$role', 
+      count : {$sum : 1 }
+    }
+  }).exec((err, results) => {
+        if (err) {
+            return reject(err);
+        }
+        return resolve({ results });
+    });
+  });
+}
+
 const User = mongoose.model('User', userSchema);
 
 export default User;

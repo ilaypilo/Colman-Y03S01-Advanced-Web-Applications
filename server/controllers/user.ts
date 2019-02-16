@@ -17,4 +17,12 @@ export default class UserCtrl extends BaseCtrl {
     });
   }
 
+  rolesCount = (req, res) => {
+    User.getRolesCount().then(roles => { 
+      res.status(200).json(JSON.stringify(roles));
+    })
+    .catch((error) => {
+      return console.error(error);
+    });
+  }
 }
