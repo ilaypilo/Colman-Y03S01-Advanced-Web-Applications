@@ -40,3 +40,9 @@
 /deep/.mat-row:hover {
     background: rgba(0, 0, 0, 0.04);
 }
+
+.mat-header-cell {
+    padding-top: 10px;
+    padding-right: 10px;
+    display: block;
+}
