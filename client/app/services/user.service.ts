@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 import { User } from '../shared/models/user.model';
+import { DVC } from 'distinct-value-counter';
+
+/**
+ * For HyperLogLog counting of the users' domains we use an outside lib:
+ * https://github.com/bryanch/distinct-value-counter
+ */
 
 @Injectable()
 export class UserService {
+  private domainsCounter: DVC;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    var counter = require('distinct-value-counter');
+    this.domainsCounter = counter(0.001);
+  }
 
   register(user: User): Observable<User> {
     return this.http.post<User>('/api/user', user);
@@ -18,7 +29,20 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('/api/users');
+    var observable = this.http.get<User[]>('/api/users');
+    observable.subscribe(
+      users => {
+        users.forEach(element => {
+          this.domainsCounter.add(this.getEmailDomain(element.email));
+        });
+      }
+    )
+    return observable;
+  }
+
+  private getEmailDomain(email: string): string{
+    var domain = email.replace(/.*@/, "");
+    return domain;
   }
 
   countUsers(): Observable<number> {
@@ -39,6 +63,10 @@ export class UserService {
 
   deleteUser(user: User): Observable<string> {
     return this.http.delete(`/api/user/${user._id}`, { responseType: 'text' });
+  }
+
+  getUsersDomainsCount(): Observable<number> {
+    return of(this.domainsCounter.count());
   }
 
 }

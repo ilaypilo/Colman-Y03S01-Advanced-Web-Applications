@@ -35,6 +35,8 @@ import { ChatService } from './services/chat.service';
 import { BarRatingModule } from "ngx-bar-rating";
 import { AgmCoreModule } from '@agm/core';
 
+import { HllDomainsPipe } from './pipes/hll-domains.pipe'
+
 const PAGES = [
   HomeComponent,
   SignupComponent,
@@ -52,6 +54,7 @@ const PAGES = [
 @NgModule({
   declarations: [
     AppComponent,
+    HllDomainsPipe,
     ...PAGES
   ],
   imports: [
@@ -79,7 +82,8 @@ const PAGES = [
     CommentService, 
     DealService,
     WebsocketService, 
-    ChatService
+    ChatService,
+    HllDomainsPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

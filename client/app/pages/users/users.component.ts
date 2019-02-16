@@ -19,6 +19,8 @@ export class UsersComponent implements OnInit {
   isLoading = true;
   displayedColumns = ['username', 'email', 'role', 'action'];
   dataSource: any;
+  hllCounter: number = 0;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
@@ -40,9 +42,21 @@ export class UsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource<User>(this.users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.getUsersDomainsCount();
+
       },
       error => console.log(error),
       () => this.isLoading = false
+    );
+  }
+
+  getUsersDomainsCount(){
+    this.userService.getUsersDomainsCount().subscribe(
+      data => {
+        console.log('getUsersDomainsCount --> ' + data)
+        this.hllCounter = data
+      },
+      error => console.log(error)
     );
   }
 
