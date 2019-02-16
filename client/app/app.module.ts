@@ -36,6 +36,7 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { AgmCoreModule } from '@agm/core';
 
 import { HllDomainsPipe } from './pipes/hll-domains.pipe'
+import { RolesCountPipe } from './pipes/roles-count.pipe'
 
 const PAGES = [
   HomeComponent,
@@ -55,6 +56,7 @@ const PAGES = [
   declarations: [
     AppComponent,
     HllDomainsPipe,
+    RolesCountPipe,
     ...PAGES
   ],
   imports: [
@@ -83,7 +85,8 @@ const PAGES = [
     DealService,
     WebsocketService, 
     ChatService,
-    HllDomainsPipe
+    HllDomainsPipe,
+    RolesCountPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

@@ -49,6 +49,10 @@ export class UserService {
     return this.http.get<number>('/api/users/count');
   }
 
+  getRolesCount(): Observable<string> {
+    return this.http.get<string>('/api/users/roles_count');
+  }
+
   addUser(user: User): Observable<User> {
     return this.http.post<User>('/api/user', user);
   }

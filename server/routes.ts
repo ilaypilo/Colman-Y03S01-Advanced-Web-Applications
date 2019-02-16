@@ -79,6 +79,7 @@ export default function setRoutes(app) {
   router.route('/login').post(userCtrl.login);
   router.route('/user').post(userCtrl.insert);
   router.route('/users').all(checkToken).all(adminGuard).get(userCtrl.getAll);
+  router.route('/users/roles_count').all(checkToken).all(adminGuard).get(userCtrl.rolesCount);
   router.route('/user/:id').all(checkToken).all(selfUser).get(userCtrl.get);
   router.route('/user/:id').all(checkToken).all(selfUser).put(userCtrl.update);
   router.route('/user/:id').all(checkToken).all(adminGuard).delete(userCtrl.delete);
