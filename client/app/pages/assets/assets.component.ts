@@ -6,6 +6,7 @@ import { AssetService } from '../../services/asset.service';
 import { Asset } from '../../shared/models/asset.model';
 import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
+import { TableFilter } from '../../shared/table-filter/table-filter.component';
 
 
 @Component({
@@ -59,64 +60,48 @@ export class AssetsComponent implements OnInit {
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-      this.neighborhoodFilter.valueChanges
+    this.neighborhoodFilter.valueChanges
       .subscribe(
         value => {
           this.filterValues.neighborhood = value;
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-      this.streetFilter.valueChanges
+    this.streetFilter.valueChanges
       .subscribe(
         value => {
           this.filterValues.street = value;
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-      this.priceFilter.valueChanges
+    this.priceFilter.valueChanges
       .subscribe(
         value => {
           this.filterValues.price = value;
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-      this.roomsFilter.valueChanges
+    this.roomsFilter.valueChanges
       .subscribe(
         value => {
           this.filterValues.Rooms_text = value;
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-      this.floorFilter.valueChanges
+    this.floorFilter.valueChanges
       .subscribe(
         value => {
           this.filterValues.Floor_text = value;
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-      this.homeTypeFilter.valueChanges
+    this.homeTypeFilter.valueChanges
       .subscribe(
         value => {
           this.filterValues.HomeTypeID_text = value;
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
-  }
-
-  createFilter(): (data: any, filter: string) => boolean {
-    let filterFunction = function(data, filter): boolean {
-      let searchTerms = JSON.parse(filter);
-      let flag = true;
-      Object.keys(searchTerms).forEach(function(key) {
-        if (searchTerms[key] !== '') {
-          if (!data[key] || data[key].toString().indexOf(searchTerms[key]) === -1) {
-            flag = false;
-          }
-        } 
-      })
-      return flag;
-    }
-    return filterFunction;
   }
 
   getAssets() {
@@ -126,7 +111,7 @@ export class AssetsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Asset>(this.assets);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.filterPredicate = this.createFilter();
+        this.dataSource.filterPredicate = TableFilter.createFilter();
       },
       error => console.log(error),
       () => this.isLoading = false

@@ -5,6 +5,8 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../shared/models/user.model';
 import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
 import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { TableFilter } from '../../shared/table-filter/table-filter.component';
 
 @Component({
   selector: 'app-users',
@@ -22,6 +24,15 @@ export class UsersComponent implements OnInit {
   hllCounter: number = 0;
   rolesCount: string = "";
 
+  filterValues = {
+    username: '',
+    email: '',
+    role: ''
+  };
+  usernameFilter = new FormControl('');
+  emailFilter = new FormControl('');
+  roleFilter = new FormControl('');
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
@@ -35,6 +46,28 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.getRolesCount();
+
+    this.usernameFilter.valueChanges
+      .subscribe(
+        value => {
+          this.filterValues.username = value;
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+    this.emailFilter.valueChanges
+      .subscribe(
+        value => {
+          this.filterValues.email = value;
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+    this.roleFilter.valueChanges
+      .subscribe(
+        value => {
+          this.filterValues.role = value;
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
   }
 
   getUsers() {
@@ -44,6 +77,7 @@ export class UsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource<User>(this.users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.dataSource.filterPredicate = TableFilter.createFilter();
         this.getUsersDomainsCount();
 
       },

@@ -14,19 +14,37 @@
 
           <!-- Username Column -->
           <ng-container matColumnDef="username">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>Username</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>Search</mat-label>
+                <input matInput [formControl]="usernameFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let user"> {{user.username}} </mat-cell>
           </ng-container>
 
           <!-- Email Column -->
           <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>Email</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>Search</mat-label>
+                <input matInput [formControl]="emailFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
           </ng-container>
 
           <!-- Role Column -->
           <ng-container matColumnDef="role">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> 
+              <span mat-sort-header>Role</span>
+              <mat-form-field floatLabel="never">
+                <mat-label>Search</mat-label>
+                <input matInput [formControl]="emailFilter">
+              </mat-form-field>
+            </mat-header-cell>
             <mat-cell *matCellDef="let user"> {{user.role}} </mat-cell>
           </ng-container>
 
