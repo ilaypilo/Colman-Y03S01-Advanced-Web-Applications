@@ -17,7 +17,8 @@ import {
   NotFoundComponent,
   AssetComponent,
   AssetsComponent,
-  DealsComponent
+  DealsComponent,
+  StatisticsComponent
 } from './pages';
 /** Services */
 import { UserService } from './services/user.service';
@@ -37,6 +38,8 @@ import { AgmCoreModule } from '@agm/core';
 
 import { HllDomainsPipe } from './pipes/hll-domains.pipe'
 import { RolesCountPipe } from './pipes/roles-count.pipe'
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 const PAGES = [
   HomeComponent,
@@ -49,7 +52,8 @@ const PAGES = [
   NotFoundComponent,
   AssetComponent,
   AssetsComponent,
-  DealsComponent
+  DealsComponent,
+  StatisticsComponent
 ];
 
 @NgModule({
@@ -66,6 +70,7 @@ const PAGES = [
     MaterialModule,
     MatSortModule,
     BarRatingModule,
+    NgxChartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9goo8rnqXdFBZ0wKt6cpPO3U-sJGOdZ0'
     })
