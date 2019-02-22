@@ -87,6 +87,8 @@ export default function setRoutes(app) {
   // Assets
   router.route('/assets').all(checkToken).all(loginGuard).get(assetCtrl.getAll);
   router.route('/asset/:id').all(checkToken).all(loginGuard).get(assetCtrl.get);
+  router.route('/assets/type').all(checkToken).all(loginGuard).get(assetCtrl.getTypes);
+  router.route('/assets/city').all(checkToken).all(loginGuard).get(assetCtrl.getCities);
 
   // Comment
   router.route('/comment').all(checkToken).all(loginGuard).post(commentCtrl.insert);

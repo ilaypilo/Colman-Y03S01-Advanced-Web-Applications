@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { AssetService } from '../../services/asset.service';
@@ -43,6 +43,7 @@ export class AssetsComponent implements OnInit {
   homeTypeFilter = new FormControl('');
 
   constructor(
+    private route: ActivatedRoute,
     public auth: AuthService,
     public toast: ToastComponent,
     private assetService: AssetService,
@@ -51,6 +52,7 @@ export class AssetsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.getAssets();
 
     this.cityFilter.valueChanges
@@ -111,7 +113,20 @@ export class AssetsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Asset>(this.assets);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.filterPredicate = TableFilter.createFilter();
+        this.dataSource.filterPredicate = this.createFilter();
+        this.route.queryParams.subscribe(params => { 
+          if (params['city']) {
+            this.cityFilter.setValue(params['city'])
+            this.filterValues.city = params['city'];
+            this.dataSource.filter = JSON.stringify(this.filterValues);
+          }
+          if (params['type']){
+            this.homeTypeFilter.setValue(params['type'])
+            this.filterValues.HomeTypeID_text = params['type'];
+            this.dataSource.filter = JSON.stringify(this.filterValues);
+          }
+    
+        });
       },
       error => console.log(error),
       () => this.isLoading = false
