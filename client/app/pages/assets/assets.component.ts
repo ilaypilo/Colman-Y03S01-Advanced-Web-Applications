@@ -113,7 +113,7 @@ export class AssetsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Asset>(this.assets);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.filterPredicate = this.createFilter();
+        this.dataSource.filterPredicate = TableFilter.createFilter();
         this.route.queryParams.subscribe(params => { 
           if (params['city']) {
             this.cityFilter.setValue(params['city'])
