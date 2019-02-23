@@ -64,7 +64,7 @@ export class StatisticsComponent implements OnInit  {
             arr.push(
               {
                 "name": data[index]._id,
-                "value": data[index].points
+                "value": data[index].value
               }
             )
             this.colorScheme.domain.push(this.dynamicColors())
@@ -86,7 +86,7 @@ export class StatisticsComponent implements OnInit  {
             arr.push(
               {
                 "name": data[index]._id,
-                "value": data[index].points
+                "value": data[index].value
               }
             )
             this.colorScheme.domain.push(this.dynamicColors())
