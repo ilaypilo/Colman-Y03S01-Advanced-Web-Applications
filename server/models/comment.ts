@@ -38,9 +38,23 @@ commentSchema.post('save', function(next) {
 
   // Auto populate user
   commentSchema.pre('find', function(next) {
-  this.populate('user');
-  next();
-});
+    this.populate('user');
+    next();
+  });
+
+  commentSchema.pre('remove', function(next) {
+    Asset.update(
+      { _id: this.asset}, 
+      { $pull: { comments: this._id } }, 
+      { multi: true });
+
+    User.update(
+      { _id: this.user}, 
+      { $pull: { comments: this._id } }, 
+      { multi: true });
+
+    next();
+  });
 
 const Comment = mongoose.model('Comment', commentSchema);
 

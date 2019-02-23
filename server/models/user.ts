@@ -1,5 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
+import Comment from './comment';
+import Asset from './asset';
 
 const userSchema = new mongoose.Schema({
   username: String,
@@ -59,6 +61,11 @@ userSchema.statics.getRolesCount = function (callback) {
     });
   });
 }
+
+// Delete all comments by user
+userSchema.pre('remove', function(next) {
+  Comment.remove({ user: this._id }, next);
+});
 
 const User = mongoose.model('User', userSchema);
 
