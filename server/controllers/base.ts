@@ -60,10 +60,11 @@ abstract class BaseCtrl {
 
   // Delete by id
   delete = (req, res) => {
-    this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
+    this.model.findById(req.params.id, function (err, doc) {
       if (err) { return console.error(err); }
+      doc.remove();
       res.sendStatus(200);
-    });
+    })
   }
 }
 
