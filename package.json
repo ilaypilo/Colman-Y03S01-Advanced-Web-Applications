@@ -39,6 +39,7 @@
     "@angular/platform-server": "^7.1.4",
     "@angular/router": "^7.1.4",
     "@swimlane/ngx-charts": "^10.1.0",
+    "aca": "^0.1.12",
     "angular2-jwt": "^0.2.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",

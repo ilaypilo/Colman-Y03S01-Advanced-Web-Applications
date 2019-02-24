@@ -99,7 +99,7 @@ export default function setRoutes(app) {
   // Deals
   router.route('/deals').all(checkToken).all(loginGuard).get(dealCtrl.getAll);
   router.route('/deal/:id').all(checkToken).all(loginGuard).get(dealCtrl.get);
-
+  router.route('/deals/query/:search').all(checkToken).all(loginGuard).get(dealCtrl.queryDeals);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

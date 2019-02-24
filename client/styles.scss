@@ -55,4 +55,12 @@ body {
 .mat-table {
     overflow: auto;
     max-height: 500px;
+}
+
+#app-table {
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    display: block;
+    max-width: 100%;
   }
