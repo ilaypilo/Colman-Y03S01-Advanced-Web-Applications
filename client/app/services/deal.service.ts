@@ -17,4 +17,7 @@ export class DealService {
     return this.http.get<Deal>(`/api/deal/${id}`);
   }
 
+  queryDeals(search: String): Observable<Deal[]> {
+    return this.http.get<Deal[]>(`/api/deals/query/${search}`);
+  }
 }

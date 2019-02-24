@@ -4,11 +4,21 @@
 
 <div [hidden]="isLoading" class="container">
   <app-page-header [title]="title"></app-page-header>
+  <form class="search-form" align="end" [formGroup]="dealForm" (ngSubmit)="search()">
+    <button mat-raised-button type="submit" color="accent" [disabled]="!dealForm.valid">
+      {{searchButtonText}}
+    </button>
+
+    <mat-form-field style="text-align: right" class="deal-search-input">
+      <input matInput placeholder="טקסט חופשי" [formControl]="dealFilter">
+    </mat-form-field>
+  </form>
+
+
   <div class="row">
-    <div class="col-md-12 col-centered">
+    <div class="col-md-12 col-centered" id="app-table">
       <div class="mat-elevation-z4">
         <mat-table dir="rtl" #table [dataSource]="dataSource" matSort>
-
           <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
