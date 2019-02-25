@@ -41,7 +41,7 @@ export class DealsComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
-      error => console.log(error),
+      error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
     );
   }

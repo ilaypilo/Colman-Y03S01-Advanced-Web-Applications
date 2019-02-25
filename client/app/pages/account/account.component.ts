@@ -50,7 +50,7 @@ export class AccountComponent implements OnInit {
   getUser() {
     this.userService.getUser(this.auth.currentUser).subscribe(
       data => this.user = data,
-      error => console.log(error),
+      error => this.toast.open('error retrieving the user', 'danger'),
       () => this.isLoading = false
     );
   }

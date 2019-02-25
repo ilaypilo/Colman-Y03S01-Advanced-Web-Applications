@@ -71,7 +71,7 @@ export class StatisticsComponent implements OnInit  {
           }
           this.singlePie = arr;
         },
-        error => console.log(error),
+        error => this.toast.open(error.statusText, "danger"),
         () => this.isLoading = false
       );
   }
@@ -93,7 +93,7 @@ export class StatisticsComponent implements OnInit  {
           }
           this.singleBar = arr;
         },
-        error => console.log(error),
+        error => this.toast.open(error.statusText, "danger"),
         () => this.isLoading = false
       );
   }

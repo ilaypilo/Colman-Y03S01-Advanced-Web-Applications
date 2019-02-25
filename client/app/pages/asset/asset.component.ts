@@ -77,10 +77,7 @@ export class AssetComponent implements OnInit {
       data => {
         this.asset = data;
       },
-      error => {
-        console.log(error);
-        this.router.navigate(['/notfound']);
-      },
+      error => this.router.navigate(['/notfound']),
       () => this.isLoading = false,
     );
   }
@@ -104,7 +101,7 @@ export class AssetComponent implements OnInit {
         comment.date = new Date();
         this.commentService.editComment(comment).subscribe(
           data => this.toast.open('comment edited successfully.', 'success'),
-          error => console.log(error),
+          error => this.toast.open('error editing a comment', 'danger'),
           () => this.getAsset(this.id)
         );
       }
@@ -119,7 +116,7 @@ export class AssetComponent implements OnInit {
       if (result) {
         this.commentService.deleteComment(comment).subscribe(
           data => this.toast.open('comment deleted successfully.', 'success'),
-          error => console.log(error),
+          error => this.toast.open('error deleting a comment', 'danger'),
           () => this.getAsset(this.id)
         );
       }
