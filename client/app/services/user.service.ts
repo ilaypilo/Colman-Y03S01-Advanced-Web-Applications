@@ -16,8 +16,7 @@ export class UserService {
   private domainsCounter: DVC;
 
   constructor(private http: HttpClient) { 
-    var counter = require('distinct-value-counter');
-    this.domainsCounter = counter(0.001);
+
   }
 
   register(user: User): Observable<User> {
@@ -32,6 +31,8 @@ export class UserService {
     var observable = this.http.get<User[]>('/api/users');
     observable.subscribe(
       users => {
+        var counter = require('distinct-value-counter');
+        this.domainsCounter = counter(0.001);
         users.forEach(element => {
           this.domainsCounter.add(this.getEmailDomain(element.email));
         });
