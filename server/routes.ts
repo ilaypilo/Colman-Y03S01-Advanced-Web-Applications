@@ -28,7 +28,7 @@ let checkToken = (req, res, next) => {
       return;
     } else {
       //check if user on the db
-      User.findOne({ _id: decoded.user.id }, (err, item) => {
+      User.findOne({ _id: decoded.user._id }, (err, item) => {
         if (err || item == null) { 
           res.send(401);
           return;
