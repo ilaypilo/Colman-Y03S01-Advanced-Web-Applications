@@ -35,7 +35,7 @@ export default class AssetCtrl extends BaseCtrl {
     var o = {};
     // `map()` and `reduce()` are run on the MongoDB server, not Node.js,
     // these functions are converted to strings
-    o["map"] = function () { emit(this.HomeTypeID_text, 1) };
+    o["map"] = function () { emit(this.city, 1) };
     o["reduce"] = function (k, vals) { return vals.length };
 
     this.model.mapReduce(o, function (err, docs) {
