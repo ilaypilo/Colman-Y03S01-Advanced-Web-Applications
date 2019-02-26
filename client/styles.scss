@@ -5,9 +5,14 @@
 @import '../node_modules/font-awesome/scss/font-awesome';
 @import 'theme';
 @import '~ngx-bar-rating/themes/br-fontawesome-theme.css';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css?family=Heebo:300,400,500,700,900');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,900');
+
+* {
+    font-family: 'Open Sans', 'Heebo' ,serif;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
     margin: 0;
 }
 
@@ -63,4 +68,13 @@ body {
     padding-left: 0px;
     display: block;
     max-width: 100%;
-  }
+}
+
+.logo{
+    align-content: center;
+    display: block;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+

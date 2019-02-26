@@ -24,6 +24,7 @@ const assetSchema = new mongoose.Schema({
     contact_name: String,
     AssetClassificationID_text: String,
     square_meters: Number,
+    img_url: String,
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
