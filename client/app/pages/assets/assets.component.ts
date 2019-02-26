@@ -128,7 +128,7 @@ export class AssetsComponent implements OnInit {
     
         });
       },
-      error => console.log(error),
+      error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
     );
   }

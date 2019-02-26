@@ -6,6 +6,7 @@ import AssetCtrl from './controllers/asset';
 import CommentCtrl from './controllers/comment';
 import DealCtrl from './controllers/deal';
 import Comment from './models/comment';
+import User from './models/user';
 
 let checkToken = (req, res, next) => {
   
@@ -26,8 +27,16 @@ let checkToken = (req, res, next) => {
       res.send(401);
       return;
     } else {
-      req.decoded = decoded;
-      next();
+      //check if user on the db
+      User.findOne({ _id: decoded.user._id }, (err, item) => {
+        if (err || item == null) { 
+          res.send(401);
+          return;
+         } else {
+          req.decoded = decoded;
+          next();
+         }
+      }); 
     }
   });
 };

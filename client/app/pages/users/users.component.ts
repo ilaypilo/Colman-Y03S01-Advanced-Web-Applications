@@ -104,7 +104,7 @@ export class UsersComponent implements OnInit {
       if (result) {
         this.userService.deleteUser(user).subscribe(
           data => this.toast.open('user deleted successfully.', 'success'),
-          error => console.log(error),
+          error => this.toast.open('error deleting the user', 'danger'),
           () => this.getUsers()
         );
       }
