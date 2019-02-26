@@ -76,6 +76,7 @@ export class AssetComponent implements OnInit {
     this.assetService.getAsset(id).subscribe(
       data => {
         this.asset = data;
+        this.title = this.asset.street + " " + this.asset.address_home_number + ", " + this.asset.city;
       },
       error => this.router.navigate(['/notfound']),
       () => this.isLoading = false,
@@ -92,6 +93,7 @@ export class AssetComponent implements OnInit {
       () => this.getAsset(this.id)
     );
   }
+
   editComment(comment: Comment) {
     var dialogRef = this.dialog.open(ConfirmationDialogComponent, { disableClose: false });
     dialogRef.componentInstance.title = "Edit Comment"

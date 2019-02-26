@@ -5,6 +5,7 @@
     &:hover {
         color: white;
     }
+
 }
 
 .links-group {
@@ -20,4 +21,9 @@
     i {
         font-size: $font-regular;
     }
+}
+
+.fa{
+    margin-left:5px;
+    margin-right: 5px;
 }

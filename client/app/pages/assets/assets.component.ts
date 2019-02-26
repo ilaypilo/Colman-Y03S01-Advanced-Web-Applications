@@ -17,7 +17,6 @@ import { TableFilter } from '../../shared/table-filter/table-filter.component';
 
 export class AssetsComponent implements OnInit {
 
-  title = 'Registered Assets';
   assets: Asset[] = [];
   isLoading = true;
   displayedColumns = ['city', 'neighborhood', 'street', 'price', 'Rooms_text', 'Floor_text', 'HomeTypeID_text' , 'action'];
