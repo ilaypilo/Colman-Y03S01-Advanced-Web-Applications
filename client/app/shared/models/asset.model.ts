@@ -23,4 +23,6 @@ export class Asset {
   contact_name?: String;
   AssetClassificationID_text?: String;
   square_meters?: Number
+  img_url: String;
+  info: any;
 }
