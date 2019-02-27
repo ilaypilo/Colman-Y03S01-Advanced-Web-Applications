@@ -61,7 +61,7 @@ abstract class BaseCtrl {
   // Delete by id
   delete = (req, res) => {
     this.model.findById(req.params.id, function (err, doc) {
-      if (err || item == null) { 
+      if (err || doc == null) { 
         res.sendStatus(404);
         return console.error(err); 
       }
