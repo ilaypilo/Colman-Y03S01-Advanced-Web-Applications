@@ -105,13 +105,11 @@ export class AssetComponent implements OnInit {
   getAsset(id) {
     this.assetService.getAsset(id).subscribe(
       data => {
-        console.log(data);
         this.asset = data;
         this.title = this.asset.street + " " + this.asset.address_home_number + ", " + this.asset.city;
         this.images = [];
         var imgIndex = 0;
         data.info.images.forEach(element => {
-          console.log(element);
           this.images.push(
             new Image(imgIndex++, {img: element})
           );
