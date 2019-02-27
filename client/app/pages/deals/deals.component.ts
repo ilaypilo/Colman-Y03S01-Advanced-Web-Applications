@@ -28,7 +28,6 @@ export class DealsComponent implements OnInit {
     Validators.required,
     Validators.minLength(1)
   ]);
-  searchButtonText = "חפש";
   searching = false;
 
   constructor(
@@ -60,26 +59,21 @@ export class DealsComponent implements OnInit {
   }
 
   search() {
-    this.searchButtonText = !this.searching ? "נקה חיפוש" : "חפש";
+    this.searching = true;
+    this.dealService.queryDeals(this.dealForm.value.filter).subscribe(
+      data => {
+        this.deals = data;
+        this.dataSource = new MatTableDataSource<Deal>(this.deals);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error => console.log(error)
+    );
+  }
 
-    if (this.searching) {
-      this.dealFilter.reset();
-      this.getDeals();
-    } else {
-      this.isLoading = true;
-
-      this.dealService.queryDeals(this.dealForm.value.filter).subscribe(
-        data => {
-          console.log(data);
-          this.deals = data;
-          this.dataSource = new MatTableDataSource<Deal>(this.deals);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        },
-        error => console.log(error),
-        () => this.isLoading = false
-      );
-    }
-    this.searching = !this.searching;
+  clearSearch() {
+    this.dealFilter.reset();
+    this.getDeals();
+    this.searching = false;
   }
 }
