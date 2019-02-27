@@ -39,6 +39,9 @@ import { AgmCoreModule } from '@agm/core';
 import { HllDomainsPipe } from './pipes/hll-domains.pipe'
 import { RolesCountPipe } from './pipes/roles-count.pipe'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { GalleryModule } from '@ks89/angular-modal-gallery';
+import 'hammerjs';
+import 'mousetrap';
 
 
 const PAGES = [
@@ -71,6 +74,7 @@ const PAGES = [
     MatSortModule,
     BarRatingModule,
     NgxChartsModule,
+    GalleryModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9goo8rnqXdFBZ0wKt6cpPO3U-sJGOdZ0'
     })
