@@ -41,7 +41,7 @@
           <div *ngIf="asset">
             <mat-expansion-panel *ngFor="let comment of asset.comments; let i = index; trackBy: trackItem"
               [attr.edit]="false" [disabled]="comment.edit">
-              <mat-expansion-panel-header>
+              <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
                 <mat-panel-title>
                   <div [hidden]="comment.edit">{{comment.title}}</div>
                   <div [hidden]="!comment.edit">
@@ -85,7 +85,7 @@
           </div>
           <!-- new comment panel -->
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header expandedHeight="40px" collapsedHeight="40px">
               <mat-panel-title>
                 הוסף תגובה
               </mat-panel-title>
