@@ -5,16 +5,20 @@
 <div [hidden]="isLoading" class="container">
   <app-page-header [title]="title"></app-page-header>
   <form class="search-form" align="end" [formGroup]="dealForm" (ngSubmit)="search()">
-      <button mat-button type="submit" (click)="clearSearch()" color="accent" [disabled]="!searching">
-             הסרת חיפוש   
-        </button>
-    <button mat-raised-button type="submit" color="accent" [disabled]="!dealForm.valid">
-     חיפוש
-    </button>
-
-    <mat-form-field style="text-align: right" class="deal-search-input">
-      <input matInput placeholder="טקסט חופשי" [formControl]="dealFilter">
-    </mat-form-field>
+    <div class="spinner-wrapper">
+      <mat-spinner [diameter]="12" *ngIf="searching"></mat-spinner>
+      <mat-form-field style="text-align: right" class="deal-search-input">
+        <input matInput placeholder="טקסט חופשי" [formControl]="dealFilter">
+      </mat-form-field>
+    </div>
+    <div class="buttons-wrapper">
+      <button mat-button type="submit" (click)="clearSearch()" color="accent" [disabled]="!inSearchMode">
+        הסרת חיפוש
+      </button>
+      <button mat-raised-button type="submit" color="accent" [disabled]="!dealForm.valid">
+        חיפוש
+      </button>
+    </div>
   </form>
 
 

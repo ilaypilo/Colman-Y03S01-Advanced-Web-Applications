@@ -28,6 +28,7 @@ export class DealsComponent implements OnInit {
     Validators.required,
     Validators.minLength(1)
   ]);
+  inSearchMode = false;
   searching = false;
 
   constructor(
@@ -59,6 +60,7 @@ export class DealsComponent implements OnInit {
   }
 
   search() {
+    this.inSearchMode = true;
     this.searching = true;
     this.dealService.queryDeals(this.dealForm.value.filter).subscribe(
       data => {
@@ -66,6 +68,7 @@ export class DealsComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Deal>(this.deals);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.searching = false;
       },
       error => console.log(error)
     );
@@ -74,6 +77,6 @@ export class DealsComponent implements OnInit {
   clearSearch() {
     this.dealFilter.reset();
     this.getDeals();
-    this.searching = false;
+    this.inSearchMode = false;
   }
 }
