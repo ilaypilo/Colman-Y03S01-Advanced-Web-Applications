@@ -8,6 +8,7 @@ import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { ConfirmationDialogComponent } from './confirm/confirmation-dialog';
+import { TableFilter } from './table-filter/table-filter.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { ConfirmationDialogComponent } from './confirm/confirmation-dialog';
     // Shared Components
     ToastComponent,
     LoadingComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    TableFilter,
   ],
   declarations: [
     ToastComponent,
