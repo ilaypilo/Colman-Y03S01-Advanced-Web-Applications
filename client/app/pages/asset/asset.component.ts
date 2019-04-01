@@ -36,7 +36,7 @@ import {
   LoadingType,
   CurrentImageConfig
 } from '@ks89/angular-modal-gallery';
-import { assertDataInRange } from '@angular/core/src/render3/state';
+
 
 @Component({
   selector: 'app-asset',
