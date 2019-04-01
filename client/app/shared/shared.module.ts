@@ -8,7 +8,6 @@ import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { ConfirmationDialogComponent } from './confirm/confirmation-dialog';
-import { TableFilter } from './table-filter/table-filter.component';
 
 @NgModule({
   imports: [
@@ -27,15 +26,13 @@ import { TableFilter } from './table-filter/table-filter.component';
     // Shared Components
     ToastComponent,
     LoadingComponent,
-    PageHeaderComponent,
-    TableFilter,
+    PageHeaderComponent
   ],
   declarations: [
     ToastComponent,
     LoadingComponent,
     PageHeaderComponent,
-    ConfirmationDialogComponent,
-    TableFilter
+    ConfirmationDialogComponent
   ],
   providers: [
     ToastComponent

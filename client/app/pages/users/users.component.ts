@@ -6,7 +6,6 @@ import { User } from '../../shared/models/user.model';
 import { ConfirmationDialogComponent } from '../../shared/confirm/confirmation-dialog';
 import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { TableFilter } from '../../shared/table-filter/table-filter.component';
 
 @Component({
   selector: 'app-users',
@@ -69,7 +68,21 @@ export class UsersComponent implements OnInit {
         }
       )
   }
-
+  createFilter(): (data: any, filter: string) => boolean {
+    let filterFunction = function(data, filter): boolean {
+      let searchTerms = JSON.parse(filter);
+      let flag = true;
+      Object.keys(searchTerms).forEach(function(key) {
+        if (searchTerms[key] !== '') {
+          if (!data[key] || data[key].toString().indexOf(searchTerms[key]) === -1) {
+            flag = false;
+          }
+        } 
+      })
+      return flag;
+    }
+    return filterFunction;
+  }
   getUsers() {
     this.userService.getUsers().subscribe(
       data => {
@@ -77,7 +90,7 @@ export class UsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource<User>(this.users);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.dataSource.filterPredicate = TableFilter.createFilter();
+        this.dataSource.filterPredicate = this.createFilter();
         this.getUsersDomainsCount();
 
       },
