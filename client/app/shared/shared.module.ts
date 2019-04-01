@@ -34,7 +34,8 @@ import { TableFilter } from './table-filter/table-filter.component';
     ToastComponent,
     LoadingComponent,
     PageHeaderComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    TableFilter
   ],
   providers: [
     ToastComponent
