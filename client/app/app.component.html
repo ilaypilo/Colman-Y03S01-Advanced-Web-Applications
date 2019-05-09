@@ -28,6 +28,10 @@
     <span>|</span>
     <i class="fa fa-pie-chart"></i>
   </a>
+  <a routerLink="/ml" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
+    <span>|</span>
+    <i class="fa fa-balance-scale"></i>
+  </a>
 
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-icon-button [matMenuTriggerFor]="userMenu" class="link">

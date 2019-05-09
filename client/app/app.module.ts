@@ -18,6 +18,7 @@ import {
   AssetComponent,
   AssetsComponent,
   DealsComponent,
+  MlComponent,
   StatisticsComponent
 } from './pages';
 /** Services */
@@ -29,6 +30,7 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AssetService } from './services/asset.service';
 import { DealService } from './services/deal.service';
+import { MlService } from './services/ml.service';
 import { MatSortModule } from '@angular/material';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WebsocketService } from './services/websocket.service';
@@ -56,6 +58,7 @@ const PAGES = [
   AssetComponent,
   AssetsComponent,
   DealsComponent,
+  MlComponent,
   StatisticsComponent
 ];
 
@@ -92,6 +95,7 @@ const PAGES = [
     AssetService, 
     CommentService, 
     DealService,
+    MlService,
     WebsocketService, 
     ChatService,
     HllDomainsPipe,

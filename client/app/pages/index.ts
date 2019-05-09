@@ -9,4 +9,5 @@ export { NotFoundComponent } from './not-found/not-found.component';
 export { AssetComponent } from './asset/asset.component';
 export { AssetsComponent } from './assets/assets.component';
 export { DealsComponent } from './deals/deals.component';
+export { MlComponent } from './ml/ml.component';
 export { StatisticsComponent } from './statistics/statistics.component';
