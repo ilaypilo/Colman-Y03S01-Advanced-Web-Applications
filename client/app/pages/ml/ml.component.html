@@ -94,16 +94,16 @@
             </mat-error>
           </mat-form-field>
 
-          <!-- rooms -->
+          <!-- rooms_number -->
           <mat-form-field>
             <span matPrefix>
               <i class="prefix fa fa-user"></i>
             </span>
-            <input type="number" matInput [formControl]="rooms" placeholder="חדרים">
-            <mat-error *ngIf="rooms.hasError('required')">
+            <input type="number" matInput [formControl]="rooms_number" placeholder="חדרים">
+            <mat-error *ngIf="rooms_number.hasError('required')">
               <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="rooms.hasError('pattern')">
+            <mat-error *ngIf="rooms_number.hasError('pattern')">
                 מספרים בלבד
             </mat-error>
           </mat-form-field>

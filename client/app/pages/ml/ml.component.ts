@@ -39,7 +39,7 @@ export class MlComponent implements OnInit {
     Validators.required,
     Validators.pattern('[0-9]*')
   ]);
-  rooms = new FormControl('', [
+  rooms_number = new FormControl('', [
     Validators.required,
     Validators.pattern('[0-9]*')
   ]);
@@ -65,7 +65,7 @@ export class MlComponent implements OnInit {
       property_type: this.property_type,
       build_year: this.build_year,
       floor: this.floor,
-      rooms: this.rooms,
+      rooms_number: this.rooms_number,
       building_mr: this.building_mr
     });
 
