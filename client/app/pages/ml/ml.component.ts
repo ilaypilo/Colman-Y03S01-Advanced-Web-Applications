@@ -4,6 +4,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MlService } from '../../services/ml.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Observable } from 'rxjs';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
+
 
 @Component({
   selector: 'app-ml',
@@ -12,7 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class MlComponent implements OnInit {
 
-  title = 'ML';
+  title = 'חישוב מחיר לנכס';
   isLoading = true;
   predictForm: FormGroup;
   city = new FormControl('', [
@@ -43,12 +46,16 @@ export class MlComponent implements OnInit {
     Validators.required,
     Validators.pattern('[0-9]*')
   ]);
-  cities: String[];
-  // filteredCities: Observable<string[]>;
-  neighborhoods: String[];
-  streets: String[];
-  property_types: String[];
-  build_years: String[];
+  cities: String[] = [];
+  filteredCities: Observable<String[]>;
+  neighborhoods: String[] = [];
+  filteredNeighborhoods: Observable<String[]>;
+  streets: String[] = [];
+  filteredStreets: Observable<String[]>;
+  property_types: String[] = [];
+  filteredPropertyTypes: Observable<String[]>;
+  build_years: String[] = [];
+  filteredBuildYears: Observable<String[]>;
   prediction: Number;
 
   constructor(
@@ -69,9 +76,30 @@ export class MlComponent implements OnInit {
       building_mr: this.building_mr
     });
 
+    this.filteredCities = this.city.valueChanges
+      .pipe(startWith(''),
+         map(val => this.optionsFilter(val, this.cities)));
+
+    this.filteredNeighborhoods = this.neighborhood.valueChanges
+    .pipe(startWith(''),
+      map(val => this.optionsFilter(val, this.neighborhoods)));
+
+    this.filteredStreets = this.street.valueChanges
+    .pipe(startWith(''),
+        map(val => this.optionsFilter(val, this.streets)));
+
+    this.filteredPropertyTypes = this.property_type.valueChanges
+    .pipe(startWith(''),
+        map(val => this.optionsFilter(val, this.property_types)));
+
+    this.filteredBuildYears = this.build_year.valueChanges
+    .pipe(startWith(''),
+        map(val => this.optionsFilter(val, this.build_years)));
+
     this.mlService.getCities().subscribe(
       data => {
         this.cities = data;
+        this.city.setValue('');
       },
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
@@ -80,6 +108,7 @@ export class MlComponent implements OnInit {
     this.mlService.getPropertyTypes().subscribe(
       data => {
         this.property_types = data;
+        this.property_type.setValue('');
       },
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
@@ -87,6 +116,7 @@ export class MlComponent implements OnInit {
     this.mlService.getBuildYears().subscribe(
       data => {
         this.build_years = data;
+        this.build_year.setValue('');
       },
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
@@ -96,7 +126,7 @@ export class MlComponent implements OnInit {
     this.mlService.getNeighborhoods(city).subscribe(
       data => {
         this.neighborhoods = data;
-        console.log(this.neighborhoods);
+        this.neighborhood.setValue('');
       },
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
@@ -104,7 +134,7 @@ export class MlComponent implements OnInit {
     this.mlService.getStreets(city).subscribe(
       data => {
         this.streets = data;
-        console.log(this.streets);
+        this.street.setValue('');
       },
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
@@ -112,6 +142,14 @@ export class MlComponent implements OnInit {
   }
   neighborhoodChanged(city) {
     return;
+  }
+
+  optionsFilter(val: String, options: String[]) {
+    if (null == val){
+      return options;
+    }
+    return options.filter(option =>
+      option.toString().toLowerCase().indexOf(val.toString().toLowerCase()) === 0);
   }
 
   predict() {
