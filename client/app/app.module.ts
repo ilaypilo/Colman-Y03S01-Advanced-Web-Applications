@@ -36,7 +36,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';
 import { BarRatingModule } from "ngx-bar-rating";
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 import { HllDomainsPipe } from './pipes/hll-domains.pipe'
 import { RolesCountPipe } from './pipes/roles-count.pipe'
@@ -99,7 +99,8 @@ const PAGES = [
     WebsocketService, 
     ChatService,
     HllDomainsPipe,
-    RolesCountPipe
+    RolesCountPipe,
+    GoogleMapsAPIWrapper
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

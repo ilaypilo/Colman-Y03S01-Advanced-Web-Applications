@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { MlService } from '../../services/ml.service';
@@ -6,7 +6,31 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import { Observable } from 'rxjs';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import { MapsAPILoader, AgmMap } from '@agm/core';
+import { GoogleMapsAPIWrapper } from '@agm/core/services';
 
+
+declare var google: any;
+
+interface Marker {
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
+}
+
+interface Location {
+  lat: number;
+  lng: number;
+  viewport?: Object;
+  zoom: number;
+  address_level_1?:string;
+  address_level_2?: string;
+  address_country?: string;
+  address_zip?: string;
+  address_state?: string;
+  marker?: Marker;
+}
 
 @Component({
   selector: 'app-ml',
@@ -14,6 +38,9 @@ import {map} from 'rxjs/operators/map';
   styleUrls: ['./ml.component.scss']
 })
 export class MlComponent implements OnInit {
+  
+  @ViewChild(AgmMap)
+   map: AgmMap;
 
   title = 'חישוב מחיר לנכס';
   isLoading = true;
@@ -46,6 +73,7 @@ export class MlComponent implements OnInit {
     Validators.required,
     Validators.pattern('[0-9]*')
   ]);
+  isSearching: Boolean = false;
   cities: String[] = [];
   filteredCities: Observable<String[]>;
   neighborhoods: String[] = [];
@@ -57,12 +85,33 @@ export class MlComponent implements OnInit {
   build_years: String[] = [];
   filteredBuildYears: Observable<String[]>;
   prediction: Number;
-
+  geocoder:any;
+  
+  public location: Location = {
+    lat: 31.0461,
+    lng: 34.8516,
+    marker: {
+      lat: 31.0461,
+      lng: 34.8516,
+      draggable: true
+    },
+    zoom: 5
+  };
+  
   constructor(
     private formBuilder: FormBuilder,
     public toast: ToastComponent,
-    private mlService: MlService
-  ) { }
+    private mlService: MlService,
+    public mapsApiLoader: MapsAPILoader,
+    private zone: NgZone,
+    private wrapper: GoogleMapsAPIWrapper
+  ) {
+    this.mapsApiLoader.load().then(() => {
+      this.geocoder = new google.maps.Geocoder();
+    });
+
+
+   }
 
   ngOnInit() {
     this.predictForm = this.formBuilder.group({
@@ -121,8 +170,32 @@ export class MlComponent implements OnInit {
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
     );
+    
   }
+  findLocation(address) {
+    if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
+    this.geocoder.geocode({
+      'address': address
+    }, (results, status) => {
+      console.log(results);
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0].geometry.location) {
+          this.location.lat = results[0].geometry.location.lat();
+          this.location.lng = results[0].geometry.location.lng();
+          this.location.marker.lat = results[0].geometry.location.lat();
+          this.location.marker.lng = results[0].geometry.location.lng();
+          this.location.marker.draggable = true;
+          this.location.viewport = results[0].geometry.viewport;
+        }
+        this.map.triggerResize()
+      } else {
+        alert("Sorry, this search produced no results.");
+      }
+    })
+  }
+  
   cityChanged(city) {
+    this.findLocation(city);
     this.mlService.getNeighborhoods(city).subscribe(
       data => {
         this.neighborhoods = data;
@@ -140,8 +213,12 @@ export class MlComponent implements OnInit {
       () => this.isLoading = false
     );
   }
-  neighborhoodChanged(city) {
-    return;
+  neighborhoodChanged(neighborhood) {
+    this.findLocation(this.city.value + ", " + neighborhood);
+  }
+
+  streetChanged(street) {
+    this.findLocation(this.city.value + ", " + street);
   }
 
   optionsFilter(val: String, options: String[]) {
@@ -153,9 +230,11 @@ export class MlComponent implements OnInit {
   }
 
   predict() {
+    this.isSearching = true;
     this.mlService.predict(this.predictForm.value).subscribe(
       data => {
         console.log(data);
+        this.isSearching = false;
         this.prediction = data[0];
         this.toast.open('you successfully predict!', 'success');
       },
