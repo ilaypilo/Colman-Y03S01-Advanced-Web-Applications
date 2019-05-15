@@ -97,6 +97,9 @@ export class MlComponent implements OnInit {
     },
     zoom: 5
   };
+
+  public markers: Marker[] = [];
+  public currentMarker: Marker;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -173,6 +176,7 @@ export class MlComponent implements OnInit {
     
   }
   findLocation(address) {
+    this.markers = []
     if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
     this.geocoder.geocode({
       'address': address
@@ -186,8 +190,21 @@ export class MlComponent implements OnInit {
           this.location.marker.lng = results[0].geometry.location.lng();
           this.location.marker.draggable = true;
           this.location.viewport = results[0].geometry.viewport;
+          // skip the same element
+          if (this.currentMarker &&
+              results[0].geometry.location.lat() === this.currentMarker.lat &&
+              results[0].geometry.location.lng() === this.currentMarker.lng ) {
+              return;
+            }
+          this.markers = []
+          this.currentMarker = {
+            lat :  results[0].geometry.location.lat(),
+            lng : results[0].geometry.location.lng(),
+            draggable: true
+          }
+          this.markers.push(this.currentMarker);
+          this.map.triggerResize(false);
         }
-        this.map.triggerResize()
       } else {
         alert("Sorry, this search produced no results.");
       }
