@@ -11,6 +11,14 @@ export class MlService {
     return this.http.get<String[]>(`${this.api_url}/cities`);
   }
 
+  getNeighborhood(city: String, street: String): Observable<String[]> {
+    return this.http.get<String[]>(`${this.api_url}/get_neighborhood?city=${city}&street=${street}`);
+  }
+
+  getStreetsByNeighborhood(city: String, neighborhood: String): Observable<String[]> {
+    return this.http.get<String[]>(`${this.api_url}/get_streets?city=${city}&neighborhood=${neighborhood}`);
+  }
+
   getNeighborhoods(city: String): Observable<String[]> {
     return this.http.get<String[]>(`${this.api_url}/neighborhoods/${city}`);
   }

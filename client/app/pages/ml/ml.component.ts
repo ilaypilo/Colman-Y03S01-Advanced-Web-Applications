@@ -95,7 +95,8 @@ export class MlComponent implements OnInit {
       lng: 34.8516,
       draggable: true
     },
-    zoom: 5
+    zoom: 5,
+    viewport: false
   };
 
   public markers: Marker[] = [];
@@ -194,6 +195,7 @@ export class MlComponent implements OnInit {
           if (this.currentMarker &&
               results[0].geometry.location.lat() === this.currentMarker.lat &&
               results[0].geometry.location.lng() === this.currentMarker.lng ) {
+              this.isSearching = false;
               return;
             }
           this.markers = []
@@ -202,16 +204,20 @@ export class MlComponent implements OnInit {
             lng : results[0].geometry.location.lng(),
             draggable: true
           }
+          this.isSearching = false;
           this.markers.push(this.currentMarker);
           this.map.triggerResize(false);
         }
       } else {
+        this.isSearching = false;
         alert("Sorry, this search produced no results.");
       }
-    })
+    },
+    )
   }
   
   cityChanged(city) {
+    this.isSearching = true;
     this.findLocation(city);
     this.mlService.getNeighborhoods(city).subscribe(
       data => {
@@ -226,16 +232,46 @@ export class MlComponent implements OnInit {
         this.streets = data;
         this.street.setValue('');
       },
-      error => this.toast.open(error.statusText, "danger"),
+      error => {
+        this.toast.open(error.statusText, "danger");
+        this.isSearching = false;
+      },
       () => this.isLoading = false
     );
   }
   neighborhoodChanged(neighborhood) {
-    this.findLocation(this.city.value + ", " + neighborhood);
+    this.street.setValue("");
+    this.isSearching = true;
+    this.mlService.getStreetsByNeighborhood(this.city.value, neighborhood).subscribe(
+      data => {
+        console.log(data)
+        this.streets = data;
+        this.street.setValue('');
+        this.findLocation(this.city.value + ", " + neighborhood);
+      },
+      error => {
+        this.toast.open(error.statusText, "danger");
+        this.isSearching = false;
+      },
+      () => this.isLoading = false
+    );
+
   }
 
   streetChanged(street) {
-    this.findLocation(this.city.value + ", " + street);
+    this.neighborhood.setValue("");
+    this.isSearching = true;
+    this.mlService.getNeighborhood(this.city.value, street).subscribe(
+      data => {
+        this.neighborhood.setValue(data);
+        this.findLocation(this.city.value + ", " + street);
+      },
+      error => {
+        this.toast.open(error.statusText, "danger");
+        this.isSearching = false;
+      },
+      () => this.isLoading = false
+    );
   }
 
   optionsFilter(val: String, options: String[]) {
