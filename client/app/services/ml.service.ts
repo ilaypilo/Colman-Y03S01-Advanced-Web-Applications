@@ -35,10 +35,6 @@ export class MlService {
     return this.http.get<String[]>(`${this.api_url}/build_years`);
   }
 
-  getCityPlot(city: String): Observable<File> {
-    return this.http.get<File>(`${this.api_url}/get_plot/${city}`);
-  }
-
   getCityMse(city: String): Observable<Number> {
     return this.http.get<Number>(`${this.api_url}/get_mse/${city}`);
   }
