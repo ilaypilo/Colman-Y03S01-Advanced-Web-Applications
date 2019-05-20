@@ -1,0 +1,31 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+<!-- asset -->
+<div [hidden]="isLoading" class="container">
+  <app-page-header [title]="title"></app-page-header>
+
+  <div class="row">
+    <div class="col-md-12 col-centered" id="app-table">
+      <div class="mat-elevation-z4">
+        <form [formGroup]="mlForm" dir="rtl">
+          <!-- city -->
+          <mat-form-field>
+            <span matPrefix>
+              <i class="prefix fa fa-user"></i>
+            </span>
+            <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
+            <mat-autocomplete #autoCity="matAutocomplete">
+              <mat-option (onSelectionChange)=cityChanged(city) *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="city.hasError('required')">
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-spinner class="spinner-wrapper" [diameter]="40" *ngIf="isSearching"></mat-spinner>
+          <b>{{mse | currency:'ILS'}}</b>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

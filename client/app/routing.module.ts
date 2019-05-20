@@ -17,6 +17,7 @@ import { AssetsComponent } from './pages/assets/assets.component';
 import { DealsComponent } from './pages/deals/deals.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { MlComponent } from './pages/ml/ml.component';
+import { MlPerformanceComponent } from './pages/ml-performance/ml-performance.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuardAdmin] },
   { path: 'connected', component: ConnectedComponent, canActivate: [AuthGuardAdmin] },
+  { path: 'ml-performance', component: MlPerformanceComponent, canActivate: [AuthGuardAdmin] },
   { path: 'asset/:id', component: AssetComponent, canActivate: [AuthGuardLogin] },
   { path: 'assets', component: AssetsComponent, canActivate: [AuthGuardLogin] },
   { path: 'deals', component: DealsComponent, canActivate: [AuthGuardLogin] },
