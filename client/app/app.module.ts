@@ -19,7 +19,8 @@ import {
   AssetsComponent,
   DealsComponent,
   MlComponent,
-  StatisticsComponent
+  StatisticsComponent,
+  MlPerformanceComponent
 } from './pages';
 /** Services */
 import { UserService } from './services/user.service';
@@ -59,6 +60,7 @@ const PAGES = [
   AssetsComponent,
   DealsComponent,
   MlComponent,
+  MlPerformanceComponent,
   StatisticsComponent
 ];
 

@@ -4,8 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MlService } from '../../services/ml.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Observable } from 'rxjs';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
+import { startWith } from 'rxjs/operators/startWith';
+import { map } from 'rxjs/operators/map';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
 

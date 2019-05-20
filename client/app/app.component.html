@@ -9,11 +9,15 @@
   <mat-menu #adminMenu="matMenu">
     <a mat-menu-item routerLink="/users">
       <i class="fa fa-user"></i>
-      <span> משתמשים</span>
+      <span>משתמשים</span>
     </a>
     <a mat-menu-item routerLink="/connected">
       <i class="fa fa-plug"></i>
-      <span> מחוברים</span>
+      <span>מחוברים</span>
+    </a>
+    <a mat-menu-item routerLink="/ml-performance">
+      <i class="fa fa-plug"></i>
+      <span>ביצועים</span>
     </a>
   </mat-menu>
   <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">

@@ -10,4 +10,5 @@ export { AssetComponent } from './asset/asset.component';
 export { AssetsComponent } from './assets/assets.component';
 export { DealsComponent } from './deals/deals.component';
 export { MlComponent } from './ml/ml.component';
+export { MlPerformanceComponent } from './ml-performance/ml-performance.component';
 export { StatisticsComponent } from './statistics/statistics.component';
