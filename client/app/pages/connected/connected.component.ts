@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 
 export class ConnectedComponent implements OnInit {
 
-  title = 'Connected Users';
+  title = 'משתמשים מחוברים';
   isLoading = true;
   displayedColumns = ['icon', 'username', 'email', 'role', 'action'];
   dataSource: any;

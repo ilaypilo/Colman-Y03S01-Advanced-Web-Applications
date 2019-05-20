@@ -15,7 +15,7 @@ import { FormControl } from '@angular/forms';
 
 export class UsersComponent implements OnInit {
 
-  title = 'Registered Users';
+  title = 'משתמשים רשומים';
   users: User[] = [];
   isLoading = true;
   displayedColumns = ['username', 'email', 'role', 'action'];

@@ -14,7 +14,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 })
 export class SignupComponent implements OnInit {
 
-  title = 'Signup';
+  title = 'הרשמה';
 
   registerForm: FormGroup;
   username = new FormControl('', [
