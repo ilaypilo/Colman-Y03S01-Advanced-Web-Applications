@@ -11,19 +11,7 @@
     color: $grayCol;
     margin: 0 5px;
 }
-
-form {
-    text-align: center;
-    .mat-form-field {
-        margin-left: 15px;
-    }
-}
-
-#ml-grid{
-    height: 400px;
-}
-
-agm-map {
-    height: 100%;
-    width: 100%;
+img {
+    object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+    width: 90%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
 }

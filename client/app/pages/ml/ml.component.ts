@@ -216,7 +216,8 @@ export class MlComponent implements OnInit {
     )
   }
   
-  cityChanged(city) {
+  cityChanged(event, city) {
+    if (!event.source.selected) return;
     this.isSearching = true;
     this.findLocation(city);
     this.mlService.getNeighborhoods(city).subscribe(
@@ -239,7 +240,8 @@ export class MlComponent implements OnInit {
       () => this.isLoading = false
     );
   }
-  neighborhoodChanged(neighborhood) {
+  neighborhoodChanged(event, neighborhood) {
+    if (!event.source.selected) return;
     this.street.setValue("");
     this.isSearching = true;
     this.mlService.getStreetsByNeighborhood(this.city.value, neighborhood).subscribe(
@@ -258,7 +260,8 @@ export class MlComponent implements OnInit {
 
   }
 
-  streetChanged(street) {
+  streetChanged(event, street) {
+    if (!event.source.selected) return;
     this.neighborhood.setValue("");
     this.isSearching = true;
     this.mlService.getNeighborhood(this.city.value, street).subscribe(
