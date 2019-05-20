@@ -25,7 +25,7 @@ export class MlPerformanceComponent implements OnInit {
   cities: String[] = [];
   filteredCities: Observable<String[]>;
   mse: Number;
-  plot: File;
+  plotUrl: String;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,19 +53,11 @@ export class MlPerformanceComponent implements OnInit {
 
   }
   
-  cityChanged(city) {
+  cityChanged(event, city) {
+    if (!event.source.selected) return;
     this.isSearching = true;
-    
-    this.mlService.getCityPlot(city).subscribe(
-      data => {
-        this.plot = data;
-      },
-      error => this.toast.open(error.statusText, "danger"),
-      () => {
-        this.isLoading = false
-        this.isSearching = false
-      }
-    );
+    this.plotUrl = `/api/ml/v1/get_plot/${city}`;
+    console.log(this.plotUrl);
     this.mlService.getCityMse(city).subscribe(
       data => {
         this.mse = data;
@@ -73,10 +65,9 @@ export class MlPerformanceComponent implements OnInit {
       error => this.toast.open(error.statusText, "danger"),
       () => {
         this.isLoading = false
+        this.isSearching = false
       }
     );
-
-
   }
 
   optionsFilter(val: String, options: String[]) {

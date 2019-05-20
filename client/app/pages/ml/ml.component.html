@@ -19,7 +19,7 @@
                 </span>
                 <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
                 <mat-autocomplete #autoCity="matAutocomplete">
-                  <mat-option (onSelectionChange)=cityChanged(city) *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
+                  <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="city.hasError('required')">
                   <strong>required</strong>
@@ -33,7 +33,7 @@
                 </span>
                 <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood" placeholder="שכונה">
                 <mat-autocomplete #autoNeighborhood="matAutocomplete">
-                  <mat-option (onSelectionChange)=neighborhoodChanged(neighborhood) *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">{{neighborhood}}</mat-option>
+                  <mat-option (onSelectionChange)="neighborhoodChanged($event, neighborhood)" *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">{{neighborhood}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="neighborhood.hasError('required')">
                   <strong>required</strong>
@@ -47,7 +47,7 @@
                 </span>
                 <input type="text" matInput [formControl]="street" [matAutocomplete]="autoStreet" placeholder="רחוב">
                 <mat-autocomplete #autoStreet="matAutocomplete">
-                  <mat-option (onSelectionChange)=streetChanged(street) *ngFor="let street of filteredStreets | async" [value]="street">{{street}}</mat-option>
+                  <mat-option (onSelectionChange)="streetChanged($event, street)" *ngFor="let street of filteredStreets | async" [value]="street">{{street}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="street.hasError('required')">
                   <strong>required</strong>
