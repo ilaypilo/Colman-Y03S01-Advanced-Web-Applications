@@ -14,7 +14,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 })
 export class AccountComponent implements OnInit {
 
-  title = 'Account Settings';
+  title = 'הגדרות משתמש';
 
   user: User;
   isLoading = true;
