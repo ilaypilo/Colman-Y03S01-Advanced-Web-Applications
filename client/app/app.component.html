@@ -1,6 +1,9 @@
-<mat-toolbar color="primary" dir="rtl">
+<mat-toolbar class="toolbar" color="accent" dir="rtl">
   <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
     <i class="fa fa-home"></i>
+    <div class="toolbar-logo">
+      <!-- <img src="../assets/btn_price.svg" > -->
+  </div>
   </a>
   <a [hidden]="!(auth.loggedIn && auth.isAdmin)" [matMenuTriggerFor]="adminMenu" class="link">
     <span>|</span>
@@ -20,26 +23,28 @@
       <span>ביצועים</span>
     </a>
   </mat-menu>
-  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
+  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <span>|</span>
     <i class="fa fa-hotel"></i>
   </a>
-  <a routerLink="/deals" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
+  <a routerLink="/deals" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <span>|</span>
     <i class="fa fa-dollar"></i>
   </a>
-  <a routerLink="/statistics" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
+  <a routerLink="/statistics" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <span>|</span>
     <i class="fa fa-pie-chart"></i>
   </a>
-  <a routerLink="/ml" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
-    <span>|</span>
-    <i class="fa fa-balance-scale"></i>
-  </a>
+
+    <button  mat-flat-button routerLink="/ml" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn"> 
+      <img class="menu-icon" src="../assets/btn_price.svg" >
+      <div class="menu-text">מחיר נכס</div>
+  </button>
 
   <div [hidden]="!auth.loggedIn" class="user-menu">
-    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="link">
-      <i class="fa fa-user"></i>
+    <button mat-button [matMenuTriggerFor]="userMenu" class="link">
+        <img class="menu-icon" src="../assets/btn_user.svg" >
+        <div class="menu-text">{{userName}}</div>
     </button>
     <mat-menu #userMenu="matMenu">
       <a mat-menu-item routerLink="/account">

@@ -9,6 +9,7 @@ import { ToastComponent } from './shared/toast/toast.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  userName: string;
 
   constructor(
     public auth: AuthService,
@@ -17,5 +18,6 @@ export class AppComponent {
     chatService.messages.subscribe(data => {
       
     });
+    this.userName = auth.currentUser.username;
   }
 }
