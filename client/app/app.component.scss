@@ -64,8 +64,17 @@
 
 .toolbar-logo {
     width: 224px;
-    height: 250px;
+    height: 212px;
     background-color: #734fbe;
     border-radius: 0px 0px 0px 25px; 
+    display: flex;
+    margin-top: 50px;
+    justify-content: center; /* align horizontal */
+    align-items: center;
 }
   
+.toolbar-logo-image{
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+}
