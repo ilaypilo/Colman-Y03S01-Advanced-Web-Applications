@@ -32,14 +32,24 @@ form {
 }
 
 #ml-grid{
-    height: 400px;
+    min-height: 400px;
 }
 
 agm-map {
     height: 100%;
     width: 100%;
 }
+
 .appcontainer{
     width: 100%;
+}
 
+#calc-button{
+    width: 500px;
+    height: 44px;
+    border-radius: 22px;
+}
+
+#param-item{
+    min-width: 300px;
 }

@@ -76,7 +76,7 @@ $md-purple-palette: (
 
 
 $primary: mat-palette($md-purple-palette, 500);
-$accent : mat-palette($md-white-palette, 500);
+$accent : mat-palette($md-pink-palette, 500);
 $theme: mat-light-theme($primary, $accent);
 
 @include angular-material-theme($theme);

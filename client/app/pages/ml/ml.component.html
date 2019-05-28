@@ -5,131 +5,124 @@
 <div [hidden]="isLoading" class="appcontainer">
   <div class="page-header">חישוב מחיר לנכס</div>
 
-  <div  class="row">
-    <div   class="col-md-12 col-centered" id="app-table">
-      <div class="mat-elevation-z4">
+  <div class="row">
+    <div class="col-md-12 col-centered" id="app-table">
+      <div>
         <!-- asset -->
         <mat-grid-list cols="2" dir="rtl" id="ml-grid" rowHeight="fit">
           <mat-grid-tile>
             <form [formGroup]="predictForm" (ngSubmit)="predict()" dir="rtl">
               <!-- city -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>עיר</mat-label>
                 <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
                 <mat-autocomplete #autoCity="matAutocomplete">
-                  <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
+                  <mat-option (onSelectionChange)="cityChanged($event, city)"
+                    *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="city.hasError('required')">
-                  <strong>required</strong>
+                  <strong>חובה</strong>
                 </mat-error>
               </mat-form-field>
-    
+
               <!-- neighborhood -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
-                <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood" placeholder="שכונה">
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>שכונה</mat-label>
+                <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood"
+                  placeholder="שכונה">
                 <mat-autocomplete #autoNeighborhood="matAutocomplete">
-                  <mat-option (onSelectionChange)="neighborhoodChanged($event, neighborhood)" *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">{{neighborhood}}</mat-option>
+                  <mat-option (onSelectionChange)="neighborhoodChanged($event, neighborhood)"
+                    *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">{{neighborhood}}
+                  </mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="neighborhood.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
               </mat-form-field>
-    
+
               <!-- street -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>רחוב</mat-label>
                 <input type="text" matInput [formControl]="street" [matAutocomplete]="autoStreet" placeholder="רחוב">
                 <mat-autocomplete #autoStreet="matAutocomplete">
-                  <mat-option (onSelectionChange)="streetChanged($event, street)" *ngFor="let street of filteredStreets | async" [value]="street">{{street}}</mat-option>
+                  <mat-option (onSelectionChange)="streetChanged($event, street)"
+                    *ngFor="let street of filteredStreets | async" [value]="street">{{street}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="street.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
               </mat-form-field>
-    
+
               <!-- property_type -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
-                <input type="text" matInput [formControl]="property_type" [matAutocomplete]="autoPropertyType" placeholder="סוג הנכס">
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>סוג הנכס</mat-label>
+                <input type="text" matInput [formControl]="property_type" [matAutocomplete]="autoPropertyType"
+                  placeholder="סוג הנכס">
                 <mat-autocomplete #autoPropertyType="matAutocomplete">
-                  <mat-option *ngFor="let property_type of filteredPropertyTypes | async" [value]="property_type">{{property_type}}</mat-option>
+                  <mat-option *ngFor="let property_type of filteredPropertyTypes | async" [value]="property_type">
+                    {{property_type}}</mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="property_type.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
               </mat-form-field>
-              
+
               <!-- build_year -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
-                <input type="number" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear" placeholder="שנת בנייה">
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>שנת בנייה</mat-label>
+                <input type="number" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
+                  placeholder="שנת בנייה">
                 <mat-autocomplete #autoBuildYear="matAutocomplete">
-                  <mat-option *ngFor="let build_year of filteredBuildYears | async" [value]="build_year">{{build_year}}</mat-option>
+                  <mat-option *ngFor="let build_year of filteredBuildYears | async" [value]="build_year">{{build_year}}
+                  </mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="build_year.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
                 <mat-error *ngIf="build_year.hasError('pattern')">
-                    מספרים בלבד
+                  מספרים בלבד
                 </mat-error>
               </mat-form-field>
-    
+
               <!-- floor -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>קומה</mat-label>
                 <input type="number" matInput [formControl]="floor" placeholder="קומה">
                 <mat-error *ngIf="floor.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
                 <mat-error *ngIf="floor.hasError('pattern')">
-                    מספרים בלבד
+                  מספרים בלבד
                 </mat-error>
               </mat-form-field>
-    
+
               <!-- rooms_number -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>חדרים</mat-label>
                 <input type="number" matInput [formControl]="rooms_number" placeholder="חדרים">
                 <mat-error *ngIf="rooms_number.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
                 <mat-error *ngIf="rooms_number.hasError('pattern')">
-                    מספרים בלבד
+                  מספרים בלבד
                 </mat-error>
               </mat-form-field>
-    
+
               <!-- building_mr -->
-              <mat-form-field>
-                <span matPrefix>
-                  <i class="prefix fa fa-user"></i>
-                </span>
+              <mat-form-field id="param-item" appearance="outline" color="accent">
+                <mat-label>מטר רבוע</mat-label>
                 <input type="number" matInput [formControl]="building_mr" placeholder="מטר רבוע">
                 <mat-error *ngIf="building_mr.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
                 <mat-error *ngIf="building_mr.hasError('pattern')">
-                    מספרים בלבד
+                  מספרים בלבד
                 </mat-error>
               </mat-form-field>
-    
-              <br/>
-              <button mat-raised-button type="submit" [disabled]="!predictForm.valid" color="primary">
-                <i class="fa fa-paper-plane"></i> חשב
+
+              <br />
+              <button mat-flat-button id="calc-button" type="submit" [disabled]="predictForm.valid" color="accent">
+                חשב
               </button>
 
               <mat-spinner class="spinner-wrapper" [diameter]="40" *ngIf="isSearching"></mat-spinner>
@@ -137,8 +130,10 @@
             </form>
           </mat-grid-tile>
           <mat-grid-tile>
-            <agm-map #AgmMap [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [zoomControl]="true" [(fitBounds)]='location.viewport' >
-              <agm-marker *ngFor="let element of markers" [latitude]="element.lat" [longitude]="element.lng"  [animation]="'DROP'"></agm-marker>
+            <agm-map #AgmMap [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom"
+              [disableDefaultUI]="true" [zoomControl]="true" [(fitBounds)]='location.viewport'>
+              <agm-marker *ngFor="let element of markers" [latitude]="element.lat" [longitude]="element.lng"
+                [animation]="'DROP'"></agm-marker>
             </agm-map>
           </mat-grid-tile>
         </mat-grid-list>
