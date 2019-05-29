@@ -36,12 +36,16 @@ export class LoginComponent implements OnInit {
     public toast: ToastComponent,
     private chatService: ChatService
   ) {
-   }
+  }
 
   ngOnInit() {
     if (this.auth.loggedIn) {
-      this.sendLoginMessage();
-      this.router.navigate(['/']);
+      this.sendLoginMessage();//TODO add if admin to another page
+      if (this.auth.isAdmin) {
+        this.router.navigate(['/']);
+      } else {
+        this.router.navigate(['/ml']);
+      }
     }
     this.loginForm = this.formBuilder.group({
       email: this.email,
@@ -60,7 +64,11 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value).subscribe(
       res => {
         this.sendLoginMessage();
-        this.router.navigate(['/'])
+        if (this.auth.isAdmin) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate(['/ml']);
+        }
       },
       error => this.toast.open('invalid email or password!', 'danger')
     );

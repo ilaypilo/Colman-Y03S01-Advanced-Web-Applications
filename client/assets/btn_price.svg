@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <defs>
+        <style>
+            .cls-1,.cls-6{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:#fff;opacity:0}.cls-4{fill:#6444a6}.cls-5{fill:#734fbe}.cls-6{stroke:#734fbe;stroke-linecap:round;stroke-linejoin:round;stroke-width:8px}
+        </style>
+        <clipPath id="clip-path">
+            <path d="M0 0h44v44H0z" class="cls-1"/>
+        </clipPath>
+    </defs>
+    <g id="btn_price" class="cls-2">
+        <path id="Rectangle_65" d="M0 0h44v44H0z" class="cls-3" data-name="Rectangle 65" transform="rotate(90 22 22)"/>
+        <g id="Group_137" data-name="Group 137" transform="translate(9.444 10.517)">
+            <path id="Path_995" d="M361.207 1214.429h-3.387a.858.858 0 0 1-.859-.858v-5.712a.859.859 0 1 1 1.717 0v4.853h2.529a.859.859 0 1 1 0 1.717z" class="cls-4" data-name="Path 995" transform="translate(-346.667 -1195.624)"/>
+            <path id="Path_996" d="M357.385 1175.463h-16.526a.859.859 0 0 1-.859-.859v-13.461a.859.859 0 0 1 .859-.859h3.64a.859.859 0 0 1 .859.859v5.09a.859.859 0 0 1-1.717 0V1162h-1.923v11.744h14.81v-18.029h-1.288v16.229a.859.859 0 0 1-.859.859h-6.494a.859.859 0 0 1 0-1.717h5.635v-16.229a.859.859 0 0 1 .859-.859h3a.859.859 0 0 1 .859.859v19.743a.859.859 0 0 1-.855.863z" class="cls-5" data-name="Path 996" transform="translate(-333.346 -1154)"/>
+            <path id="Path_998" d="M313.078 1175.463h-3.22a.859.859 0 0 1-.859-.859v-19.746a.859.859 0 0 1 .859-.859h16.956a.859.859 0 0 1 .859.859v13.385a.859.859 0 0 1-.859.859h-3a.859.859 0 0 1-.859-.859v-10.3a.859.859 0 0 1 1.717 0v9.438h1.279v-11.668h-15.234v18.029h1.5v-3.4a.859.859 0 1 1 1.717 0v4.261a.859.859 0 0 1-.856.86z" class="cls-4" data-name="Path 998" transform="translate(-309 -1154)"/>
+            <path id="Path_999" d="M324.859 1182.471a.859.859 0 0 1-.859-.859v-12.365a.859.859 0 0 1 .859-.859h10.731a.859.859 0 1 1 0 1.717h-9.873v11.507a.859.859 0 0 1-.858.859z" class="cls-5" data-name="Path 999" transform="translate(-320.78 -1165.3)"/>
+        </g>
+    </g>
+</svg>

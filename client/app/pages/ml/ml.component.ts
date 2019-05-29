@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 import { MlService } from '../../services/ml.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
@@ -24,7 +25,7 @@ interface Location {
   lng: number;
   viewport?: Object;
   zoom: number;
-  address_level_1?:string;
+  address_level_1?: string;
   address_level_2?: string;
   address_country?: string;
   address_zip?: string;
@@ -34,13 +35,14 @@ interface Location {
 
 @Component({
   selector: 'app-ml',
+  template: '<mat-spinner-button (btnClick)="btnClick()" [options]="btnOpts"></mat-spinner-button>',
   templateUrl: './ml.component.html',
   styleUrls: ['./ml.component.scss']
 })
 export class MlComponent implements OnInit {
-  
+
   @ViewChild(AgmMap)
-   map: AgmMap;
+  map: AgmMap;
 
   title = 'חישוב מחיר לנכס';
   isLoading = true;
@@ -63,17 +65,22 @@ export class MlComponent implements OnInit {
   ]);
   floor = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(0),
+    Validators.max(20)
   ]);
   building_mr = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(30)
   ]);
   rooms_number = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(1),
+    Validators.max(7)
   ]);
-  isSearching: Boolean = false;
+  isSearching: boolean = false;
   cities: String[] = [];
   filteredCities: Observable<String[]>;
   neighborhoods: String[] = [];
@@ -85,8 +92,8 @@ export class MlComponent implements OnInit {
   build_years: String[] = [];
   filteredBuildYears: Observable<String[]>;
   prediction: Number;
-  geocoder:any;
-  
+  geocoder: any;
+
   public location: Location = {
     lat: 31.0461,
     lng: 34.8516,
@@ -100,8 +107,23 @@ export class MlComponent implements OnInit {
   };
 
   public markers: Marker[] = [];
-  public currentMarker: Marker;
-  
+
+  // Button Options
+  btnOpts: MatProgressButtonOptions = {
+    active: this.isSearching,
+    text: 'חשב',
+    spinnerSize: 19,
+    raised: false,
+    stroked: false,
+    flat: true,
+    fab: false,
+    buttonColor: 'accent',
+    spinnerColor: 'accent',
+    fullWidth: true,
+    disabled: true,
+    mode: 'indeterminate',
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     public toast: ToastComponent,
@@ -114,8 +136,7 @@ export class MlComponent implements OnInit {
       this.geocoder = new google.maps.Geocoder();
     });
 
-
-   }
+  }
 
   ngOnInit() {
     this.predictForm = this.formBuilder.group({
@@ -131,22 +152,22 @@ export class MlComponent implements OnInit {
 
     this.filteredCities = this.city.valueChanges
       .pipe(startWith(''),
-         map(val => this.optionsFilter(val, this.cities)));
+        map(val => this.optionsFilter(val, this.cities)));
 
     this.filteredNeighborhoods = this.neighborhood.valueChanges
-    .pipe(startWith(''),
-      map(val => this.optionsFilter(val, this.neighborhoods)));
+      .pipe(startWith(''),
+        map(val => this.optionsFilter(val, this.neighborhoods)));
 
     this.filteredStreets = this.street.valueChanges
-    .pipe(startWith(''),
+      .pipe(startWith(''),
         map(val => this.optionsFilter(val, this.streets)));
 
     this.filteredPropertyTypes = this.property_type.valueChanges
-    .pipe(startWith(''),
+      .pipe(startWith(''),
         map(val => this.optionsFilter(val, this.property_types)));
 
     this.filteredBuildYears = this.build_year.valueChanges
-    .pipe(startWith(''),
+      .pipe(startWith(''),
         map(val => this.optionsFilter(val, this.build_years)));
 
     this.mlService.getCities().subscribe(
@@ -174,8 +195,15 @@ export class MlComponent implements OnInit {
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
     );
-    
+    this.onChanges();
+
   }
+  onChanges(): void {
+    this.predictForm.valueChanges.subscribe(val => {
+      this.btnOpts.disabled = !this.predictForm.valid;
+    });
+  }
+
   findLocation(address) {
     this.markers = []
     if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
@@ -191,21 +219,15 @@ export class MlComponent implements OnInit {
           this.location.marker.lng = results[0].geometry.location.lng();
           this.location.marker.draggable = true;
           this.location.viewport = results[0].geometry.viewport;
-          // skip the same element
-          if (this.currentMarker &&
-              results[0].geometry.location.lat() === this.currentMarker.lat &&
-              results[0].geometry.location.lng() === this.currentMarker.lng ) {
-              this.isSearching = false;
-              return;
-            }
+          
           this.markers = []
-          this.currentMarker = {
-            lat :  results[0].geometry.location.lat(),
-            lng : results[0].geometry.location.lng(),
-            draggable: true
-          }
+ 
           this.isSearching = false;
-          this.markers.push(this.currentMarker);
+          this.markers.push( {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng(),
+            draggable: true
+          });
           this.map.triggerResize(false);
         }
       } else {
@@ -215,7 +237,7 @@ export class MlComponent implements OnInit {
     },
     )
   }
-  
+
   cityChanged(event, city) {
     if (!event.source.selected) return;
     this.isSearching = true;
@@ -278,7 +300,7 @@ export class MlComponent implements OnInit {
   }
 
   optionsFilter(val: String, options: String[]) {
-    if (null == val){
+    if (null == val) {
       return options;
     }
     return options.filter(option =>
@@ -287,14 +309,24 @@ export class MlComponent implements OnInit {
 
   predict() {
     this.isSearching = true;
-    this.mlService.predict(this.predictForm.value).subscribe(
-      data => {
-        console.log(data);
-        this.isSearching = false;
-        this.prediction = data[0];
-        this.toast.open('you successfully predict!', 'success');
-      },
-      error => this.toast.open(error, 'danger')
-    );
+    this.btnOpts.active = true;
+    setTimeout(() => {
+      this.mlService.predict(this.predictForm.value).subscribe(
+        data => {
+          console.log(data);
+          this.isSearching = false;
+          this.btnOpts.active = false;
+          this.prediction = data[0];
+          this.toast.open('you successfully predicted!', 'success');
+        },
+        error => {
+          this.toast.open(error, 'danger');
+          this.btnOpts.active = false;
+        }
+      );
+
+    }, 3350);
+
+   
   }
 }

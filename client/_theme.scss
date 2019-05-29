@@ -34,6 +34,12 @@ $md-pink-palette: (
     )
 );
 
+$md-white-palette:(
+    500:#FFFFFF,
+    contrast: (
+        500 : #000000,
+    )
+);
 
 $md-purple-palette: (
     50 : #eeeaf7,
@@ -70,7 +76,7 @@ $md-purple-palette: (
 
 
 $primary: mat-palette($md-purple-palette, 500);
-$accent : mat-palette($md-pink-palette);
+$accent : mat-palette($md-pink-palette, 500);
 $theme: mat-light-theme($primary, $accent);
 
 @include angular-material-theme($theme);
