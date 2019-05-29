@@ -78,3 +78,23 @@ body {
     margin-right: auto;
 }
 
+
+.page-header {
+    text-align: center;
+    height: 80px;
+    width: 100%;
+    background-color: #6444a6;
+    font-family: Heebo;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center;
+    margin-bottom: 70px;
+  }
