@@ -51,7 +51,7 @@ export class MlComponent implements OnInit {
     Validators.required,
   ]);
   neighborhood = new FormControl('', [
-    // Validators.required,
+    Validators.required,
   ]);
   street = new FormControl('', [
     Validators.required,
@@ -65,15 +65,20 @@ export class MlComponent implements OnInit {
   ]);
   floor = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(0),
+    Validators.max(20)
   ]);
   building_mr = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(30)
   ]);
   rooms_number = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(1),
+    Validators.max(7)
   ]);
   isSearching: boolean = false;
   cities: String[] = [];
@@ -102,7 +107,6 @@ export class MlComponent implements OnInit {
   };
 
   public markers: Marker[] = [];
-  public currentMarker: Marker;
 
   // Button Options
   btnOpts: MatProgressButtonOptions = {
@@ -115,7 +119,7 @@ export class MlComponent implements OnInit {
     fab: false,
     buttonColor: 'accent',
     spinnerColor: 'accent',
-    fullWidth: false,
+    fullWidth: true,
     disabled: true,
     mode: 'indeterminate',
   };
@@ -199,6 +203,7 @@ export class MlComponent implements OnInit {
       this.btnOpts.disabled = !this.predictForm.valid;
     });
   }
+
   findLocation(address) {
     this.markers = []
     if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
@@ -214,21 +219,15 @@ export class MlComponent implements OnInit {
           this.location.marker.lng = results[0].geometry.location.lng();
           this.location.marker.draggable = true;
           this.location.viewport = results[0].geometry.viewport;
-          // skip the same element
-          if (this.currentMarker &&
-            results[0].geometry.location.lat() === this.currentMarker.lat &&
-            results[0].geometry.location.lng() === this.currentMarker.lng) {
-            this.isSearching = false;
-            return;
-          }
+          
           this.markers = []
-          this.currentMarker = {
+ 
+          this.isSearching = false;
+          this.markers.push( {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng(),
             draggable: true
-          }
-          this.isSearching = false;
-          this.markers.push(this.currentMarker);
+          });
           this.map.triggerResize(false);
         }
       } else {

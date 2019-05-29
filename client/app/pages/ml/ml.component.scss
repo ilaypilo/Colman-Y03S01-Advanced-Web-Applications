@@ -45,7 +45,7 @@ agm-map {
 }
 
 .calc-button {
-  max-width: 500px;
+  width: 100px;
   height: 44px;
   border-radius: 22px;
 }
@@ -80,4 +80,9 @@ agm-map {
 
 .calc-div {
   height: 90px;
+}
+
+#calc-button-div{
+  padding-left: 45px;
+  padding-right: 30px;
 }

@@ -87,7 +87,7 @@
               <!-- floor -->
               <mat-form-field id="param-item" appearance="outline" color="accent">
                 <mat-label>קומה</mat-label>
-                <input type="number" matInput [formControl]="floor" placeholder="קומה">
+                <input type="number" min="0" max="20" matInput [formControl]="floor" placeholder="קומה">
                 <mat-error *ngIf="floor.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
@@ -99,7 +99,7 @@
               <!-- rooms_number -->
               <mat-form-field id="param-item" appearance="outline" color="accent">
                 <mat-label>חדרים</mat-label>
-                <input type="number" matInput [formControl]="rooms_number" placeholder="חדרים">
+                <input type="number" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
                 <mat-error *ngIf="rooms_number.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
@@ -111,7 +111,7 @@
               <!-- building_mr -->
               <mat-form-field id="param-item" appearance="outline" color="accent">
                 <mat-label>מטר רבוע</mat-label>
-                <input type="number" matInput [formControl]="building_mr" placeholder="מטר רבוע">
+                <input type="number" min="30" matInput [formControl]="building_mr" placeholder="מטר רבוע">
                 <mat-error *ngIf="building_mr.hasError('required')">
                   <strong>required</strong>
                 </mat-error>
@@ -120,8 +120,11 @@
                 </mat-error>
               </mat-form-field>
               <br />
-              <mat-spinner-button class="calc-button" type="submit" (btnClick)="predict()" [options]="btnOpts">
-              </mat-spinner-button>
+
+              <div class="d-flex justify-content-center align-items-center" id="calc-button-div"> 
+                <mat-spinner-button class="calc-button" type="submit" (btnClick)="predict()" [options]="btnOpts">
+                </mat-spinner-button>
+              </div>
               <br />
               <div class="calc-div">
                 <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS'}}</div>
