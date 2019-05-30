@@ -3,144 +3,177 @@
 <app-toast [message]="toast.message"></app-toast>
 <!-- asset -->
 <div [hidden]="isLoading" class="appcontainer">
+
   <div class="page-header">חישוב מחיר לנכס</div>
 
-  <div class="row">
-    <div class="col-md-12 col-centered" id="app-table">
-      <div>
-        <!-- asset -->
-        <mat-grid-list cols="2" dir="rtl" id="ml-grid" rowHeight="fit">
-          <mat-grid-tile>
-            <form [formGroup]="predictForm" (ngSubmit)="predict()" dir="rtl">
-              <!-- city -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>עיר</mat-label>
-                <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
-                <mat-autocomplete #autoCity="matAutocomplete">
-                  <mat-option (onSelectionChange)="cityChanged($event, city)"
-                    *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="city.hasError('required')">
-                  <strong>חובה</strong>
-                </mat-error>
-              </mat-form-field>
+  <form [formGroup]="predictForm" (ngSubmit)="predict()" dir="rtl">
 
-              <!-- neighborhood -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>שכונה</mat-label>
-                <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood"
-                  placeholder="שכונה">
-                <mat-autocomplete #autoNeighborhood="matAutocomplete">
-                  <mat-option (onSelectionChange)="neighborhoodChanged($event, neighborhood)"
-                    *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">{{neighborhood}}
-                  </mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="neighborhood.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
+    <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px" (window:resize)="onResize($event)" dir="rtl">
+      <!-- 2 empty items for margin-->
+      <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">
+      </mat-grid-tile>
 
-              <!-- street -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>רחוב</mat-label>
-                <input type="text" matInput [formControl]="street" [matAutocomplete]="autoStreet" placeholder="רחוב">
-                <mat-autocomplete #autoStreet="matAutocomplete">
-                  <mat-option (onSelectionChange)="streetChanged($event, street)"
-                    *ngFor="let street of filteredStreets | async" [value]="street">{{street}}</mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="street.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
+      <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">
+      </mat-grid-tile>
 
-              <!-- property_type -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>סוג הנכס</mat-label>
-                <input type="text" matInput [formControl]="property_type" [matAutocomplete]="autoPropertyType"
-                  placeholder="סוג הנכס">
-                <mat-autocomplete #autoPropertyType="matAutocomplete">
-                  <mat-option *ngFor="let property_type of filteredPropertyTypes | async" [value]="property_type">
-                    {{property_type}}</mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="property_type.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
 
-              <!-- build_year -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>שנת בנייה</mat-label>
-                <input type="number" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
-                  placeholder="שנת בנייה">
-                <mat-autocomplete #autoBuildYear="matAutocomplete">
-                  <mat-option *ngFor="let build_year of filteredBuildYears | async" [value]="build_year">{{build_year}}
-                  </mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="build_year.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="build_year.hasError('pattern')">
-                  מספרים בלבד
-                </mat-error>
-              </mat-form-field>
+      <!--Map-->
+      <mat-grid-tile class="param-item" [colspan]="mapColNumber" [rowspan]="mapRowsNumber">
+        <agm-map #AgmMap [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom"
+          [disableDefaultUI]="true" [zoomControl]="true" [(fitBounds)]='location.viewport'>
+          <agm-marker *ngFor="let element of markers" [latitude]="element.lat" [longitude]="element.lng"
+            [animation]="'DROP'"></agm-marker>
+        </agm-map>
+      </mat-grid-tile>
 
-              <!-- floor -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>קומה</mat-label>
-                <input type="number" min="0" max="20" matInput [formControl]="floor" placeholder="קומה">
-                <mat-error *ngIf="floor.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="floor.hasError('pattern')">
-                  מספרים בלבד
-                </mat-error>
-              </mat-form-field>
+      <!--Content-->
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- city -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>עיר</mat-label>
+          <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
+          <mat-autocomplete #autoCity="matAutocomplete">
+            <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async"
+              [value]="city">{{city}}</mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="city.hasError('required')">
+            <strong>חובה</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-              <!-- rooms_number -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>חדרים</mat-label>
-                <input type="number" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
-                <mat-error *ngIf="rooms_number.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="rooms_number.hasError('pattern')">
-                  מספרים בלבד
-                </mat-error>
-              </mat-form-field>
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- neighborhood -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>שכונה</mat-label>
+          <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood"
+            placeholder="שכונה">
+          <mat-autocomplete #autoNeighborhood="matAutocomplete">
+            <mat-option (onSelectionChange)="neighborhoodChanged($event, neighborhood)"
+              *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood">
+              {{neighborhood}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="neighborhood.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-              <!-- building_mr -->
-              <mat-form-field id="param-item" appearance="outline" color="accent">
-                <mat-label>מטר רבוע</mat-label>
-                <input type="number" min="30" matInput [formControl]="building_mr" placeholder="מטר רבוע">
-                <mat-error *ngIf="building_mr.hasError('required')">
-                  <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="building_mr.hasError('pattern')">
-                  מספרים בלבד
-                </mat-error>
-              </mat-form-field>
-              <br />
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- street -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>רחוב</mat-label>
+          <input type="text" matInput [formControl]="street" [matAutocomplete]="autoStreet" placeholder="רחוב">
+          <mat-autocomplete #autoStreet="matAutocomplete">
+            <mat-option (onSelectionChange)="streetChanged($event, street)"
+              *ngFor="let street of filteredStreets | async" [value]="street">{{street}}</mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="street.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-              <div class="d-flex justify-content-center align-items-center" id="calc-button-div"> 
-                <mat-spinner-button class="calc-button" type="submit" (btnClick)="predict()" [options]="btnOpts">
-                </mat-spinner-button>
-              </div>
-              <br />
-              <div class="calc-div">
-                <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS'}}</div>
-                <div class="calc-info" [hidden]="!(this.prediction > 0)">מחיר משוערך</div>
-              </div>
-            </form>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <agm-map #AgmMap [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom"
-              [disableDefaultUI]="true" [zoomControl]="true" [(fitBounds)]='location.viewport'>
-              <agm-marker *ngFor="let element of markers" [latitude]="element.lat" [longitude]="element.lng"
-                [animation]="'DROP'"></agm-marker>
-            </agm-map>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-    </div>
-  </div>
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- property_type -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>סוג הנכס</mat-label>
+          <input type="text" matInput [formControl]="property_type" [matAutocomplete]="autoPropertyType"
+            placeholder="סוג הנכס">
+          <mat-autocomplete #autoPropertyType="matAutocomplete">
+            <mat-option *ngFor="let property_type of filteredPropertyTypes | async" [value]="property_type">
+              {{property_type}}</mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="property_type.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- build_year -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>שנת בנייה</mat-label>
+          <input type="number" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
+            placeholder="שנת בנייה">
+          <mat-autocomplete #autoBuildYear="matAutocomplete">
+            <mat-option *ngFor="let build_year of filteredBuildYears | async" [value]="build_year">
+              {{build_year}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="build_year.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="build_year.hasError('pattern')">
+            מספרים בלבד
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- floor -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>קומה</mat-label>
+          <input type="number" min="0" max="20" matInput [formControl]="floor" placeholder="קומה">
+          <mat-error *ngIf="floor.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="floor.hasError('pattern')">
+            מספרים בלבד
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- rooms_number -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>חדרים</mat-label>
+          <input type="number" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
+          <mat-error *ngIf="rooms_number.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="rooms_number.hasError('pattern')">
+            מספרים בלבד
+          </mat-error>
+        </mat-form-field>
+
+      </mat-grid-tile>
+
+
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+        <!-- building_mr -->
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>מטר רבוע</mat-label>
+          <input type="number" min="30" matInput [formControl]="building_mr" placeholder="מטר רבוע">
+          <mat-error *ngIf="building_mr.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="building_mr.hasError('pattern')">
+            מספרים בלבד
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <!-- Button-->
+      <mat-grid-tile class="param-item" [colspan]="priceColsNumber" [rowspan]="priceRowsNumber">
+        <div class="d-flex justify-content-center align-items-center" id="calc-button-div">
+          <mat-spinner-button class="calc-button" type="submit" (btnClick)="predict()" [options]="btnOpts">
+          </mat-spinner-button>
+        </div>
+        <br />
+      </mat-grid-tile>
+
+      <!-- Price-->
+      <mat-grid-tile class="param-item" [colspan]="priceColsNumber" [rowspan]="priceRowsNumber">
+        <br />
+        <div class="calc-div">
+          <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS'}}</div>
+          <div class="calc-info" [hidden]="!(this.prediction > 0)">מחיר משוערך</div>
+        </div>
+      </mat-grid-tile>
+
+
+    </mat-grid-list>
+  </form>
 </div>

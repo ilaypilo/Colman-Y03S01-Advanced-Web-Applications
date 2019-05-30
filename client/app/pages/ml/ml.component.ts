@@ -94,6 +94,16 @@ export class MlComponent implements OnInit {
   prediction: Number;
   geocoder: any;
 
+  minWidth: number = 500;
+  rowHeight: number = 40;
+  colNumber: number;
+  mapColNumber: number = 2;
+  mapRowsNumber: number = 14;
+  itemRowsNumber: number = 2;
+  itemColsNumber: number = 1;
+  priceRowsNumber: number = 2;
+  priceColsNumber: number = 2;
+
   public location: Location = {
     lat: 31.0461,
     lng: 34.8516,
@@ -139,6 +149,7 @@ export class MlComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resizeElements();
     this.predictForm = this.formBuilder.group({
       city: this.city,
       street: this.street,
@@ -204,6 +215,17 @@ export class MlComponent implements OnInit {
     });
   }
 
+  onResize(event) {
+    this.resizeElements();
+  }
+
+  resizeElements() {
+    this.mapRowsNumber = (window.innerHeight - 250) / this.rowHeight;
+    this.mapColNumber = (window.innerWidth <= this.minWidth) ? 0 : 2;
+    this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 4;
+    this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
+  }
+
   findLocation(address) {
     this.markers = []
     if (!this.geocoder) this.geocoder = new google.maps.Geocoder()
@@ -219,11 +241,11 @@ export class MlComponent implements OnInit {
           this.location.marker.lng = results[0].geometry.location.lng();
           this.location.marker.draggable = true;
           this.location.viewport = results[0].geometry.viewport;
-          
+
           this.markers = []
- 
+
           this.isSearching = false;
-          this.markers.push( {
+          this.markers.push({
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng(),
             draggable: true
@@ -262,6 +284,7 @@ export class MlComponent implements OnInit {
       () => this.isLoading = false
     );
   }
+
   neighborhoodChanged(event, neighborhood) {
     if (!event.source.selected) return;
     this.street.setValue("");
@@ -317,7 +340,6 @@ export class MlComponent implements OnInit {
           this.isSearching = false;
           this.btnOpts.active = false;
           this.prediction = data[0];
-          this.toast.open('you successfully predicted!', 'success');
         },
         error => {
           this.toast.open(error, 'danger');
@@ -327,6 +349,6 @@ export class MlComponent implements OnInit {
 
     }, 3350);
 
-   
+
   }
 }

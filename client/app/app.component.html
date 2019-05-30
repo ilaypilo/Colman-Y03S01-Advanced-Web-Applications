@@ -1,10 +1,20 @@
 <mat-toolbar class="toolbar" color="accent" dir="rtl">
-  <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-    <i class="fa fa-home"></i>
-    <div class="toolbar-logo">
-      <img class="toolbar-logo-image" src="../assets/img_logo_white.svg">
-    </div>
+
+  <a routerLink="/" [hidden]="!showSmallIcon"  class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
+    <img class="logo" src="../assets/roof_Logo.png" >
   </a>
+  
+  <a routerLink="/" [hidden]="showSmallIcon"  class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
+     <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
+      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)"> 
+  </a>
+
+  <button mat-flat-button routerLink="/ml" [style.margin]="margin" class="link" routerLinkActive="active"
+    [hidden]="auth.loggedIn">
+    <img class="menu-icon" src="../assets/btn_price.svg">
+    <div class="menu-text">מחיר נכס</div>
+  </button>
+
   <a [hidden]="!(auth.loggedIn && auth.isAdmin)" [matMenuTriggerFor]="adminMenu" class="link">
     <span>|</span>
     <i class="fa fa-wrench"></i>
@@ -36,10 +46,6 @@
     <i class="fa fa-pie-chart"></i>
   </a>
 
-  <button mat-flat-button routerLink="/ml" class="link" routerLinkActive="active" [hidden]="!auth.loggedIn">
-    <img class="menu-icon" src="../assets/btn_price.svg">
-    <div class="menu-text">מחיר נכס</div>
-  </button>
 
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-button [matMenuTriggerFor]="userMenu" class="link">
