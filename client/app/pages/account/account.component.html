@@ -14,14 +14,13 @@
                 [(ngModel)]="user.username" [formControl]="username" placeholder="Username">
               <mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
               <mat-error *ngIf="username.hasError('minlength')">
-                Username must contain at least 2 characters
+                שם משתמש חייב להכיל לפחות 2 תווים
               </mat-error>
               <mat-error *ngIf="username.hasError('pattern')">
                 Username can contain only letters and numbers
               </mat-error>
               <mat-error *ngIf="username.hasError('required')">
-                Username is
-                <strong>required</strong>
+                <strong>חובה</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -32,15 +31,15 @@
               <input matInput type="email" name="email" [(ngModel)]="user.email"
                 [formControl]="email" placeholder="Email">
               <mat-error *ngIf="email.hasError('pattern')">
-                Please enter a valid email address
+                כתובת אימייל לא תקינה
               </mat-error>
               <mat-error *ngIf="email.hasError('required')">
-                Email is
-                <strong>required</strong>
+                <strong>חובה</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <button mat-raised-button type="submit" [disabled]="!editForm.valid" color="accent">
+            עדכן
           </button>
         </form>
       </div>

@@ -5,7 +5,7 @@
 
   <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="80px" (window:resize)="onResize($event)" dir="rtl">
  
-      <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="2">
+      <mat-grid-tile [colspan]="1" [rowspan]="2">
           <div *ngIf="!auth.loggedIn" class="btn-wrap">
               <button mat-raised-button id="login-button" routerLink="/login" routerLinkActive="active" color="accent">
                התחברות  <i class="fa fa-sign-in"></i> 
@@ -18,7 +18,7 @@
               </button>
             </div>
       </mat-grid-tile>
-      <mat-grid-tile class="param-item" [colspan]="imgCol" [rowspan]="4">
+      <mat-grid-tile [colspan]="imgCol" [rowspan]="4">
           <img class="mockup-img" src="assets/img_web_mockups.jpg" alt="image">
       </mat-grid-tile>
 

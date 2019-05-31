@@ -16,6 +16,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class LoginComponent implements OnInit {
 
   title = 'Login';
+  hide = true;
 
   loginForm: FormGroup;
   email = new FormControl('', [
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.loggedIn) {
-      this.sendLoginMessage();//TODO add if admin to another page
+      this.sendLoginMessage();
       if (this.auth.isAdmin) {
         this.router.navigate(['/']);
       } else {
