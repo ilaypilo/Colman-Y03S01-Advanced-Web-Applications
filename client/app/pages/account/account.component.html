@@ -11,13 +11,13 @@
                 <mat-icon matSuffix>person</mat-icon>
               <mat-label>שם משתמש</mat-label>
               <input matInput #input type="text" minlength="2" maxlength="30" name="username"
-                [(ngModel)]="user.username" [formControl]="username" placeholder="Username">
+                [(ngModel)]="user.username" [formControl]="username" placeholder="שם משתמש">
               <mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
               <mat-error *ngIf="username.hasError('minlength')">
                 שם משתמש חייב להכיל לפחות 2 תווים
               </mat-error>
               <mat-error *ngIf="username.hasError('pattern')">
-                Username can contain only letters and numbers
+                שם המשתמש צריך להיות באנגלית
               </mat-error>
               <mat-error *ngIf="username.hasError('required')">
                 <strong>חובה</strong>
@@ -29,7 +29,7 @@
                 <mat-label>אימייל</mat-label>
                 <mat-icon matSuffix>alternate_email</mat-icon>
               <input matInput type="email" name="email" [(ngModel)]="user.email"
-                [formControl]="email" placeholder="Email">
+                [formControl]="email" placeholder="אימייל">
               <mat-error *ngIf="email.hasError('pattern')">
                 כתובת אימייל לא תקינה
               </mat-error>

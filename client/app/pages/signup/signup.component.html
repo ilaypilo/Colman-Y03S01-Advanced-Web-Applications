@@ -1,62 +1,63 @@
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="container">
-  <app-page-header [title]="title"></app-page-header>
+<div class="appcontainer" dir="rtl">
+  <div class="page-header">רישום</div>
   <div class="row">
     <div class="col-md-4 col-sm-12 col-centered">
       <div class="form-wrap">
         <form [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="input-wrap">
-            <mat-form-field>
-              <span matPrefix>
-                <i class="prefix fa fa-user"></i>
-              </span>
-              <input matInput #input type="text" minlength="2" maxlength="30" name="username" [formControl]="username" placeholder="Username">
+            <mat-form-field appearance="outline" color="accent">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-label>שם משתמש</mat-label>
+              <input matInput #input type="text" minlength="2" maxlength="30" name="username" [formControl]="username"
+                placeholder="שם משתמש">
               <mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
               <mat-error *ngIf="username.hasError('minlength')">
-                Username must contain at least 2 characters
+                שם משתמש חייב להכיל לפחות 2 תווים
               </mat-error>
               <mat-error *ngIf="username.hasError('pattern')">
-                Username can contain only letters and numbers
+                שם המשתמש צריך להיות באנגלית
               </mat-error>
               <mat-error *ngIf="username.hasError('required')">
-                Username is
-                <strong>required</strong>
+                <strong>חובה</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div class="input-wrap">
-            <mat-form-field>
-              <span matPrefix>
-                <i class="prefix fa fa-envelope"></i>
-              </span>
-              <input matInput type="email" name="email" [formControl]="email" placeholder="Email">
+            <mat-form-field appearance="outline" color="accent">
+              <mat-label>אימייל</mat-label>
+              <mat-icon matSuffix>alternate_email</mat-icon>
+              <input matInput type="email" name="email" [formControl]="email"
+                placeholder="אימייל">
               <mat-error *ngIf="email.hasError('pattern')">
-                Please enter a valid email address
+                כתובת אימייל לא תקינה
               </mat-error>
               <mat-error *ngIf="email.hasError('required')">
-                Email is
-                <strong>required</strong>
+                <strong>חובה</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div class="input-wrap">
-            <mat-form-field>
-              <span matPrefix>
-                <i class="prefix fa fa-key"></i>
-              </span>
-              <input matInput type="password" name="password" [formControl]="password" placeholder="Password">
+            <mat-form-field appearance="outline" color="accent">
+              <input matInput placeholder="סיסמה" [formControl]="password" [type]="hide ? 'password' : 'text'"
+                name="password">
+              <mat-label>סיסמה</mat-label>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
               <mat-error *ngIf="password.hasError('minlength')">
-                Password must be at least 6 characters long
+                סיסמה צריכה להכיל לפחות 6 תווים
               </mat-error>
               <mat-error *ngIf="password.hasError('required')">
-                Password is
-                <strong>required</strong>
+                <strong>שדה חובה</strong>
               </mat-error>
             </mat-form-field>
+
           </div>
           <button mat-raised-button type="submit" [disabled]="!registerForm.valid" color="accent">
-            <i class="fa fa-paper-plane"></i> רישום
+           רישום
           </button>
         </form>
       </div>
