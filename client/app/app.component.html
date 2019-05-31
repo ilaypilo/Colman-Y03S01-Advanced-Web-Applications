@@ -1,20 +1,26 @@
 <mat-toolbar class="toolbar" color="accent" dir="rtl">
 
-  <a routerLink="/" [hidden]="!showSmallIcon"  class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
-    <img class="logo" src="../assets/roof_Logo.png" >
+  <!--- Small logo -->
+  <a routerLink="/" [hidden]="!showSmallIcon" class="link" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
+    <img class="logo" src="../assets/roof_Logo.png">
   </a>
+
+  <!--- Big logo -->
+  <a routerLink="/" [hidden]="showSmallIcon" class="link" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
+    <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
+      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)">
+  </a>
+
+  <!-- ML -->
+  <div [hidden]="!(auth.loggedIn)">
+    <button mat-flat-button routerLink="/ml" [style.margin]="margin" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_price.svg">
+      <div class="menu-text">מחיר נכס</div>
+    </button>
+  </div>
   
-  <a routerLink="/" [hidden]="showSmallIcon"  class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
-     <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
-      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)"> 
-  </a>
-
-  <button mat-flat-button routerLink="/ml" [style.margin]="margin" class="link" routerLinkActive="active"
-    [hidden]="auth.loggedIn">
-    <img class="menu-icon" src="../assets/btn_price.svg">
-    <div class="menu-text">מחיר נכס</div>
-  </button>
-
   <a [hidden]="!(auth.loggedIn && auth.isAdmin)" [matMenuTriggerFor]="adminMenu" class="link">
     <span>|</span>
     <i class="fa fa-wrench"></i>
@@ -33,7 +39,7 @@
       <span>ביצועים</span>
     </a>
   </mat-menu>
-  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
+  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn)">
     <span>|</span>
     <i class="fa fa-hotel"></i>
   </a>
