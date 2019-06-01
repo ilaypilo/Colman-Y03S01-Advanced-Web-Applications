@@ -104,6 +104,7 @@ export class MlComponent implements OnInit {
   priceRowsNumber: number = 2;
   priceColsNumber: number = 2;
   paddingColsNumber: number = 1;
+  buttonWidth: number;
 
   public location: Location = {
     lat: 31.0461,
@@ -226,6 +227,7 @@ export class MlComponent implements OnInit {
     this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 4;
     this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
     this.paddingColsNumber = (window.innerWidth <= this.minWidth) ? 0 : 1;
+    this.buttonWidth = (window.innerWidth <= this.minWidth) ? 90 : 95;
   }
 
   findLocation(address) {
@@ -333,24 +335,24 @@ export class MlComponent implements OnInit {
   }
 
   predict() {
-    this.isSearching = true;
-    this.btnOpts.active = true;
-    setTimeout(() => {
-      this.mlService.predict(this.predictForm.value).subscribe(
-        data => {
-          console.log(data);
-          this.isSearching = false;
-          this.btnOpts.active = false;
-          this.prediction = data[0];
-        },
-        error => {
-          this.toast.open(error, 'danger');
-          this.btnOpts.active = false;
-        }
-      );
+    if (!this.isSearching) {
+      this.isSearching = true;
+      this.btnOpts.active = true;
+      setTimeout(() => {
+        this.mlService.predict(this.predictForm.value).subscribe(
+          data => {
+            console.log(data);
+            this.isSearching = false;
+            this.btnOpts.active = false;
+            this.prediction = data[0];
+          },
+          error => {
+            this.toast.open(error, 'danger');
+            this.btnOpts.active = false;
+          }
+        );
 
-    }, 3350);
-
-
+      }, 3350);
+    }
   }
 }

@@ -37,6 +37,7 @@
             </mat-form-field>
           </div>
           <button mat-raised-button type="submit" id="login-button" [disabled]="!loginForm.valid" color="accent">
+              <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoading"></i>
             כניסה
           </button>
         </form>

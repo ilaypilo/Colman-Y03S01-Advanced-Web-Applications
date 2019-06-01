@@ -15,6 +15,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class SignupComponent implements OnInit {
 
   title = 'הרשמה';
+  isLoading: boolean = false;
 
   registerForm: FormGroup;
   username = new FormControl('', [
@@ -50,12 +51,17 @@ export class SignupComponent implements OnInit {
   }
 
   register() {
+    this.isLoading = true;
     this.userService.register(this.registerForm.value).subscribe(
       res => {
         this.toast.open('you successfully registered!', 'success');
         this.router.navigate(['/login']);
+        this.isLoading = false;
       },
-      error => this.toast.open('email already exists', 'danger')
+      error => {
+        this.toast.open('email already exists', 'danger');
+        this.isLoading = false;
+      }
     );
   }
 }

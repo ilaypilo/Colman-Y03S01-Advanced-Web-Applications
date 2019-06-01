@@ -57,6 +57,7 @@
 
           </div>
           <button mat-raised-button type="submit" [disabled]="!registerForm.valid" color="accent">
+              <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoading"></i>
            רישום
           </button>
         </form>

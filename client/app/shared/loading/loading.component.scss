@@ -1,6 +1,21 @@
 .abs-center {
     position: absolute;
+
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+
     top: 50%;
     left: 50%;
+    margin-top: -15px;
+    margin-left: -15px;
+}
+
+.mat-spinner{
     transform: translate(-50%, -50%);
+
+   
+    position: absolute;
+
+
 }

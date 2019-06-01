@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   title = 'Login';
   hide = true;
+  isLoading: boolean = false;
 
   loginForm: FormGroup;
   email = new FormControl('', [
@@ -62,12 +63,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isLoading = true;
     this.auth.login(this.loginForm.value).subscribe(
       res => {
         this.sendLoginMessage();
         this.router.navigate(['/ml']);
+        this.isLoading = false;
       },
-      error => this.toast.open('invalid email or password!', 'danger')
+      error =>{
+        this.toast.open('invalid email or password!', 'danger');
+this.isLoading = false;
+      } 
     );
   }
 }
