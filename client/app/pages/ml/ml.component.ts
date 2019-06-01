@@ -103,6 +103,7 @@ export class MlComponent implements OnInit {
   itemColsNumber: number = 1;
   priceRowsNumber: number = 2;
   priceColsNumber: number = 2;
+  paddingColsNumber: number = 1;
 
   public location: Location = {
     lat: 31.0461,
@@ -224,6 +225,7 @@ export class MlComponent implements OnInit {
     this.mapColNumber = (window.innerWidth <= this.minWidth) ? 0 : 2;
     this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 4;
     this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
+    this.paddingColsNumber = (window.innerWidth <= this.minWidth) ? 0 : 1;
   }
 
   findLocation(address) {

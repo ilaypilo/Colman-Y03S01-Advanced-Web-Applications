@@ -65,11 +65,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value).subscribe(
       res => {
         this.sendLoginMessage();
-        if (this.auth.isAdmin) {
-          this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['/ml']);
-        }
+        this.router.navigate(['/ml']);
       },
       error => this.toast.open('invalid email or password!', 'danger')
     );

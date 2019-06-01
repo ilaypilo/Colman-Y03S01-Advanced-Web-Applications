@@ -10,7 +10,7 @@
 
     <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px" (window:resize)="onResize($event)" dir="rtl">
       <!-- 2 empty items for margin-->
-      <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">
+      <mat-grid-tile class="param-item" [colspan]="paddingColsNumber" [rowspan]="paddingColsNumber">
       </mat-grid-tile>
 
       <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">

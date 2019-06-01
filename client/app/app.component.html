@@ -15,44 +15,30 @@
 
   <!-- ML -->
   <div [hidden]="!(auth.loggedIn)">
-    <button mat-flat-button routerLink="/ml" [style.margin]="margin" class="link" routerLinkActive="active">
+    <button mat-flat-button routerLink="/ml" [style.margin-right]="margin" class="link" routerLinkActive="active">
       <img class="menu-icon" src="../assets/btn_price.svg">
       <div class="menu-text">מחיר נכס</div>
     </button>
   </div>
-  
-  <a [hidden]="!(auth.loggedIn && auth.isAdmin)" [matMenuTriggerFor]="adminMenu" class="link">
-    <span>|</span>
-    <i class="fa fa-wrench"></i>
-  </a>
-  <mat-menu #adminMenu="matMenu">
-    <a mat-menu-item routerLink="/users">
-      <i class="fa fa-user"></i>
-      <span>משתמשים</span>
-    </a>
-    <a mat-menu-item routerLink="/connected">
-      <i class="fa fa-plug"></i>
-      <span>מחוברים</span>
-    </a>
-    <a mat-menu-item routerLink="/ml-performance">
-      <i class="fa fa-plug"></i>
-      <span>ביצועים</span>
-    </a>
-  </mat-menu>
-  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn)">
-    <span>|</span>
-    <i class="fa fa-hotel"></i>
-  </a>
-  <a routerLink="/deals" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
-    <span>|</span>
-    <i class="fa fa-dollar"></i>
-  </a>
-  <a routerLink="/statistics" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
-    <span>|</span>
-    <i class="fa fa-pie-chart"></i>
-  </a>
 
 
+  <!-- Graphs -->
+  <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
+    <button mat-flat-button routerLink="/ml-performance" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_price.svg">
+      <div class="menu-text">ביצועים</div>
+    </button>
+  </div>
+
+  <!-- Users -->
+  <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
+    <button mat-flat-button routerLink="/users" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_price.svg">
+      <div class="menu-text">משתמשים</div>
+    </button>
+  </div>
+
+  <!--- User menu -->
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-button [matMenuTriggerFor]="userMenu" class="link">
       <img class="menu-icon" src="../assets/btn_user.svg">
