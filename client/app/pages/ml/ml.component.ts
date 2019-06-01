@@ -75,7 +75,7 @@ export class MlComponent implements OnInit {
   ]);
   rooms_number = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*'),
+    Validators.pattern('([0-9]*[.])?[0-9]+'),
     Validators.min(1),
     Validators.max(7)
   ]);

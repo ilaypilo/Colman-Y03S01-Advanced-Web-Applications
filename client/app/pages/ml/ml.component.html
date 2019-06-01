@@ -137,7 +137,7 @@
         <mat-form-field appearance="outline" color="accent">
           <mat-label>חדרים</mat-label>
           <mat-icon matSuffix  svgIcon="ic_rooms"></mat-icon>
-          <input type="number" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
+          <input  type="number" step="0.5" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
           <mat-error *ngIf="rooms_number.hasError('required')">
             <strong>required</strong>
           </mat-error>
