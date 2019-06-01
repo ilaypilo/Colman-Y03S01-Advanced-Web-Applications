@@ -17,11 +17,7 @@ export class HomeComponent {
   ngOnInit() {
     this.resizeElements();
     if (this.auth.loggedIn) {
-      if (this.auth.isAdmin) {
-        this.router.navigate(['/']);
-      } else {
-        this.router.navigate(['/ml']);
-      }
+      this.router.navigate(['/ml']);
     }
   }
 

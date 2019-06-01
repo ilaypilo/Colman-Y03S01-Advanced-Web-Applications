@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
 import { ToastComponent } from './shared/toast/toast.component';
+import { DomSanitizer } from "@angular/platform-browser";
+ import { MatIconRegistry } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +22,43 @@ export class AppComponent {
 
   constructor(
     public auth: AuthService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
   ) {
     chatService.messages.subscribe(data => {
 
     });
     this.userName = auth.currentUser.username;
+
+    this.matIconRegistry.addSvgIcon(
+      "ic_location",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icn_location.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "ic_date",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icn_date.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "ic_rooms",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icn_rooms.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "ic_floor",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icn_floor.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "ic_category",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icn_propery_category.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "ic_size",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icn_size.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      "ic_user",
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/btn_user.svg")
+    );
   }
 
   ngOnInit() {

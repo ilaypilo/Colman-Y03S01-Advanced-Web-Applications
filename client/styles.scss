@@ -54,6 +54,11 @@ body {
   color: $whiteCol;
 }
 
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: #e53367;
+}
+
+
 .mat-table {
   overflow: auto;
   max-height: 500px;

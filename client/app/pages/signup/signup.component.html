@@ -8,7 +8,7 @@
         <form [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="input-wrap">
             <mat-form-field appearance="outline" color="accent">
-              <mat-icon matSuffix>person</mat-icon>
+              <mat-icon matSuffix svgIcon="ic_user"></mat-icon>
               <mat-label>שם משתמש</mat-label>
               <input matInput #input type="text" minlength="2" maxlength="30" name="username" [formControl]="username"
                 placeholder="שם משתמש">
@@ -27,9 +27,8 @@
           <div class="input-wrap">
             <mat-form-field appearance="outline" color="accent">
               <mat-label>אימייל</mat-label>
-              <mat-icon matSuffix>alternate_email</mat-icon>
-              <input matInput type="email" name="email" [formControl]="email"
-                placeholder="אימייל">
+              <mat-icon matSuffix color="primary">alternate_email</mat-icon>
+              <input matInput type="email" name="email" [formControl]="email" placeholder="אימייל">
               <mat-error *ngIf="email.hasError('pattern')">
                 כתובת אימייל לא תקינה
               </mat-error>
@@ -43,7 +42,7 @@
               <input matInput placeholder="סיסמה" [formControl]="password" [type]="hide ? 'password' : 'text'"
                 name="password">
               <mat-label>סיסמה</mat-label>
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              <button mat-icon-button color="primary" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
@@ -57,8 +56,8 @@
 
           </div>
           <button mat-raised-button type="submit" [disabled]="!registerForm.valid" color="accent">
-              <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoading"></i>
-           רישום
+            <i class="fa fa-circle-o-notch fa-spin" *ngIf="isLoading"></i>
+            רישום
           </button>
         </form>
       </div>

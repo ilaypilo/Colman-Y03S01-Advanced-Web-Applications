@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators/map';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
 
-
 declare var google: any;
 
 interface Marker {
@@ -120,22 +119,6 @@ export class MlComponent implements OnInit {
 
   public markers: Marker[] = [];
 
-  // Button Options
-  btnOpts: MatProgressButtonOptions = {
-    active: this.isSearching,
-    text: 'חשב',
-    spinnerSize: 19,
-    raised: false,
-    stroked: false,
-    flat: true,
-    fab: false,
-    buttonColor: 'accent',
-    spinnerColor: 'accent',
-    fullWidth: true,
-    disabled: true,
-    mode: 'indeterminate',
-  };
-
   constructor(
     private formBuilder: FormBuilder,
     public toast: ToastComponent,
@@ -147,7 +130,6 @@ export class MlComponent implements OnInit {
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
     });
-
   }
 
   ngOnInit() {
@@ -208,13 +190,6 @@ export class MlComponent implements OnInit {
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
     );
-    this.onChanges();
-
-  }
-  onChanges(): void {
-    this.predictForm.valueChanges.subscribe(val => {
-      this.btnOpts.disabled = !this.predictForm.valid;
-    });
   }
 
   onResize(event) {
@@ -337,18 +312,15 @@ export class MlComponent implements OnInit {
   predict() {
     if (!this.isSearching) {
       this.isSearching = true;
-      this.btnOpts.active = true;
       setTimeout(() => {
         this.mlService.predict(this.predictForm.value).subscribe(
           data => {
             console.log(data);
             this.isSearching = false;
-            this.btnOpts.active = false;
             this.prediction = data[0];
           },
           error => {
             this.toast.open(error, 'danger');
-            this.btnOpts.active = false;
           }
         );
 

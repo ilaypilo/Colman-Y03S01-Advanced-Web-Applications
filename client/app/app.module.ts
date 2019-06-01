@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
-import { MatProgressButtonsModule } from 'mat-progress-buttons';
 
 /** Components */
 import { AppComponent } from './app.component';
@@ -81,7 +80,6 @@ const PAGES = [
     MatSortModule,
     BarRatingModule,
     NgxChartsModule,
-    MatProgressButtonsModule.forRoot(),
     GalleryModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9goo8rnqXdFBZ0wKt6cpPO3U-sJGOdZ0'
