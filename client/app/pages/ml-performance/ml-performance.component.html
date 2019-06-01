@@ -2,27 +2,59 @@
 
 <app-toast [message]="toast.message"></app-toast>
 <!-- asset -->
-<div [hidden]="isLoading" class="container">
-  <app-page-header [title]="title"></app-page-header>
+<div class="appcontainer" [hidden]="isLoading" dir="rtl">
+  <div class="page-header">ביצועים</div>
 
-  <div class="mat-card">
+  <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px" (window:resize)="onResize($event)"
+    dir="rtl">
+    <!-- 2 empty items for margin-->
+    <mat-grid-tile class="param-item" [colspan]="paddingColsNumber" [rowspan]="paddingColsNumber">
+    </mat-grid-tile>
+
+    <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">
+    </mat-grid-tile>
+
+    <!-- Plot-->
+    <mat-grid-tile class="param-item" [colspan]="plotColNumber" [rowspan]="plotRowsNumber">
+      <img mat-card-image *ngIf="plotUrl" [(src)]="plotUrl" />
+      <img class="placeholder-img" *ngIf="!plotUrl" src="../assets/img_graph_placeholder.svg" />
+    </mat-grid-tile>
+
+    <!--Content-->
     <form [formGroup]="mlForm" dir="rtl">
+
       <!-- city -->
-      <mat-form-field>
-        <span matPrefix>
-          <i class="prefix fa fa-user"></i>
-        </span>
-        <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
-        <mat-autocomplete #autoCity="matAutocomplete">
-          <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async" [value]="city">{{city}}</mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="city.hasError('required')">
-          <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-spinner class="spinner-wrapper" [diameter]="40" *ngIf="isSearching"></mat-spinner>
-      <b>{{mse | currency:'ILS'}}</b>
-      <img mat-card-image *ngIf="plotUrl" [(src)]="plotUrl"/>
+      <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
+
+        <mat-form-field id="param-item" appearance="outline" color="accent">
+          <mat-label>עיר</mat-label>
+          <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
+          <mat-autocomplete #autoCity="matAutocomplete">
+            <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async"
+              [value]="city">{{city}}</mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="city.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <!-- Price-->
+      <mat-grid-tile class="param-item" [colspan]="2" [rowspan]="2">
+        <div class="calc-div">
+          <mat-spinner class="spinner-wrapper" [diameter]="40" *ngIf="isSearching"></mat-spinner>
+          <div class="calc-price" [hidden]="!(this.mse > 0)">{{mse | currency:'ILS'}}</div>
+          <div class="calc-info" [hidden]="!(this.mse > 0)">מחיר משוערך</div>
+        </div>
+      </mat-grid-tile>
     </form>
-  </div>
+
+    <!-- Plot for phone -->
+    <mat-grid-tile class="param-item" [colspan]="smallPlotColNumber" [rowspan]="smallPlotRowsNumber">
+      <img mat-card-image *ngIf="plotUrl" [(src)]="plotUrl" />
+      <img class="placeholder-img"  *ngIf="!plotUrl" src="../assets/img_graph_placeholder.svg" />
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
 </div>

@@ -25,7 +25,7 @@
   <!-- Graphs -->
   <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <button mat-flat-button routerLink="/ml-performance" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_price.svg">
+      <img class="menu-icon" src="../assets/btn_metrics.svg">
       <div class="menu-text">ביצועים</div>
     </button>
   </div>
@@ -33,7 +33,7 @@
   <!-- Users -->
   <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <button mat-flat-button routerLink="/users" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_price.svg">
+      <img class="menu-icon" src="../assets/btn_users.svg">
       <div class="menu-text">משתמשים</div>
     </button>
   </div>
