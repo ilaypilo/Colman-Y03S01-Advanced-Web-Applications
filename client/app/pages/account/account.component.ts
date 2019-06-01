@@ -16,6 +16,8 @@ export class AccountComponent implements OnInit {
 
   title = 'הגדרות משתמש';
 
+  isSearching: boolean = false;
+
   user: User;
   isLoading = true;
   editForm: FormGroup;
@@ -56,9 +58,16 @@ export class AccountComponent implements OnInit {
   }
 
   save(user: User) {
+    this.isSearching = true;
     this.userService.editUser(user).subscribe(
-      res => this.toast.open('account settings saved!', 'success'),
-      error => this.toast.open('email already exists', 'danger')
+      res => {
+        this.toast.open('account settings saved!', 'success');
+        this.isSearching = false;
+      },
+      error => {
+        this.toast.open('email already exists', 'danger');
+        this.isSearching = false;
+      }
     );
   }
 

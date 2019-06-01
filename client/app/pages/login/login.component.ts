@@ -16,6 +16,8 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class LoginComponent implements OnInit {
 
   title = 'Login';
+  hide = true;
+  isLoading: boolean = false;
 
   loginForm: FormGroup;
   email = new FormControl('', [
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.loggedIn) {
-      this.sendLoginMessage();//TODO add if admin to another page
+      this.sendLoginMessage();
       if (this.auth.isAdmin) {
         this.router.navigate(['/']);
       } else {
@@ -61,16 +63,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isLoading = true;
     this.auth.login(this.loginForm.value).subscribe(
       res => {
         this.sendLoginMessage();
-        if (this.auth.isAdmin) {
-          this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['/ml']);
-        }
+        this.router.navigate(['/ml']);
+        this.isLoading = false;
       },
-      error => this.toast.open('invalid email or password!', 'danger')
+      error =>{
+        this.toast.open('invalid email or password!', 'danger');
+this.isLoading = false;
+      } 
     );
   }
 }

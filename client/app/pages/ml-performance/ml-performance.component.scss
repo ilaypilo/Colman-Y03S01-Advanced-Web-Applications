@@ -1,17 +1,17 @@
-@import '../../../variables';
+@import "../../../variables";
 
-.page-header {
-    margin: 30px;
-    font-size: $font-large;
-    text-align: center;
-    font-weight: bold;
-    color: $accentCol;
-}
 .prefix {
-    color: $grayCol;
-    margin: 0 5px;
+  color: $grayCol;
+  margin: 0 5px;
 }
 img {
-    object-fit: cover; /*this makes de image in src fit to the size of specified below*/
-    width: 90%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  vertical-align: top;
+}
+
+.placeholder-img {
+  width: 50%;
+  height: 50%;
 }

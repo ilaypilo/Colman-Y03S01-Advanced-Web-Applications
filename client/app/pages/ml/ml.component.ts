@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators/map';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
 
-
 declare var google: any;
 
 interface Marker {
@@ -103,6 +102,8 @@ export class MlComponent implements OnInit {
   itemColsNumber: number = 1;
   priceRowsNumber: number = 2;
   priceColsNumber: number = 2;
+  paddingColsNumber: number = 1;
+  buttonWidth: number;
 
   public location: Location = {
     lat: 31.0461,
@@ -118,22 +119,6 @@ export class MlComponent implements OnInit {
 
   public markers: Marker[] = [];
 
-  // Button Options
-  btnOpts: MatProgressButtonOptions = {
-    active: this.isSearching,
-    text: 'חשב',
-    spinnerSize: 19,
-    raised: false,
-    stroked: false,
-    flat: true,
-    fab: false,
-    buttonColor: 'accent',
-    spinnerColor: 'accent',
-    fullWidth: true,
-    disabled: true,
-    mode: 'indeterminate',
-  };
-
   constructor(
     private formBuilder: FormBuilder,
     public toast: ToastComponent,
@@ -145,7 +130,6 @@ export class MlComponent implements OnInit {
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
     });
-
   }
 
   ngOnInit() {
@@ -206,13 +190,6 @@ export class MlComponent implements OnInit {
       error => this.toast.open(error.statusText, "danger"),
       () => this.isLoading = false
     );
-    this.onChanges();
-
-  }
-  onChanges(): void {
-    this.predictForm.valueChanges.subscribe(val => {
-      this.btnOpts.disabled = !this.predictForm.valid;
-    });
   }
 
   onResize(event) {
@@ -224,6 +201,8 @@ export class MlComponent implements OnInit {
     this.mapColNumber = (window.innerWidth <= this.minWidth) ? 0 : 2;
     this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 4;
     this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
+    this.paddingColsNumber = (window.innerWidth <= this.minWidth) ? 0 : 1;
+    this.buttonWidth = (window.innerWidth <= this.minWidth) ? 90 : 95;
   }
 
   findLocation(address) {
@@ -331,24 +310,21 @@ export class MlComponent implements OnInit {
   }
 
   predict() {
-    this.isSearching = true;
-    this.btnOpts.active = true;
-    setTimeout(() => {
-      this.mlService.predict(this.predictForm.value).subscribe(
-        data => {
-          console.log(data);
-          this.isSearching = false;
-          this.btnOpts.active = false;
-          this.prediction = data[0];
-        },
-        error => {
-          this.toast.open(error, 'danger');
-          this.btnOpts.active = false;
-        }
-      );
+    if (!this.isSearching) {
+      this.isSearching = true;
+      setTimeout(() => {
+        this.mlService.predict(this.predictForm.value).subscribe(
+          data => {
+            console.log(data);
+            this.isSearching = false;
+            this.prediction = data[0];
+          },
+          error => {
+            this.toast.open(error, 'danger');
+          }
+        );
 
-    }, 3350);
-
-
+      }, 3350);
+    }
   }
 }

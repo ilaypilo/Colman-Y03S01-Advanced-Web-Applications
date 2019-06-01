@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+    <defs>
+        <style>
+            .cls-1,.cls-6{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:#fff;opacity:0}.cls-4{fill:#5f46a5}.cls-5{fill:#734fbe}.cls-6{stroke:#734fbe;stroke-linecap:round;stroke-linejoin:round;stroke-width:8px}
+        </style>
+        <clipPath id="clip-path">
+            <path d="M0 0h22v22H0z" class="cls-1"/>
+        </clipPath>
+    </defs>
+    <g id="icn_rooms" class="cls-2">
+        <path id="Rectangle_77" d="M0 0h22v22H0z" class="cls-3" data-name="Rectangle 77"/>
+        <g id="Group_157" data-name="Group 157" transform="translate(4.4 3.166)">
+            <path id="Path_1029" d="M1313.58 187.51h-5.151a.429.429 0 0 1-.429-.429v-5.151a.429.429 0 0 1 .429-.429h5.151a.429.429 0 0 1 .429.429v1.824a.429.429 0 1 1-.859 0v-1.4h-4.293v4.293h4.722a.429.429 0 1 1 0 .859z" class="cls-4" data-name="Path 1029" transform="translate(-1308 -174.739)"/>
+            <path id="Path_1030" d="M1361.151 126.12H1359a.429.429 0 1 1 0-.859h1.717v-5.9h-3.863v6.332a.429.429 0 1 1-.859 0v-6.761a.429.429 0 0 1 .429-.429h4.722a.429.429 0 0 1 .429.429v6.761a.429.429 0 0 1-.424.427z" class="cls-5" data-name="Path 1030" transform="translate(-1350.849 -118.5)"/>
+            <path id="Path_1032" d="M1363.62 190.407h-7.19a.429.429 0 0 1-.429-.429v-3.917a.429.429 0 1 1 .859 0v3.488h6.332v-7.19h-3.166a.429.429 0 1 1 0-.859h3.6a.429.429 0 0 1 .429.429v8.049a.429.429 0 0 1-.435.429z" class="cls-5" data-name="Path 1032" transform="translate(-1350.849 -174.739)"/>
+        </g>
+    </g>
+</svg>

@@ -8,9 +8,10 @@
 
   <form [formGroup]="predictForm" (ngSubmit)="predict()" dir="rtl">
 
-    <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px" (window:resize)="onResize($event)" dir="rtl">
+    <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px"
+      (window:resize)="onResize($event)" dir="rtl">
       <!-- 2 empty items for margin-->
-      <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">
+      <mat-grid-tile class="param-item" [colspan]="paddingColsNumber" [rowspan]="paddingColsNumber">
       </mat-grid-tile>
 
       <mat-grid-tile class="param-item" [colspan]="1" [rowspan]="1">
@@ -29,8 +30,9 @@
       <!--Content-->
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- city -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>עיר</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_location"></mat-icon>
           <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
           <mat-autocomplete #autoCity="matAutocomplete">
             <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async"
@@ -44,8 +46,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- neighborhood -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>שכונה</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_location"></mat-icon>
           <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood"
             placeholder="שכונה">
           <mat-autocomplete #autoNeighborhood="matAutocomplete">
@@ -62,8 +65,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- street -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>רחוב</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_location"></mat-icon>
           <input type="text" matInput [formControl]="street" [matAutocomplete]="autoStreet" placeholder="רחוב">
           <mat-autocomplete #autoStreet="matAutocomplete">
             <mat-option (onSelectionChange)="streetChanged($event, street)"
@@ -77,8 +81,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- property_type -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>סוג הנכס</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_category"></mat-icon>
           <input type="text" matInput [formControl]="property_type" [matAutocomplete]="autoPropertyType"
             placeholder="סוג הנכס">
           <mat-autocomplete #autoPropertyType="matAutocomplete">
@@ -93,8 +98,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- build_year -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>שנת בנייה</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_date"></mat-icon>
           <input type="number" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
             placeholder="שנת בנייה">
           <mat-autocomplete #autoBuildYear="matAutocomplete">
@@ -113,8 +119,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- floor -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>קומה</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_floor"></mat-icon>
           <input type="number" min="0" max="20" matInput [formControl]="floor" placeholder="קומה">
           <mat-error *ngIf="floor.hasError('required')">
             <strong>required</strong>
@@ -127,8 +134,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- rooms_number -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>חדרים</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_rooms"></mat-icon>
           <input type="number" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
           <mat-error *ngIf="rooms_number.hasError('required')">
             <strong>required</strong>
@@ -143,8 +151,9 @@
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- building_mr -->
-        <mat-form-field id="param-item" appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label>מטר רבוע</mat-label>
+          <mat-icon matSuffix  svgIcon="ic_size"></mat-icon>
           <input type="number" min="30" matInput [formControl]="building_mr" placeholder="מטר רבוע">
           <mat-error *ngIf="building_mr.hasError('required')">
             <strong>required</strong>
@@ -157,11 +166,11 @@
 
       <!-- Button-->
       <mat-grid-tile class="param-item" [colspan]="priceColsNumber" [rowspan]="priceRowsNumber">
-        <div class="d-flex justify-content-center align-items-center" id="calc-button-div">
-          <mat-spinner-button class="calc-button" type="submit" (btnClick)="predict()" [options]="btnOpts">
-          </mat-spinner-button>
-        </div>
-        <br />
+        <button mat-raised-button [style.width.%]="buttonWidth" type="submit" [disabled]="!predictForm.valid"
+          color="accent">
+          <i class="fa fa-circle-o-notch fa-spin" *ngIf="isSearching"></i>
+          חשב
+        </button>
       </mat-grid-tile>
 
       <!-- Price-->

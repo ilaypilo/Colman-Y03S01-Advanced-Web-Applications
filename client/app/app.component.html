@@ -1,52 +1,44 @@
 <mat-toolbar class="toolbar" color="accent" dir="rtl">
 
-  <a routerLink="/" [hidden]="!showSmallIcon"  class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
-    <img class="logo" src="../assets/roof_Logo.png" >
-  </a>
-  
-  <a routerLink="/" [hidden]="showSmallIcon"  class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
-     <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
-      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)"> 
+  <!--- Small logo -->
+  <a routerLink="/" [hidden]="!showSmallIcon" class="link" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
+    <img class="logo" src="../assets/roof_Logo.png">
   </a>
 
-  <button mat-flat-button routerLink="/ml" [style.margin]="margin" class="link" routerLinkActive="active"
-    [hidden]="auth.loggedIn">
-    <img class="menu-icon" src="../assets/btn_price.svg">
-    <div class="menu-text">מחיר נכס</div>
-  </button>
-
-  <a [hidden]="!(auth.loggedIn && auth.isAdmin)" [matMenuTriggerFor]="adminMenu" class="link">
-    <span>|</span>
-    <i class="fa fa-wrench"></i>
-  </a>
-  <mat-menu #adminMenu="matMenu">
-    <a mat-menu-item routerLink="/users">
-      <i class="fa fa-user"></i>
-      <span>משתמשים</span>
-    </a>
-    <a mat-menu-item routerLink="/connected">
-      <i class="fa fa-plug"></i>
-      <span>מחוברים</span>
-    </a>
-    <a mat-menu-item routerLink="/ml-performance">
-      <i class="fa fa-plug"></i>
-      <span>ביצועים</span>
-    </a>
-  </mat-menu>
-  <a routerLink="/assets" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
-    <span>|</span>
-    <i class="fa fa-hotel"></i>
-  </a>
-  <a routerLink="/deals" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
-    <span>|</span>
-    <i class="fa fa-dollar"></i>
-  </a>
-  <a routerLink="/statistics" class="link" routerLinkActive="active" [hidden]="!(auth.loggedIn && auth.isAdmin)">
-    <span>|</span>
-    <i class="fa fa-pie-chart"></i>
+  <!--- Big logo -->
+  <a routerLink="/" [hidden]="showSmallIcon" class="link" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
+    <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
+      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)">
   </a>
 
+  <!-- ML -->
+  <div [hidden]="!(auth.loggedIn)">
+    <button mat-flat-button routerLink="/ml" [style.margin-right]="margin" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_price.svg">
+      <div class="menu-text">מחיר נכס</div>
+    </button>
+  </div>
 
+
+  <!-- Graphs -->
+  <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
+    <button mat-flat-button routerLink="/ml-performance" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_metrics.svg">
+      <div class="menu-text">ביצועים</div>
+    </button>
+  </div>
+
+  <!-- Users -->
+  <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
+    <button mat-flat-button routerLink="/users" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_users.svg">
+      <div class="menu-text">משתמשים</div>
+    </button>
+  </div>
+
+  <!--- User menu -->
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-button [matMenuTriggerFor]="userMenu" class="link">
       <img class="menu-icon" src="../assets/btn_user.svg">
