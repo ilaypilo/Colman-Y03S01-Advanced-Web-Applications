@@ -18,7 +18,8 @@
             "polyfills": "client/polyfills.ts",
             "assets": [
               "client/assets",
-              "client/assets/roof-Logo.png"
+              "client/assets/roof-Logo.png",
+              "client/.htaccess"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
