@@ -17,7 +17,10 @@ import { AssetService } from '../../services/asset.service';
 export class StatisticsComponent implements OnInit  {
   isLoading = true;
   view: any[] = [1200, 250];
-
+  title: any;
+  showLabels: any;
+  explodeSlices: any;
+  doughnut: any;
   // options
   showXAxis = true;
   showYAxis = true;

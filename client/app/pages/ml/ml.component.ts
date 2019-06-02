@@ -34,7 +34,7 @@ interface Location {
 
 @Component({
   selector: 'app-ml',
-  template: '<mat-spinner-button (btnClick)="btnClick()" [options]="btnOpts"></mat-spinner-button>',
+  // template: '<mat-spinner-button (btnClick)="btnClick()" [options]="btnOpts"></mat-spinner-button>',
   templateUrl: './ml.component.html',
   styleUrls: ['./ml.component.scss']
 })
