@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 export class ToastComponent {
 
   constructor(public snackBar: MatSnackBar) { }
-
+  message: string;
   open(message: string, cssClass: string) {
     const config = new MatSnackBarConfig();
     config.duration = 4000;

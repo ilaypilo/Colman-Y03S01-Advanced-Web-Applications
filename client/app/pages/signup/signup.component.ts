@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
 
   title = 'הרשמה';
   isLoading: boolean = false;
-
+  hide: boolean;
   registerForm: FormGroup;
   username = new FormControl('', [
     Validators.required,
