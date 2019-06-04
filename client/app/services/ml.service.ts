@@ -41,11 +41,7 @@ export class MlService {
 
 
   predict(asset: any): Observable<Number[]> {
-    var o = {
-      "city" : asset["city"],
-      "data" : [asset]
-    }
-    console.log(o);
-    return this.http.post<Number[]>(`${this.api_url}/predict`, o);
+    console.log(asset);
+    return this.http.post<Number[]>(`${this.api_url}/predict`, asset);
   }
 }

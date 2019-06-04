@@ -38,6 +38,14 @@
     </button>
   </div>
 
+  <!-- About -->
+  <div>
+    <button mat-flat-button routerLink="/about" class="link" routerLinkActive="active">
+      <img class="menu-icon" src="../assets/btn_users.svg">
+      <div class="menu-text">אודות</div>
+    </button>
+  </div>
+
   <!--- User menu -->
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-button [matMenuTriggerFor]="userMenu" class="link">

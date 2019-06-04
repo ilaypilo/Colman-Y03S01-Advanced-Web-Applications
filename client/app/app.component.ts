@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { ChatService } from './services/chat.service';
-import { ToastComponent } from './shared/toast/toast.component';
 import { DomSanitizer } from "@angular/platform-browser";
  import { MatIconRegistry } from '@angular/material';
 
@@ -22,13 +21,9 @@ export class AppComponent {
 
   constructor(
     public auth: AuthService,
-    private chatService: ChatService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    chatService.messages.subscribe(data => {
-
-    });
     this.userName = auth.currentUser.username;
 
     this.matIconRegistry.addSvgIcon(
