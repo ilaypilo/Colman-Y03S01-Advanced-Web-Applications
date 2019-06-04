@@ -6,14 +6,14 @@
 @import "theme";
 @import "~ngx-bar-rating/themes/br-fontawesome-theme.css";
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,500,700,900");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,900");
 
 * {
-  font-family: "Open Sans", "Heebo", serif;
+  font-family: HeeboRegular;
 }
 
 body {
   margin: 0;
+  font-family: HeeboRegular;
 }
 
 .col-centered {
@@ -55,9 +55,8 @@ body {
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: #e53367;
+  color: $accentCol;
 }
-
 
 .mat-table {
   overflow: auto;
@@ -84,8 +83,8 @@ body {
   text-align: center;
   height: 80px;
   width: 100%;
-  background-color: #6444a6;
-  font-family: Heebo;
+  background-color: $primaryCol;
+  font-family: HeeboBold;
   font-size: 24px;
   font-weight: bold;
   font-style: normal;
@@ -93,11 +92,12 @@ body {
   line-height: 1.46;
   letter-spacing: normal;
   text-align: center;
-  color: #ffffff;
+  color: $whiteCol;
   display: flex;
   justify-content: center; /* align horizontal */
   align-items: center;
 }
+
 .appcontainer {
   width: 100%;
 }
@@ -106,6 +106,7 @@ form {
   text-align: center;  
   .mat-form-field {
     width:90%;
+    font-family: HeeboRegular;
   }
 }
 
@@ -118,7 +119,7 @@ form {
 }
 
 .calc-price {
-  font-family: Heebo;
+  font-family: HeeboBold;
   font-size: 42px;
   font-weight: bold;
   font-style: normal;
@@ -126,11 +127,11 @@ form {
   line-height: 1.48;
   letter-spacing: normal;
   text-align: center;
-  color: #734fbe;
+  color: $primaryCol;
 }
 
 .calc-info {
-  font-family: Heebo;
+  font-family: HeeboRegular;
   font-size: 14px;
   font-weight: 300;
   font-style: normal;
@@ -138,7 +139,7 @@ form {
   line-height: 1.5;
   letter-spacing: normal;
   text-align: center;
-  color: #734fbe;
+  color: $primaryCol;
 }
 
 .calc-div {
@@ -147,10 +148,21 @@ form {
 
 .mat-raised-button{
   width: 90%;
-  font-family: Heebo;
+  font-family: HeeboRegular;
 }
 
 .fa {
   margin-right: -12px;
   margin-left: 8px;
+}
+.mat-option-text{
+  font-family: HeeboRegular;
+}
+
+.mat-button{
+  font-family: HeeboRegular;
+}
+
+.mat-menu-item{
+  font-family: HeeboRegular;
 }

@@ -33,7 +33,7 @@
               [value]="city">{{city}}</mat-option>
           </mat-autocomplete>
           <mat-error *ngIf="city.hasError('required')">
-            <strong>required</strong>
+            <strong>חובה</strong>
           </mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -43,7 +43,7 @@
         <div class="calc-div">
           <mat-spinner class="spinner-wrapper" [diameter]="40" *ngIf="isSearching"></mat-spinner>
           <div class="calc-price" [hidden]="!(this.mse > 0)">{{mse | currency:'ILS'}}</div>
-          <div class="calc-info" [hidden]="!(this.mse > 0)">מחיר משוערך</div>
+          <div class="calc-info" [hidden]="!(this.mse > 0)">טעות ממוצעת</div>
         </div>
       </mat-grid-tile>
     </form>
