@@ -205,7 +205,6 @@ export class MlComponent implements OnInit {
     this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
     this.paddingColsNumber = (window.innerWidth <= this.minWidth) ? 0 : 1;
     this.buttonWidth = (window.innerWidth <= this.minWidth) ? 90 : 95;
-    this.chartWidth =  (window.innerWidth <= this.minWidth) ? window.innerWidth - 200 : 700
   }
 
   findLocation(address) {
@@ -384,11 +383,6 @@ export class MlComponent implements OnInit {
 
   lineChartValues = [];
 
-
-  chartHeight = 360;
-  chartWidth = 700;
-  view: any[] = [this.chartWidth, this.chartHeight];
-
   // options
   showXAxis = true;
   showYAxis = true;
@@ -396,15 +390,15 @@ export class MlComponent implements OnInit {
   showLegend = false;
   showXAxisLabel = true;
   xAxisLabel = 'שנה';
-  showYAxisLabel = true;
+  showYAxisLabel = false;
   yAxisLabel = 'מחיר';
 
   colorScheme = {
-    domain: ['#5AA454']
+    domain: ['#734fbe']
   };
 
   // line, area
-  autoScale = true;
+  autoScale = false;
 
 
 }

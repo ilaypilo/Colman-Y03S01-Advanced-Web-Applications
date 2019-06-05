@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{clip-path:url(#clip-path)}.cls-3{fill:#fff;opacity:0}.cls-4{fill:#734fbe}
+        </style>
+        <clipPath id="clip-path">
+            <path d="M0 0h44v44H0z" class="cls-1"/>
+        </clipPath>
+    </defs>
+    <g id="btn_about" class="cls-2">
+        <path id="Rectangle_599" d="M0 0h44v44H0z" class="cls-3" data-name="Rectangle 599" transform="rotate(90 22 22)"/>
+        <g id="Group_203" data-name="Group 203" transform="translate(19.746 10.302)">
+            <path id="Path_1125" d="M652.434 907.882h-2.576a.859.859 0 0 1-.859-.859v-3.165a.859.859 0 0 1 .859-.859h2.576a.859.859 0 0 1 .859.859v3.165a.859.859 0 0 1-.859.859zm-1.717-1.717h.859v-1.448h-.859z" class="cls-4" data-name="Path 1125" transform="translate(-649 -903)"/>
+            <path id="Path_1126" d="M652.434 951.517h-2.576a.859.859 0 0 1-.859-.859v-14.812a.859.859 0 0 1 .859-.859h2.576a.859.859 0 0 1 .859.859v14.812a.859.859 0 0 1-.859.859zm-1.717-1.717h.859v-13.1h-.859z" class="cls-4" data-name="Path 1126" transform="translate(-649 -928.122)"/>
+        </g>
+    </g>
+</svg>

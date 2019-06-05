@@ -181,12 +181,15 @@
         </div>
       </mat-grid-tile>
 
-      <mat-grid-tile class="param-item" [colspan]="!(this.prediction > 0) ? 0 : priceColsNumber"
-        [rowspan]="8">
-        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="lineChartValues" [gradient]="gradient"
+      <mat-grid-tile class="param-item" [colspan]="!(this.prediction > 0) ? 0 : priceColsNumber" [rowspan]="8">
+        <div class="chart-parent">
+          <div>
+        <ngx-charts-line-chart  class="chart" [scheme]="colorScheme" [results]="lineChartValues" [gradient]="gradient"
           [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
           [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale">
         </ngx-charts-line-chart>
+      </div>
+      </div>
       </mat-grid-tile>
 
       <!-- Algo info-->
@@ -219,8 +222,6 @@
           </mat-expansion-panel>
         </div>
       </mat-grid-tile>
-
-
 
     </mat-grid-list>
   </form>
