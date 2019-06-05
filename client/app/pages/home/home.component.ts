@@ -28,7 +28,6 @@ export class HomeComponent {
   resizeElements() {
     this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 3;
     this.imgCol = (window.innerWidth <= this.minWidth) ? 1 : 2;
-
   }
 
 }
