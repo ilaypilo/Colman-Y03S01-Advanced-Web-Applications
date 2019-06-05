@@ -45,3 +45,42 @@ agm-map {
   width: 100%;
   height: 100%;
 }
+
+p{
+  font-family: HeeboRegular;
+  font-size: 12px;
+  text-align: right;
+
+}
+
+.algo-info ul{
+  font-family: HeeboRegular;
+  font-size: 12px;
+  text-align: right;
+  margin-right: 30px;
+  list-style-type: circle;
+}
+
+.algo-info{
+  height: 100%;
+  display: flex; 
+  align-items: flex-start;
+  display: flex;
+  justify-content: center; /* align horizontal */
+}
+
+.chart-parent{
+  width: 100%;
+  padding-bottom: 100%;
+}
+
+.chart-parent > div{
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  justify-content: center; /* align horizontal */
+
+}
+
+.chart {
+  transform: translate(0,0);
+}

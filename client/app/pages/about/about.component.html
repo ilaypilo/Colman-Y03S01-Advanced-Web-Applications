@@ -1,10 +1,29 @@
 <app-loading [condition]="isLoading"></app-loading>
 
 <app-toast [message]="toast.message"></app-toast>
-<!-- asset -->
+
 <div class="appcontainer" [hidden]="isLoading" dir="rtl">
   <div class="page-header">אודות</div>
-  <div class="row">
-    בלה בלה בלה
+
+  <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="32px">
+    <app-card>
+      <div class="about-wrapper">
+        <div class="about" [style.width.%]="textWidth" (window:resize)="onResize($event)">
+          <p dir="rtl">מטרת העל של "גג" היא לאפשר לכם, רוכשי הדירות, למצוא דירה העונה על דרישותיכם ומתאימה לתקציבכם.</p>
+          <p dir="rtl"><br />האתר משתמש באלגוריתם למידה חכמה על מנת להעריך את שווי הנכס שברצונכם לקנות בעזרת נכסים דומים
+            שנמכרו בעבר. כך תוכלו להיות בטוחים שאתם עושים קניה חכמה!<br />האתר מאפשר לכם לשנות את פרטי הנכס עד שתמצאו את
+            הכנס המתאים עבורכם. אתם יכולים למשל להחליף שכונה או רחוב ולראות כיצד זה משפיע על מחיר הנכס שאתם מחפשים כדי
+            למצוא את הנכס המושלם שמתאים לתקציב שלכם!</p>
+          <p dir="rtl"><br />וכמובן, אם אתם משקיעים אתם יכולים לבדוק את שווי הנכס לפני רכישתו על מנת לוודא שאתם מבצעים
+            השקעה נבונה.</p>
+          <p dir="rtl"><br />אז אתם עוד קוראים את האודות?!?<br /><strong class="bold">GO CHECK IT OUT</strong></p>
+        </div>
+      </div>
+    </app-card>
+    <app-card>
+      <div class="about-wrapper">
+        <img src="assets/img_about@3x.jpg" class="img-about" alt="image">
+      </div>
+    </app-card>
   </div>
 </div>

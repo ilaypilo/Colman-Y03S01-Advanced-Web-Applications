@@ -56,7 +56,9 @@ export class MlComponent implements OnInit {
   ]);
   build_year = new FormControl('', [
     Validators.required,
-    Validators.pattern('[0-9]*')
+    Validators.pattern('[0-9]*'),
+    Validators.min(1900),
+    Validators.max(2050)
   ]);
   property_type = new FormControl('', [
     Validators.required,
@@ -103,6 +105,7 @@ export class MlComponent implements OnInit {
   priceColsNumber: number = 2;
   paddingColsNumber: number = 1;
   buttonWidth: number;
+  infoRowNumber = 1;
 
   public location: Location = {
     lat: 31.0461,
@@ -196,7 +199,7 @@ export class MlComponent implements OnInit {
   }
 
   resizeElements() {
-    this.mapRowsNumber = (window.innerHeight - 250) / this.rowHeight;
+    this.mapRowsNumber = (window.innerHeight - 240) / this.rowHeight;
     this.mapColNumber = (window.innerWidth <= this.minWidth) ? 0 : 2;
     this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 4;
     this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
@@ -308,12 +311,20 @@ export class MlComponent implements OnInit {
       option.toString().toLowerCase().indexOf(val.toString().toLowerCase()) === 0);
   }
 
+  expandInfo(){
+    this.infoRowNumber = 8;
+  }
+
+  hideInfo(){
+    this.infoRowNumber = 1;
+  }
+
   predict() {
     if (!this.isSearching) {
-      
+
       var queryAsset = {
-        "city" : this.predictForm.value["city"],
-        "data" : [this.predictForm.value]
+        "city": this.predictForm.value["city"],
+        "data": [this.predictForm.value]
       }
       this.isSearching = true;
       setTimeout(() => {
@@ -335,8 +346,8 @@ export class MlComponent implements OnInit {
   yearsArray: Number[] = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
   predictByYears() {
     var queryAssetByYears = {
-      "city" : this.predictForm.value["city"],
-      "data" : []
+      "city": this.predictForm.value["city"],
+      "data": []
     };
 
     this.yearsArray.forEach(year => {
@@ -357,8 +368,8 @@ export class MlComponent implements OnInit {
         ];
         data.forEach(price => {
           chartData[0]["series"].push({
-            "name" : this.yearsArray[i++].toString(),
-            "value" : Number.parseInt(price.toFixed(0))
+            "name": this.yearsArray[i++].toString(),
+            "value": Number.parseInt(price.toFixed(0))
           });
         });
         this.lineChartValues = chartData;
@@ -371,9 +382,6 @@ export class MlComponent implements OnInit {
   }
 
   lineChartValues = [];
-  
-
-  view: any[] = [700, 400];
 
   // options
   showXAxis = true;
@@ -382,15 +390,15 @@ export class MlComponent implements OnInit {
   showLegend = false;
   showXAxisLabel = true;
   xAxisLabel = 'שנה';
-  showYAxisLabel = true;
+  showYAxisLabel = false;
   yAxisLabel = 'מחיר';
 
   colorScheme = {
-    domain: ['#5AA454']
+    domain: ['#734fbe']
   };
 
   // line, area
-  autoScale = true;
+  autoScale = false;
 
 
 }

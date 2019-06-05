@@ -39,9 +39,9 @@
   </div>
 
   <!-- About -->
-  <div>
+  <div [hidden]="auth.loggedIn && auth.isAdmin && showSmallIcon">
     <button mat-flat-button routerLink="/about" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_users.svg">
+      <img class="menu-icon" src="../assets/btn_about.svg">
       <div class="menu-text">אודות</div>
     </button>
   </div>

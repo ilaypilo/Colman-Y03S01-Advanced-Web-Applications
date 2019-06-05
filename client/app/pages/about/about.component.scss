@@ -4,14 +4,29 @@
   color: $grayCol;
   margin: 0 5px;
 }
-img {
-  object-fit: contain;
-  height: 100%;
-  width: 100%;
-  vertical-align: top;
+
+.about {
+  font-size: 14px;
+  line-height: 1.46;
+  align-items: flex-start;
+  margin-top: 40px;
 }
 
-.placeholder-img {
-  width: 50%;
-  height: 50%;
+.about-wrapper {
+  align-items: center;
+  justify-content: center; /* align horizontal */
+  display: flex;
+}
+
+.img-about {
+  width: 90%;
+  margin-top: 10px;
+  max-width: 401px;
+  max-height: 212px;
+  object-fit: contain;
+}
+
+.bold {
+  font-family: HeeboBold;
+  font-size: 16px;
 }
