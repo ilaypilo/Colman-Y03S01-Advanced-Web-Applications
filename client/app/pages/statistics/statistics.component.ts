@@ -5,7 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AssetService } from '../../services/asset.service';
 
 @Component({

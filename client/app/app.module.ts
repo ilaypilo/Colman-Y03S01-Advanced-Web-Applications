@@ -21,7 +21,8 @@ import {
   DealsComponent,
   MlComponent,
   StatisticsComponent,
-  MlPerformanceComponent
+  MlPerformanceComponent,
+  AboutComponent
 } from './pages';
 /** Services */
 import { UserService } from './services/user.service';
@@ -62,7 +63,8 @@ const PAGES = [
   DealsComponent,
   MlComponent,
   MlPerformanceComponent,
-  StatisticsComponent
+  StatisticsComponent,
+  AboutComponent
 ];
 
 @NgModule({

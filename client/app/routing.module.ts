@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -18,6 +17,7 @@ import { DealsComponent } from './pages/deals/deals.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { MlComponent } from './pages/ml/ml.component';
 import { MlPerformanceComponent } from './pages/ml-performance/ml-performance.component';
+import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'ml', component: MlComponent, canActivate: [AuthGuardLogin] },
   { path: 'notfound', component: NotFoundComponent },
   { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuardLogin] },
+  { path: 'about', component: AboutComponent },
   { path: '**', redirectTo: '/notfound' },
 ];
 

@@ -185,4 +185,20 @@
 
     </mat-grid-list>
   </form>
+  <div class="row">
+      <ngx-charts-line-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="lineChartValues"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale">
+    </ngx-charts-line-chart>
+  </div>
 </div>

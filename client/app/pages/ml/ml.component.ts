@@ -1,6 +1,5 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 import { MlService } from '../../services/ml.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
@@ -9,6 +8,7 @@ import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 declare var google: any;
 
@@ -34,7 +34,6 @@ interface Location {
 
 @Component({
   selector: 'app-ml',
-  // template: '<mat-spinner-button (btnClick)="btnClick()" [options]="btnOpts"></mat-spinner-button>',
   templateUrl: './ml.component.html',
   styleUrls: ['./ml.component.scss']
 })
@@ -311,9 +310,15 @@ export class MlComponent implements OnInit {
 
   predict() {
     if (!this.isSearching) {
+      
+      var queryAsset = {
+        "city" : this.predictForm.value["city"],
+        "data" : [this.predictForm.value]
+      }
       this.isSearching = true;
       setTimeout(() => {
-        this.mlService.predict(this.predictForm.value).subscribe(
+        this.predictByYears();
+        this.mlService.predict(queryAsset).subscribe(
           data => {
             console.log(data);
             this.isSearching = false;
@@ -327,4 +332,65 @@ export class MlComponent implements OnInit {
       }, 3350);
     }
   }
+  yearsArray: Number[] = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
+  predictByYears() {
+    var queryAssetByYears = {
+      "city" : this.predictForm.value["city"],
+      "data" : []
+    };
+
+    this.yearsArray.forEach(year => {
+      var currentAsset = JSON.parse(JSON.stringify(this.predictForm.value));
+      currentAsset["sale_day_year"] = year;
+      queryAssetByYears.data.push(currentAsset);
+    });
+    console.log(queryAssetByYears);
+    this.mlService.predict(queryAssetByYears).subscribe(
+      data => {
+        console.log(data);
+        var i = 0;
+        var chartData = [
+          {
+            "name": "מחיר",
+            "series": []
+          }
+        ];
+        data.forEach(price => {
+          chartData[0]["series"].push({
+            "name" : this.yearsArray[i++].toString(),
+            "value" : Number.parseInt(price.toFixed(0))
+          });
+        });
+        this.lineChartValues = chartData;
+        console.log(this.lineChartValues);
+      },
+      error => {
+        this.toast.open(error, 'danger');
+      }
+    );
+  }
+
+  lineChartValues = [];
+  
+
+  view: any[] = [700, 400];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'שנה';
+  showYAxisLabel = true;
+  yAxisLabel = 'מחיר';
+
+  colorScheme = {
+    domain: ['#5AA454']
+  };
+
+  // line, area
+  autoScale = true;
+
+
 }

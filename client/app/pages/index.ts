@@ -12,3 +12,4 @@ export { DealsComponent } from './deals/deals.component';
 export { MlComponent } from './ml/ml.component';
 export { MlPerformanceComponent } from './ml-performance/ml-performance.component';
 export { StatisticsComponent } from './statistics/statistics.component';
+export { AboutComponent } from './about/about.component';

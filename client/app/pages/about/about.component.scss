@@ -1,0 +1,17 @@
+@import "../../../variables";
+
+.prefix {
+  color: $grayCol;
+  margin: 0 5px;
+}
+img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  vertical-align: top;
+}
+
+.placeholder-img {
+  width: 50%;
+  height: 50%;
+}
