@@ -5,7 +5,7 @@
 <div [hidden]="isLoading" class="appcontainer">
 
   <div class="page-header">חישוב מחיר לנכס</div>
-
+  
   <form [formGroup]="predictForm" (ngSubmit)="predict()" dir="rtl">
 
     <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px"
@@ -32,7 +32,7 @@
         <!-- city -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>עיר</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_location"></mat-icon>
+          <mat-icon matSuffix svgIcon="ic_location"></mat-icon>
           <input type="text" matInput [formControl]="city" [matAutocomplete]="autoCity" placeholder="עיר">
           <mat-autocomplete #autoCity="matAutocomplete">
             <mat-option (onSelectionChange)="cityChanged($event, city)" *ngFor="let city of filteredCities | async"
@@ -48,7 +48,7 @@
         <!-- neighborhood -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>שכונה</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_location"></mat-icon>
+          <mat-icon matSuffix svgIcon="ic_location"></mat-icon>
           <input type="text" matInput [formControl]="neighborhood" [matAutocomplete]="autoNeighborhood"
             placeholder="שכונה">
           <mat-autocomplete #autoNeighborhood="matAutocomplete">
@@ -67,7 +67,7 @@
         <!-- street -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>רחוב</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_location"></mat-icon>
+          <mat-icon matSuffix svgIcon="ic_location"></mat-icon>
           <input type="text" matInput [formControl]="street" [matAutocomplete]="autoStreet" placeholder="רחוב">
           <mat-autocomplete #autoStreet="matAutocomplete">
             <mat-option (onSelectionChange)="streetChanged($event, street)"
@@ -83,7 +83,7 @@
         <!-- property_type -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>סוג הנכס</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_category"></mat-icon>
+          <mat-icon matSuffix svgIcon="ic_category"></mat-icon>
           <input type="text" matInput [formControl]="property_type" [matAutocomplete]="autoPropertyType"
             placeholder="סוג הנכס">
           <mat-autocomplete #autoPropertyType="matAutocomplete">
@@ -100,8 +100,8 @@
         <!-- build_year -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>שנת בנייה</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_date"></mat-icon>
-          <input type="number" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
+          <mat-icon matSuffix svgIcon="ic_date"></mat-icon>
+          <input type="number"  min="1900" max="2050" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
             placeholder="שנת בנייה">
           <mat-autocomplete #autoBuildYear="matAutocomplete">
             <mat-option *ngFor="let build_year of filteredBuildYears | async" [value]="build_year">
@@ -121,7 +121,7 @@
         <!-- floor -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>קומה</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_floor"></mat-icon>
+          <mat-icon matSuffix svgIcon="ic_floor"></mat-icon>
           <input type="number" min="0" max="20" matInput [formControl]="floor" placeholder="קומה">
           <mat-error *ngIf="floor.hasError('required')">
             <strong>חובה</strong>
@@ -136,8 +136,8 @@
         <!-- rooms_number -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>חדרים</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_rooms"></mat-icon>
-          <input  type="number" step="0.5" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
+          <mat-icon matSuffix svgIcon="ic_rooms"></mat-icon>
+          <input type="number" step="0.5" min="1" max="7" matInput [formControl]="rooms_number" placeholder="חדרים">
           <mat-error *ngIf="rooms_number.hasError('required')">
             <strong>חובה</strong>
           </mat-error>
@@ -145,15 +145,13 @@
             מספרים בלבד
           </mat-error>
         </mat-form-field>
-
       </mat-grid-tile>
-
 
       <mat-grid-tile class="param-item" [colspan]="itemColsNumber" [rowspan]="itemRowsNumber">
         <!-- building_mr -->
         <mat-form-field appearance="outline" color="accent">
           <mat-label>מטר רבוע</mat-label>
-          <mat-icon matSuffix  svgIcon="ic_size"></mat-icon>
+          <mat-icon matSuffix svgIcon="ic_size"></mat-icon>
           <input type="number" min="30" matInput [formControl]="building_mr" placeholder="מטר רבוע">
           <mat-error *ngIf="building_mr.hasError('required')">
             <strong>חובה</strong>
@@ -174,7 +172,8 @@
       </mat-grid-tile>
 
       <!-- Price-->
-      <mat-grid-tile class="param-item" [colspan]="priceColsNumber" [rowspan]="priceRowsNumber">
+      <mat-grid-tile class="param-item" [colspan]="!(this.prediction > 0) ? 0 : priceColsNumber"
+        [rowspan]="priceRowsNumber">
         <br />
         <div class="calc-div">
           <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS'}}</div>
@@ -182,23 +181,47 @@
         </div>
       </mat-grid-tile>
 
+      <mat-grid-tile class="param-item" [colspan]="!(this.prediction > 0) ? 0 : priceColsNumber"
+        [rowspan]="8">
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="lineChartValues" [gradient]="gradient"
+          [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale">
+        </ngx-charts-line-chart>
+      </mat-grid-tile>
+
+      <!-- Algo info-->
+      <mat-grid-tile [colspan]="priceColsNumber" [rowspan]="8">
+        <div class="algo-info" [style.width.%]="buttonWidth">
+          <mat-expansion-panel class="mat-elevation-z0">
+            <mat-expansion-panel-header>
+              <mat-panel-description>
+                איך אנחנו מחשבים את המחיר?
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+              <p dir="rtl">שערוך המחיר שמבוצע לדירה הינו הערכה המתבצעת באמצעות אלגוריתם למידה חישובית (ML)</p>
+              <p dir="rtl">האלגוריתם משתמש בנתונים מעודכנים מרשות המיסים המכילים מידע על עסקאות שבוצעו בכל עיר ועיר.</p>
+              <p dir="rtl">חישוב המחיר מתבצע על סמך מספר פרמטרים בעסקה:</p>
+              <ul dir="rtl">
+                <li>מיקום (עיר, שכונה ורחוב)</li>
+                <li>סוג מבנה</li>
+                <li>שנת בנייה</li>
+                <li>קומה מבוקשת</li>
+                <li>שטח הדירה</li>
+                <li>מספר חדרים</li>
+              </ul>
+              <p dir="rtl">אולם, לכל דירה יש פרמטרים ייחודיים שאינם נכללים באלגוריתם ועלולים לשנות את המחיר. (לדוגמה:
+                האם
+                הדירה משופצת, האם קיים מחסן וחניה, האם יש מרפסת)</p>
+              <p dir="rtl">האלגוריתם עושה שימוש בנתונים מגוף חיצוני אשר עשויים ליפול בהם אי דיוקים או טעויות. לפני ביצוע
+                עסקה יש לבצע את הבדיקות הנדרשות, לרבות ביחס למצב התכנוני והמשפטי של הנכס וביחס לשוויו.</p>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </mat-grid-tile>
+
+
 
     </mat-grid-list>
   </form>
-  <div class="row">
-      <ngx-charts-line-chart
-      [view]="view"
-      [scheme]="colorScheme"
-      [results]="lineChartValues"
-      [gradient]="gradient"
-      [xAxis]="showXAxis"
-      [yAxis]="showYAxis"
-      [legend]="showLegend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [autoScale]="autoScale">
-    </ngx-charts-line-chart>
-  </div>
 </div>
