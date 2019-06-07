@@ -176,7 +176,7 @@
         [rowspan]="priceRowsNumber">
         <br />
         <div class="calc-div">
-          <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS'}}</div>
+          <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS':'symbol':'1.0' }}</div>
           <div class="calc-info" [hidden]="!(this.prediction > 0)">מחיר משוערך</div>
         </div>
       </mat-grid-tile>
