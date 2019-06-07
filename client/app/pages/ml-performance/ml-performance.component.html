@@ -42,7 +42,7 @@
       <mat-grid-tile class="param-item" [colspan]="2" [rowspan]="2">
         <div class="calc-div">
           <mat-spinner class="spinner-wrapper" [diameter]="40" *ngIf="isSearching"></mat-spinner>
-          <div class="calc-price" [hidden]="!(this.mse > 0)">{{mse | currency:'ILS'}}</div>
+          <div class="calc-price" [hidden]="!(this.mse > 0)">{{mse | currency:'ILS':'symbol':'1.0'}}</div>
           <div class="calc-info" [hidden]="!(this.mse > 0)">טעות ממוצעת</div>
         </div>
       </mat-grid-tile>
