@@ -15,7 +15,7 @@ export class AppComponent {
   logoHeight: string;
   logoPadding: string;
 
-  minWidth: number = 500;
+  minWidth: number = 750;
   margin: string = "200px";
   showSmallIcon = false;
 

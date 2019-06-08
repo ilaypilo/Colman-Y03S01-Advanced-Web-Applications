@@ -94,7 +94,7 @@ export class MlComponent implements OnInit {
   prediction: Number;
   geocoder: any;
 
-  minWidth: number = 500;
+  minWidth: number = 750;
   rowHeight: number = 40;
   colNumber: number;
   mapColNumber: number = 2;
@@ -115,7 +115,7 @@ export class MlComponent implements OnInit {
       lng: 34.8516,
       draggable: true
     },
-    zoom: 5,
+    zoom: 7,
     viewport: false
   };
 
@@ -199,7 +199,7 @@ export class MlComponent implements OnInit {
   }
 
   resizeElements() {
-    this.mapRowsNumber = (window.innerHeight - 240) / this.rowHeight;
+    this.mapRowsNumber = (window.innerHeight - 200) / this.rowHeight;
     this.mapColNumber = (window.innerWidth <= this.minWidth) ? 0 : 2;
     this.colNumber = (window.innerWidth <= this.minWidth) ? 1 : 4;
     this.priceColsNumber = (window.innerWidth <= this.minWidth) ? 1 : 2;
