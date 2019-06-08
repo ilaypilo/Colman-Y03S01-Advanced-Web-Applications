@@ -10,7 +10,7 @@
   <a routerLink="/" [hidden]="showSmallIcon" class="link" routerLinkActive="active"
     [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
     <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
-      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)">
+    [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)">
   </a>
 
   <!-- ML -->
@@ -40,7 +40,7 @@
 
   <!-- About -->
   <div [hidden]="auth.loggedIn && auth.isAdmin && showSmallIcon">
-    <button mat-flat-button routerLink="/about" class="link" routerLinkActive="active">
+    <button mat-flat-button routerLink="/about" [style.margin-right]="!(auth.loggedIn)?margin:0" class="link" routerLinkActive="active">
       <img class="menu-icon" src="../assets/btn_about.svg">
       <div class="menu-text">אודות</div>
     </button>
