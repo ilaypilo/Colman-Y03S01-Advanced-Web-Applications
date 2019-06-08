@@ -10,14 +10,14 @@
   <a routerLink="/" [hidden]="showSmallIcon" class="link" routerLinkActive="active"
     [routerLinkActiveOptions]="{exact:true}" (window:resize)="onResize($event)">
     <img class="toolbar-logo-image" [hidden]="!showSmallIcon" [style.width]="logoWidth" [style.height]="logoHeight"
-    [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)">
+      [style.padding]="logoPadding" src="../assets/img_logo_white.svg" (window:resize)="onResize($event)">
   </a>
 
   <!-- ML -->
   <div [hidden]="!(auth.loggedIn)">
     <button mat-flat-button routerLink="/ml" [style.margin-right]="margin" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_price.svg">
-      <div class="menu-text">מחיר נכס</div>
+      <img [className]="showSmallIcon ? 'menu-icon-small' : 'menu-icon'" src="../assets/btn_price.svg">
+      <div [className]="showSmallIcon ? 'menu-text-small' : 'menu-text'">מחיר נכס</div>
     </button>
   </div>
 
@@ -25,32 +25,33 @@
   <!-- Graphs -->
   <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <button mat-flat-button routerLink="/ml-performance" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_metrics.svg">
-      <div class="menu-text">ביצועים</div>
+      <img [className]="showSmallIcon ? 'menu-icon-small' : 'menu-icon'" src="../assets/btn_metrics.svg">
+      <div [className]="showSmallIcon ? 'menu-text-small' : 'menu-text'">ביצועים</div>
     </button>
   </div>
 
   <!-- Users -->
   <div [hidden]="!(auth.loggedIn && auth.isAdmin)">
     <button mat-flat-button routerLink="/users" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_users.svg">
-      <div class="menu-text">משתמשים</div>
+      <img [className]="showSmallIcon ? 'menu-icon-small' : 'menu-icon'" src="../assets/btn_users.svg">
+      <div [className]="showSmallIcon ? 'menu-text-small' : 'menu-text'">משתמשים</div>
     </button>
   </div>
 
   <!-- About -->
   <div [hidden]="auth.loggedIn && auth.isAdmin && showSmallIcon">
-    <button mat-flat-button routerLink="/about" [style.margin-right]="!(auth.loggedIn)?margin:0" class="link" routerLinkActive="active">
-      <img class="menu-icon" src="../assets/btn_about.svg">
-      <div class="menu-text">אודות</div>
+    <button mat-flat-button routerLink="/about" [style.margin-right]="!(auth.loggedIn)?margin:0" class="link"
+      routerLinkActive="active">
+      <img [className]="showSmallIcon ? 'menu-icon-small' : 'menu-icon'" src="../assets/btn_about.svg">
+      <div [className]="showSmallIcon ? 'menu-text-small' : 'menu-text'">אודות</div>
     </button>
   </div>
 
   <!--- User menu -->
   <div [hidden]="!auth.loggedIn" class="user-menu">
     <button mat-button [matMenuTriggerFor]="userMenu" class="link">
-      <img class="menu-icon" src="../assets/btn_user.svg">
-      <div class="menu-text">{{userName}}</div>
+      <img [className]="showSmallIcon ? 'menu-icon-small' : 'menu-icon'" src="../assets/btn_user.svg">
+      <div [className]="showSmallIcon ? 'menu-text-small' : 'menu-text'">{{userName}}</div>
     </button>
     <mat-menu #userMenu="matMenu">
       <a mat-menu-item routerLink="/account">

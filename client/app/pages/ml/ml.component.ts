@@ -94,7 +94,7 @@ export class MlComponent implements OnInit {
   prediction: Number;
   geocoder: any;
 
-  minWidth: number = 500;
+  minWidth: number = 750;
   rowHeight: number = 40;
   colNumber: number;
   mapColNumber: number = 2;

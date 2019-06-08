@@ -27,7 +27,7 @@ export class MlPerformanceComponent implements OnInit {
   mse: Number;
   plotUrl: String;
 
-  minWidth: number = 500;
+  minWidth: number = 750;
   rowHeight: number = 40;
   colNumber: number;
   plotColNumber: number = 2;

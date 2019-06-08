@@ -5,7 +5,7 @@
 <div [hidden]="isLoading" class="appcontainer">
 
   <div class="page-header">חישוב מחיר לנכס</div>
-  
+
   <form [formGroup]="predictForm" (ngSubmit)="predict()" dir="rtl">
 
     <mat-grid-list class="ml-list" [cols]="colNumber" gutterSize="5px" rowHeight="40px"
@@ -101,8 +101,8 @@
         <mat-form-field appearance="outline" color="accent">
           <mat-label>שנת בנייה</mat-label>
           <mat-icon matSuffix svgIcon="ic_date"></mat-icon>
-          <input type="number"  min="1900" max="2050" matInput [formControl]="build_year" [matAutocomplete]="autoBuildYear"
-            placeholder="שנת בנייה">
+          <input type="number" min="1900" max="2050" matInput [formControl]="build_year"
+            [matAutocomplete]="autoBuildYear" placeholder="שנת בנייה">
           <mat-autocomplete #autoBuildYear="matAutocomplete">
             <mat-option *ngFor="let build_year of filteredBuildYears | async" [value]="build_year">
               {{build_year}}
@@ -176,7 +176,8 @@
         [rowspan]="priceRowsNumber">
         <br />
         <div class="calc-div">
-          <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS':'symbol':'1.0' }}</div>
+          <div class="calc-price" [hidden]="!(this.prediction > 0)">{{prediction | currency:'ILS':'symbol':'1.0' }}
+          </div>
           <div class="calc-info" [hidden]="!(this.prediction > 0)">מחיר משוערך</div>
         </div>
       </mat-grid-tile>
@@ -184,18 +185,20 @@
       <mat-grid-tile class="param-item" [colspan]="!(this.prediction > 0) ? 0 : priceColsNumber" [rowspan]="8">
         <div class="chart-parent">
           <div>
-        <ngx-charts-line-chart  class="chart" [scheme]="colorScheme" [results]="lineChartValues" [gradient]="gradient"
-          [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [autoScale]="autoScale">
-        </ngx-charts-line-chart>
-      </div>
-      </div>
+            <ngx-charts-line-chart class="chart" [scheme]="colorScheme" [results]="lineChartValues"
+              [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+              [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel" [autoScale]="autoScale">
+            </ngx-charts-line-chart>
+          </div>
+        </div>
       </mat-grid-tile>
 
       <!-- Algo info-->
-      <mat-grid-tile [colspan]="priceColsNumber" [rowspan]="9">
+      <mat-grid-tile [colspan]="priceColsNumber" [rowspan]="panelOpenState?9:2">
         <div class="algo-info" [style.width.%]="buttonWidth">
-          <mat-expansion-panel class="mat-elevation-z0">
+          <mat-expansion-panel class="mat-elevation-z0" (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-description>
                 איך אנחנו מחשבים את המחיר?
