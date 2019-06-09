@@ -80,6 +80,7 @@ export class MlComponent implements OnInit {
     Validators.min(1),
     Validators.max(7)
   ]);
+  panelOpenState: boolean = false;
   isSearching: boolean = false;
   cities: String[] = [];
   filteredCities: Observable<String[]>;
